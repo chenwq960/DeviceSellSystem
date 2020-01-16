@@ -2,22 +2,22 @@ package com.baidu.mapper;
 
 import java.util.List;
 
-import com.baidu.dto.Role;
+import com.baidu.po.RolePO;
 
 public interface RoleMapper {
 
 	int deleteByPrimaryKey(Integer roleId);
 
-	int insert(Role record);
+	int insert(RolePO record);
 
-	int insertSelective(Role record);
+	int insertSelective(RolePO record);
 
-	Role selectByPrimaryKey(Integer roleId);
+	RolePO selectByPrimaryKey(Integer roleId);
 
-	List<Role> selectList();
+	List<RolePO> selectList();
 
-	int updateByPrimaryKeySelective(Role record);
+	int updateByPrimaryKeySelective(RolePO record);
 
-	int updateByPrimaryKey(Role record);
+	int updateByPrimaryKey(RolePO record);
 
 }

@@ -19,12 +19,13 @@ font {
 </head>
 <body>
 	<div class="container">
-		<form action="${ctx}/user/create.do" method="post" enctype="multipart/form-data">
+		<form action="${ctx}/user/create.do" method="post"
+			enctype="multipart/form-data">
 			<div class="input-group">
 				<font>注册账号：</font> <input type="text" class="form-control"
 					name="account">
 			</div>
-			
+
 			<div class="input-group">
 				<font>注册密码：</font> <input type="text" class="form-control"
 					name="password">
@@ -34,35 +35,34 @@ font {
 					name="userName">
 			</div>
 			<div class="input-group">
-				<font>身份证正面</font> <input type="file" name="photo">
+				<font>身份证正面</font> <input type="file" name="idCardFile">
 			</div>
 			<div class="input-group">
 				<font>身份证反面</font> <input type="file" name="">
 			</div>
 			<div class="input-group">
-				<font>担任角色：</font> <input type="text" name="rName">
+				<font>担任角色：</font> <input type="text" name="roleId" value="">
 			</div>
 			<div class="input-group">
-				<font>所属的部门</font>
-				<select name="dName">
+				<font>所属的部门</font> <select name="departmentId">
+					<option value="">
 				</select>
 			</div>
-			<input type="submit" value="提交" class="btn btn-info">
-			<input type="button" value="返回" onclick="history.back()">
+			<input type="submit" value="提交" class="btn btn-info"> <input
+				type="button" value="返回" onclick="history.back()">
 		</form>
 	</div>
 </body>
 <script type="text/javascript">
-	$(function(){
-		$.post(
-			"${ctx}/department/departmentfind.do",
-			function(obj){
-				for(let i in obj){
-					var date = obj[i]
-					$("select").append("<option>"+date.departmentName+"</option>")
-				}
+	$(function() {
+		$.post("${ctx}/department/departmentfind.do", function(departmentList) {
+			for ( let i in departmentList) {
+				var department = departmentList[i]
+				$("select").append(
+						"<option value='"+department.departmentId+"'>"
+								+ department.departmentName + "</option>")
 			}
-		)
+		})
 	})
 </script>
 </html>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.baidu.mapper.DepartmentMapper" >
-  <resultMap id="BaseResultMap" type="com.baidu.dto.Department" >
+  <resultMap id="BaseResultMap" type="com.baidu.po.DepartmentPO" >
     <id column="department_id" property="departmentId" jdbcType="INTEGER" />
     <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -46,7 +46,7 @@
   <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
   		update tb_department set is_delete= 1 where department_id = #{departmentId}
   </update>
-  <insert id="insert" parameterType="com.baidu.dto.Department" >
+  <insert id="insert" parameterType="com.baidu.po.DepartmentPO" >
     insert into tb_department (department_id, department_name, create_time, 
       create_user, update_time, update_user, 
       is_delete)
@@ -54,7 +54,7 @@
       #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, 
       #{isDelete,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.baidu.dto.Department" >
+  <insert id="insertSelective" parameterType="com.baidu.po.DepartmentPO" >
     insert into tb_department
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="departmentId != null" >
@@ -103,7 +103,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.dto.Department" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.DepartmentPO" >
     update tb_department
     <set >
       <if test="departmentName != null" >
@@ -127,7 +127,7 @@
     </set>
     where department_id = #{departmentId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.baidu.dto.Department" >
+  <update id="updateByPrimaryKey" parameterType="com.baidu.po.DepartmentPO" >
     update tb_department
     set department_name = #{departmentName,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

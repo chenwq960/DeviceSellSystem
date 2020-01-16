@@ -2,21 +2,21 @@ package com.baidu.mapper;
 
 import java.util.List;
 
-import com.baidu.dto.device;
+import com.baidu.po.DevicePO;
 
 public interface deviceMapper {
     int deleteByPrimaryKey(Integer deviceId);
 
-    int insert(device record);
+    int insert(DevicePO record);
 
-    int insertSelective(device record);
+    int insertSelective(DevicePO record);
 
-    device selectByPrimaryKey(Integer deviceId);
+    DevicePO selectByPrimaryKey(Integer deviceId);
 
-    int updateByPrimaryKeySelective(device record);
+    int updateByPrimaryKeySelective(DevicePO record);
 
-    int updateByPrimaryKey(device record);
+    int updateByPrimaryKey(DevicePO record);
     
-    List<device> seachDevice();
+    List<DevicePO> seachDevice();
 
 }

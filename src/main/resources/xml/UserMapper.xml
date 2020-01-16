@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.baidu.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.baidu.dto.User" >
+  <resultMap id="BaseResultMap" type="com.baidu.po.UserPO" >
     <id column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="role_id" property="roleId" jdbcType="INTEGER" />
     <result column="department_id" property="departmentId" jdbcType="INTEGER" />
@@ -22,7 +22,7 @@
     <result column="update_user" property="updateUser" jdbcType="INTEGER" />
     <result column="is_delete" property="isDelete" jdbcType="BIT" />
   </resultMap>
-  <resultMap id="ResultMap" type="com.baidu.dto.User" extends="BaseResultMap">
+  <resultMap id="ResultMap" type="com.baidu.po.UserPO" extends="BaseResultMap">
 	
 	<association column="role_id" property="role" select="com.baidu.mapper.RoleMapper.selectByPrimaryKey"></association>
 	<association column="department_id" property="department" select="com.baidu.mapper.DepartmentMapper.selectByPrimaryKey"></association>
@@ -50,7 +50,7 @@
   <update id="deleteByPrimaryKey"  parameterType="java.lang.Integer" >
   	update tb_user set is_delete = 1 where user_id = #{userId}
   </update>
-  <insert id="insert" parameterType="com.baidu.dto.User">
+  <insert id="insert" parameterType="com.baidu.po.UserPO">
     insert into tb_user (role_id, department_id, 
       account, password, user_name, 
       real_name, sex, birthday, 
@@ -65,7 +65,7 @@
       #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER},
       "0")
   </insert>
-  <insert id="insertSelective" parameterType="com.baidu.dto.User" >
+  <insert id="insertSelective" parameterType="com.baidu.po.UserPO" >
     insert into tb_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -186,7 +186,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.dto.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.UserPO" >
     update tb_user
     <set >
       <if test="roleId != null" >
@@ -246,7 +246,7 @@
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.baidu.dto.User" >
+  <update id="updateByPrimaryKey" parameterType="com.baidu.po.UserPO" >
     update tb_user
     set role_id = #{roleId,jdbcType=INTEGER},
       department_id = #{departmentId,jdbcType=INTEGER},

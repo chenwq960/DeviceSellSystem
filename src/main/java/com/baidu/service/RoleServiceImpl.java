@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.baidu.dto.Role;
 import com.baidu.mapper.RoleMapper;
+import com.baidu.po.RolePO;
 
 @Service
 public class RoleServiceImpl implements IRoleService {
@@ -18,27 +18,27 @@ public class RoleServiceImpl implements IRoleService {
 	// 角色的增加方法
 	@Override
 	public void createRole(String roleName, int createUser) {
-		Role role = new Role();
-		role.setRoleName(roleName);
-		role.setCreateTime(new Date());
-		role.setCreateUser(createUser);
-		role.setUpdateTime(new Date());
-		role.setUpdateUser(createUser);
-		role.setIsDelete(false);
+		RolePO rolePO = new RolePO();
+		rolePO.setRoleName(roleName);
+		rolePO.setCreateTime(new Date());
+		rolePO.setCreateUser(createUser);
+		rolePO.setUpdateTime(new Date());
+		rolePO.setUpdateUser(createUser);
+		rolePO.setIsDelete(false);
 		@SuppressWarnings("unused")
-		int insert = roleMapper.insert(role);
+		int insert = roleMapper.insert(rolePO);
 	}
 
 	@Override
-	public void updateRole(Role role, int updateUser) {
-		role.setUpdateTime(new Date());
-		role.setUpdateUser(updateUser);
+	public void updateRole(RolePO rolePO, int updateUser) {
+		rolePO.setUpdateTime(new Date());
+		rolePO.setUpdateUser(updateUser);
 
-		roleMapper.updateByPrimaryKeySelective(role);
+		roleMapper.updateByPrimaryKeySelective(rolePO);
 	}
 
 	@Override
-	public List<Role> queryList(String searchKey) {
+	public List<RolePO> queryList(String searchKey) {
 		return roleMapper.selectList();
 	}
 
@@ -49,7 +49,7 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public Role roleDetail(int roleId) {
+	public RolePO roleDetail(int roleId) {
 		return roleMapper.selectByPrimaryKey(roleId);
 	}
 

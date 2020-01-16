@@ -1,8 +1,8 @@
-package com.baidu.dto;
+package com.baidu.po;
 
 import java.util.Date;
 
-public class Department {
+public class DepartmentPO {
     private Integer departmentId;
 
     private String departmentName;

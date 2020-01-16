@@ -5,21 +5,21 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.baidu.dto.Department;
+import com.baidu.po.DepartmentPO;
 
 public interface DepartmentMapper {
 	int deleteByPrimaryKey(Integer departmentId);
 
-	int insert(Department record);
+	int insert(DepartmentPO record);
 
-	int insertSelective(Department record);
+	int insertSelective(DepartmentPO record);
 
-	Department selectByPrimaryKey(Integer departmentId);
+	DepartmentPO selectByPrimaryKey(Integer departmentId);
 
-	List<Department> selectList(@Param("searchKey")String searchKey,@Param("startTime")Date startTime,@Param("endTime")Date endTime);
+	List<DepartmentPO> selectList(@Param("searchKey")String searchKey,@Param("startTime")Date startTime,@Param("endTime")Date endTime);
 
-	int updateByPrimaryKeySelective(Department record);
+	int updateByPrimaryKeySelective(DepartmentPO record);
 
-	int updateByPrimaryKey(Department record);
+	int updateByPrimaryKey(DepartmentPO record);
 
 }

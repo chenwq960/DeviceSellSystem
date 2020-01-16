@@ -1,8 +1,8 @@
-package com.baidu.dto;
+package com.baidu.po;
 
 import java.util.Date;
 
-public class User {
+public class UserPO {
 
 	private Integer userId;
 	private Integer roleId;
@@ -24,15 +24,15 @@ public class User {
 	private Integer updateUser;
 	private int isDelete;
 
-	private Role role;
-	private Department department;
-	private User createUserObj;
-	private User updateUserObj;
+	private RolePO rolePO;
+	private DepartmentPO departmentPO;
+	private UserPO createUserObj;
+	private UserPO updateUserObj;
 
-	public User() {
+	public UserPO() {
 	}
 
-	public User(Integer userId, Integer roleId, Integer departmentId, String account, String password, String userName,
+	public UserPO(Integer userId, Integer roleId, Integer departmentId, String account, String password, String userName,
 			String realName, Integer sex, Date birthday, String nation, String idCard, String idCardFront,
 			String idCardBack, String address, Date createTime, Integer createUser, Date updateTime, Integer updateUser,
 			int isDelete) {
@@ -325,69 +325,69 @@ public class User {
 	}
 
 	/**
-	 * @return the role
+	 * @return the rolePO
 	 */
-	public Role getRole() {
-		return role;
+	public RolePO getRole() {
+		return rolePO;
 	}
 
 	/**
-	 * @param role the role to set
+	 * @param rolePO the rolePO to set
 	 */
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRole(RolePO rolePO) {
+		this.rolePO = rolePO;
 	}
 
 	/**
-	 * @return the department
+	 * @return the departmentPO
 	 */
-	public Department getDepartment() {
-		return department;
+	public DepartmentPO getDepartment() {
+		return departmentPO;
 	}
 
 	/**
-	 * @param department the department to set
+	 * @param departmentPO the departmentPO to set
 	 */
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setDepartment(DepartmentPO departmentPO) {
+		this.departmentPO = departmentPO;
 	}
 
 	/**
 	 * @return the createUserObj
 	 */
-	public User getCreateUserObj() {
+	public UserPO getCreateUserObj() {
 		return createUserObj;
 	}
 
 	/**
 	 * @param createUserObj the createUserObj to set
 	 */
-	public void setCreateUserObj(User createUserObj) {
+	public void setCreateUserObj(UserPO createUserObj) {
 		this.createUserObj = createUserObj;
 	}
 
 	/**
 	 * @return the updateUserObj
 	 */
-	public User getUpdateUserObj() {
+	public UserPO getUpdateUserObj() {
 		return updateUserObj;
 	}
 
 	/**
 	 * @param updateUserObj the updateUserObj to set
 	 */
-	public void setUpdateUserObj(User updateUserObj) {
+	public void setUpdateUserObj(UserPO updateUserObj) {
 		this.updateUserObj = updateUserObj;
 	}
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", roleId=" + roleId + ", departmentId=" + departmentId + ", account="
+		return "UserPO [userId=" + userId + ", roleId=" + roleId + ", departmentId=" + departmentId + ", account="
 				+ account + ", password=" + password + ", userName=" + userName + ", realName=" + realName + ", sex="
 				+ sex + ", birthday=" + birthday + ", nation=" + nation + ", idCard=" + idCard + ", idCardFront="
 				+ idCardFront + ", idCardBack=" + idCardBack + ", address=" + address + ", createTime=" + createTime
 				+ ", createUser=" + createUser + ", updateTime=" + updateTime + ", updateUser=" + updateUser
-				+ ", isDelete=" + isDelete + ", role=" + role + ", department=" + department + ", createUserObj="
+				+ ", isDelete=" + isDelete + ", rolePO=" + rolePO + ", departmentPO=" + departmentPO + ", createUserObj="
 				+ createUserObj + ", updateUserObj=" + updateUserObj + "]";
 	}
 

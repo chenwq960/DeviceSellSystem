@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.baidu.mapper.RoleMapper" >
-  <resultMap id="BaseResultMap" type="com.baidu.dto.Role" >
+  <resultMap id="BaseResultMap" type="com.baidu.po.RolePO" >
     <id column="role_id" property="roleId" jdbcType="INTEGER" />
     <result column="role_name" property="roleName" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -43,7 +43,7 @@
  
  
  
-  <insert id="insert" parameterType="com.baidu.dto.Role" >
+  <insert id="insert" parameterType="com.baidu.po.RolePO" >
     insert into tb_role (role_id, role_name, create_time, 
       create_user, update_time, update_user, 
       is_delete)
@@ -51,7 +51,7 @@
       #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, 
       #{isDelete,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.baidu.dto.Role" >
+  <insert id="insertSelective" parameterType="com.baidu.po.RolePO" >
     insert into tb_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="roleId != null" >
@@ -100,7 +100,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.dto.Role" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.RolePO" >
     update tb_role
     <set >
       <if test="roleName != null" >
@@ -124,7 +124,7 @@
     </set>
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.baidu.dto.Role" >
+  <update id="updateByPrimaryKey" parameterType="com.baidu.po.RolePO" >
     update tb_role
     set role_name = #{roleName,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

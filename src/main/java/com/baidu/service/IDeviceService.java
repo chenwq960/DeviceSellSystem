@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import com.baidu.dto.device;
+import com.baidu.po.DevicePO;
 
 public interface IDeviceService {
-	List<device> seachDevice();
+	List<DevicePO> seachDevice();
 
-	void create(device device,HttpSession session);
+	void create(DevicePO DevicePO,HttpSession session);
 
 	void delete(Integer deviceId);
 
-	void update(device device, HttpSession session );
+	void update(DevicePO DevicePO, HttpSession session );
 }	

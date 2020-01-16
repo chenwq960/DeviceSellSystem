@@ -2,18 +2,18 @@ package com.baidu.service;
 
 import java.util.List;
 
-import com.baidu.dto.Role;
+import com.baidu.po.RolePO;
 
 public interface IRoleService {
 
 	void createRole(String role, int createUser);
 
-	void updateRole(Role role, int updateUser);
+	void updateRole(RolePO rolePO, int updateUser);
 
-	List<Role> queryList(String searchKey);
+	List<RolePO> queryList(String searchKey);
 
 	void deleteRole(int roleId);
 
-	Role roleDetail(int roleId);
+	RolePO roleDetail(int roleId);
 	
 }

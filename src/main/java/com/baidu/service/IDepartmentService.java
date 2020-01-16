@@ -5,19 +5,19 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import com.baidu.dto.Department;
+import com.baidu.po.DepartmentPO;
 
 public interface IDepartmentService {
 
-	List<Department> departmentFind(String searchKey, Date startTime, Date endTime);
+	List<DepartmentPO> departmentFind(String searchKey, Date startTime, Date endTime);
 
-	int createdepartment(Department department,HttpSession session);
+	int createdepartment(DepartmentPO departmentPO,HttpSession session);
 
 	void departmentdel(Integer id);
 
-	Department departmenthx(Integer id);
+	DepartmentPO departmenthx(Integer id);
 
 
-	int updatedepartment(Department department);
+	int updatedepartment(DepartmentPO departmentPO);
 
 }

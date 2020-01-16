@@ -34,7 +34,7 @@
 					<td>${s.updateUserObj.userName}</td>
 					<td><fmt:formatDate value="${s.updateTime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<td>
-						<a href="${ctx}/views/user/detailed.jsp?UserId=${s.userId}">查看详细</a>
+						<a href="${ctx}/views/user/detailed.jsp?userId=${s.userId}">查看详细</a>
 						<button onclick="userDelete(${s.userId})">删除</button>
 					</td>
 				</tr>

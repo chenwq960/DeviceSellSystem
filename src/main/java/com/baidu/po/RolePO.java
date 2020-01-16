@@ -1,8 +1,8 @@
-package com.baidu.dto;
+package com.baidu.po;
 
 import java.util.Date;
 
-public class Role {
+public class RolePO {
 	private Integer roleId;
 
 	private String roleName;
@@ -21,10 +21,10 @@ public class Role {
 
 	private String updateUserName;
 
-	public Role() {
+	public RolePO() {
 	}
 
-	public Role(Integer roleId, String roleName, Date createTime, Integer createUser, Date updateTime,
+	public RolePO(Integer roleId, String roleName, Date createTime, Integer createUser, Date updateTime,
 			Integer updateUser, Boolean isDelete) {
 		this.roleId = roleId;
 		this.roleName = roleName;

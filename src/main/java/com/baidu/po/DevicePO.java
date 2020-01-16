@@ -1,8 +1,8 @@
-package com.baidu.dto;
+package com.baidu.po;
 
 import java.util.Date;
 
-public class device {
+public class DevicePO {
     private Integer deviceId;
 
     private String deviceName;
@@ -25,7 +25,7 @@ public class device {
     
     
 
-    public device(Integer deviceId, String deviceName, String deviceCode, String deviceModel, Integer createUser,
+    public DevicePO(Integer deviceId, String deviceName, String deviceCode, String deviceModel, Integer createUser,
 			Date createTime, Integer updateUser, Date updateTime, Byte isDelete) {
 		super();
 		this.deviceId = deviceId;
@@ -39,7 +39,7 @@ public class device {
 		this.isDelete = isDelete;
 	}
 
-	public device() {
+	public DevicePO() {
 		super();
 	}
 
