@@ -96,7 +96,7 @@
 		select 
     	<include refid="Base_Column_List" />
   	 	from tb_region
-  	 	where parent_region_id = #{userId}
+  	 	where parent_region_id = #{regionId}
 	</select>
 	
 	<!-- 子查询 -->

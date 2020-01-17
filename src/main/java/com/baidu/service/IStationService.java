@@ -2,6 +2,7 @@ package com.baidu.service;
 
 import java.util.List;
 
+import com.baidu.po.RegionPO;
 import com.baidu.po.StationPO;
 
 public interface IStationService {
@@ -13,5 +14,7 @@ public interface IStationService {
     void delete(Integer stationId);
 
     StationPO update(Integer stationId);
+
+    List<RegionPO> selectByparentRegionId(Integer regionId);
 
 }

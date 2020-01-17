@@ -213,4 +213,15 @@
 	    from tb_station
 	    where is_delete = 0
 	</select>
+	
+	
+	
+	<select id="selectByparentStationId"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select 
+    	*
+  	 	from tb_region
+  	 	where parent_region_id = #{userId}
+	</select>
+	
+	
 </mapper>

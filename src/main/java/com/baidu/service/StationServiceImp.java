@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.baidu.interceptor.CurrentContext;
 import com.baidu.mapper.StationPOMapper;
+import com.baidu.po.RegionPO;
 import com.baidu.po.StationPO;
 
 @Service
@@ -20,15 +21,15 @@ public class StationServiceImp implements IStationService{
         return mapper.selectAll();
     }
 
-//增加地区的
+//增加销售网点的
     @Override
     public void create(StationPO station) {
         station.setCreateTime(new Date());
         station.setUpdateTime(new Date());
         station.setCreateUser(CurrentContext.getUser().getUserId());
         station.setUpdateUser(CurrentContext.getUser().getUserId());
-        station.setLongitude((long)45545546);
-        station.setLatitude((long)785415515);
+        station.setLongitude((double) 1);
+        station.setLatitude((double) 1);
         @SuppressWarnings("unused")
         int insertSelective = mapper.insertSelective(station);
     }
@@ -44,6 +45,11 @@ public class StationServiceImp implements IStationService{
     public StationPO update(Integer stationId) {
         StationPO selectByPrimaryKey = mapper.selectByPrimaryKey(stationId);
         return selectByPrimaryKey;
+    }
+
+    @Override
+    public List<RegionPO> selectByparentRegionId(Integer regionId) {
+        return mapper.selectByparentStationId(regionId);
     }
     
 

@@ -2,14 +2,13 @@ package com.baidu.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.baidu.po.RegionPO;
 import com.baidu.po.StationPO;
 import com.baidu.service.IStationService;
 
@@ -32,11 +31,13 @@ public class StationController {
     @ResponseBody
     @RequestMapping("/create")
     public boolean create(StationPO station) {
+        System.out.println(station);
         try {
             service.create(station);
             return true;
         }
         catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -58,6 +59,20 @@ public class StationController {
     public StationPO update(Integer stationId) {
         StationPO update = service.update(stationId);
         return update;
+    };
+    
+    @ResponseBody
+    @RequestMapping("/change")
+    public void changeStation(StationPO station) {
+        System.out.println(station);
+    }
+    
+    @RequestMapping("/selectCity")
+    @ResponseBody
+    public List<RegionPO> selectByparentRegionId(Integer regionId) {
+       List<RegionPO> list = service.selectByparentRegionId(regionId);
+       System.out.println(list);
+       return list;
     }
     
 }

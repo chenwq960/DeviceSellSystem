@@ -45,13 +45,22 @@ font {
 			<div class="input-group">
 				<input type="text" class="form-control" name="address">
 			</div>
-			<input type="button" value="提交 ">
 			
 		</form>
+		<input type="button" value="修改">
 	</div>
 </body>
 <script type="text/javascript">
-	$.ajaxSettings.async = false
+	$("input[type=button]").click(function(){
+		$.post(
+			"${ctx}/station/change.do",
+			$("form").serialize(),
+			function(station){
+				console.log(station)
+			}
+		)
+		
+	})
 	$(function(){
 		$.post(
 			"${ctx}/region/create.do",
@@ -96,21 +105,7 @@ font {
 			}
 		)
 	}
-	
-	$("input[type=button]").click(function(){
-		$.post(
-			"${ctx}/station/create.do",
-			$("form").serialize(),
-			function(obj){
-				if(obj){
-					alert("添加 成功")
-					location.href='${ctx}/station/list.do'
-				}else{
-					alert("添加失败")
-				}
-			}
-		)
-	})
+//回显的方法
 	function hx(){
 		$.post(
 			"${ctx}/station/update.do",

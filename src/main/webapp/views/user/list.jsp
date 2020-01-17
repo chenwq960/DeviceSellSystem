@@ -17,7 +17,7 @@
 		
 		<table class="table table-hover table-bordered text-center">
 			<tr>
-				<td>角色名称:</td>
+				<td>用户名称:</td>
 				<td>创建人:</td>
 				<td>修改时间：:</td>
 				<td>修改人:</td>

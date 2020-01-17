@@ -12,10 +12,13 @@
 <script src="${ctx}/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
-	<%-- ${list } --%>
 	<div>
-		
 		<table class="table table-hover table-bordered text-center">
+			<tr>
+				<td colspan="1111">
+					<input type="text">
+				</td>
+			</tr>
 			<tr>
 				<td>省份:</td>
 				<td>市区：:</td>
@@ -44,7 +47,6 @@
 				</tr>
 			</c:forEach>
 		</table>
-		${list }
 	</div>
 </body>
 <script type="text/javascript">
