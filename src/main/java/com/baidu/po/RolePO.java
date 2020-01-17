@@ -3,120 +3,108 @@ package com.baidu.po;
 import java.util.Date;
 
 public class RolePO {
-	private Integer roleId;
+    private Integer roleId;
 
-	private String roleName;
+    private String roleName;
 
-	private Date createTime;
+    private Date createTime;
 
-	private Integer createUser;
+    private Integer createUser;
 
-	private Date updateTime;
+    private Date updateTime;
 
-	private Integer updateUser;
+    private Integer updateUser;
 
-	private Boolean isDelete;
+    private Boolean isDelete;
 
-	private String createUserName;
+    private String createUserName;
 
-	private String updateUserName;
+    private String updateUserName;
 
-	public RolePO() {
-	}
+    public RolePO() {
+    }
 
-	public RolePO(Integer roleId, String roleName, Date createTime, Integer createUser, Date updateTime,
-			Integer updateUser, Boolean isDelete) {
-		this.roleId = roleId;
-		this.roleName = roleName;
-		this.createTime = createTime;
-		this.createUser = createUser;
-		this.updateTime = updateTime;
-		this.updateUser = updateUser;
-		this.isDelete = isDelete;
-	}
+    public RolePO(Integer roleId, String roleName, Date createTime, Integer createUser, Date updateTime,
+            Integer updateUser, Boolean isDelete) {
+        this.roleId = roleId;
+        this.roleName = roleName;
+        this.createTime = createTime;
+        this.createUser = createUser;
+        this.updateTime = updateTime;
+        this.updateUser = updateUser;
+        this.isDelete = isDelete;
+    }
 
-	public Integer getRoleId() {
-		return roleId;
-	}
+    public Integer getRoleId() {
+        return roleId;
+    }
 
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
-	}
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
 
-	public String getRoleName() {
-		return roleName;
-	}
+    public String getRoleName() {
+        return roleName;
+    }
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName == null ? null : roleName.trim();
-	}
+    public void setRoleName(String roleName) {
+        this.roleName = roleName == null ? null : roleName.trim();
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public Integer getCreateUser() {
-		return createUser;
-	}
+    public Integer getCreateUser() {
+        return createUser;
+    }
 
-	public void setCreateUser(Integer createUser) {
-		this.createUser = createUser;
-	}
+    public void setCreateUser(Integer createUser) {
+        this.createUser = createUser;
+    }
 
-	public Date getUpdateTime() {
-		return updateTime;
-	}
+    public Date getUpdateTime() {
+        return updateTime;
+    }
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
-	public Integer getUpdateUser() {
-		return updateUser;
-	}
+    public Integer getUpdateUser() {
+        return updateUser;
+    }
 
-	public void setUpdateUser(Integer updateUser) {
-		this.updateUser = updateUser;
-	}
+    public void setUpdateUser(Integer updateUser) {
+        this.updateUser = updateUser;
+    }
 
-	public Boolean getIsDelete() {
-		return isDelete;
-	}
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
 
-	public void setIsDelete(Boolean isDelete) {
-		this.isDelete = isDelete;
-	}
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
+    }
 
-	/**
-	 * @return the createUserName
-	 */
-	public String getCreateUserName() {
-		return createUserName;
-	}
+    public String getCreateUserName() {
+        return createUserName;
+    }
 
-	/**
-	 * @param createUserName the createUserName to set
-	 */
-	public void setCreateUserName(String createUserName) {
-		this.createUserName = createUserName;
-	}
+    public void setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
+    }
 
-	/**
-	 * @return the updateUserName
-	 */
-	public String getUpdateUserName() {
-		return updateUserName;
-	}
+    public String getUpdateUserName() {
+        return updateUserName;
+    }
 
-	/**
-	 * @param updateUserName the updateUserName to set
-	 */
-	public void setUpdateUserName(String updateUserName) {
-		this.updateUserName = updateUserName;
-	}
+    public void setUpdateUserName(String updateUserName) {
+        this.updateUserName = updateUserName;
+    }
 
 }

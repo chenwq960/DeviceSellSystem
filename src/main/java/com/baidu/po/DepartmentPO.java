@@ -16,7 +16,7 @@ public class DepartmentPO {
     private Integer updateUser;
 
     private int isDelete;
-    
+
     private String createUserName;
     private String updateUserName;
 
@@ -76,30 +76,20 @@ public class DepartmentPO {
         this.isDelete = i;
     }
 
-	/**
-	 * @return the createUserName
-	 */
-	public String getCreateUserName() {
-		return createUserName;
-	}
+    public String getCreateUserName() {
+        return createUserName;
+    }
 
-	/**
-	 * @param createUserName the createUserName to set
-	 */
-	public void setCreateUserName(String createUserName) {
-		this.createUserName = createUserName;
-	}
+    public void setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
+    }
 
-	/**
-	 * @return the updateUserName
-	 */
-	public String getUpdateUserName() {
-		return updateUserName;
-	}
+    public String getUpdateUserName() {
+        return updateUserName;
+    }
 
-	public void setUpdateUserName(String updateUserName) {
-		this.updateUserName = updateUserName;
-	}
-    
-    
+    public void setUpdateUserName(String updateUserName) {
+        this.updateUserName = updateUserName;
+    }
+
 }

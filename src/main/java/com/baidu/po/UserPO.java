@@ -3,392 +3,232 @@ package com.baidu.po;
 import java.util.Date;
 
 public class UserPO {
+    private Integer userId;
 
-	private Integer userId;
-	private Integer roleId;
-	private Integer departmentId;
-	private String account; // ------
-	private String password;
-	private String userName;// ---
-	private String realName;
-	private Integer sex;
-	private Date birthday;
-	private String nation;
-	private String idCard;
-	private String idCardFront; /// ----
-	private String idCardBack; ////////
-	private String address;
-	private Date createTime;
-	private Integer createUser;
-	private Date updateTime;
-	private Integer updateUser;
-	private int isDelete;
+    private Integer roleId;
 
-	private RolePO rolePO;
-	private DepartmentPO departmentPO;
-	private UserPO createUserObj;
-	private UserPO updateUserObj;
+    private Integer departmentId;
 
-	public UserPO() {
-	}
+    private String account;
 
-	public UserPO(Integer userId, Integer roleId, Integer departmentId, String account, String password, String userName,
-			String realName, Integer sex, Date birthday, String nation, String idCard, String idCardFront,
-			String idCardBack, String address, Date createTime, Integer createUser, Date updateTime, Integer updateUser,
-			int isDelete) {
-		super();
-		this.userId = userId;
-		this.roleId = roleId;
-		this.departmentId = departmentId;
-		this.account = account;
-		this.password = password;
-		this.userName = userName;
-		this.realName = realName;
-		this.sex = sex;
-		this.birthday = birthday;
-		this.nation = nation;
-		this.idCard = idCard;
-		this.idCardFront = idCardFront;
-		this.idCardBack = idCardBack;
-		this.address = address;
-		this.createTime = createTime;
-		this.createUser = createUser;
-		this.updateTime = updateTime;
-		this.updateUser = updateUser;
-		this.isDelete = isDelete;
-	}
+    private String password;
 
-	/**
-	 * @return the userId
-	 */
-	public Integer getUserId() {
-		return userId;
-	}
+    private String userName;
 
-	/**
-	 * @param userId the userId to set
-	 */
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    private String realName;
 
-	/**
-	 * @return the roleId
-	 */
-	public Integer getRoleId() {
-		return roleId;
-	}
+    private Boolean sex;
 
-	/**
-	 * @param roleId the roleId to set
-	 */
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
-	}
+    private Date birthday;
 
-	/**
-	 * @return the departmentId
-	 */
-	public Integer getDepartmentId() {
-		return departmentId;
-	}
+    private String nation;
 
-	/**
-	 * @param departmentId the departmentId to set
-	 */
-	public void setDepartmentId(Integer departmentId) {
-		this.departmentId = departmentId;
-	}
+    private String idCard;
 
-	/**
-	 * @return the account
-	 */
-	public String getAccount() {
-		return account;
-	}
+    private String idCardFront;
 
-	/**
-	 * @param account the account to set
-	 */
-	public void setAccount(String account) {
-		this.account = account;
-	}
+    private String idCardBack;
 
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
+    private String address;
 
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    private Date createTime;
 
-	/**
-	 * @return the userName
-	 */
-	public String getUserName() {
-		return userName;
-	}
+    private Integer createUser;
 
-	/**
-	 * @param userName the userName to set
-	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    private Date updateTime;
 
-	/**
-	 * @return the realName
-	 */
-	public String getRealName() {
-		return realName;
-	}
+    private Integer updateUser;
 
-	/**
-	 * @param realName the realName to set
-	 */
-	public void setRealName(String realName) {
-		this.realName = realName;
-	}
+    private Boolean isDelete;
+    
+    private RolePO rolePO;
+    private DepartmentPO departmentPO;
+    private UserPO createUserObj;
+    private UserPO updateUserObj;
 
-	/**
-	 * @return the sex
-	 */
-	public Integer getSex() {
-		return sex;
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
-	/**
-	 * @param sex the sex to set
-	 */
-	public void setSex(Integer sex) {
-		this.sex = sex;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	/**
-	 * @return the birthday
-	 */
-	public Date getBirthday() {
-		return birthday;
-	}
+    public Integer getRoleId() {
+        return roleId;
+    }
 
-	/**
-	 * @param birthday the birthday to set
-	 */
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
 
-	/**
-	 * @return the nation
-	 */
-	public String getNation() {
-		return nation;
-	}
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
 
-	/**
-	 * @param nation the nation to set
-	 */
-	public void setNation(String nation) {
-		this.nation = nation;
-	}
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
 
-	/**
-	 * @return the idCard
-	 */
-	public String getIdCard() {
-		return idCard;
-	}
+    public String getAccount() {
+        return account;
+    }
 
-	/**
-	 * @param idCard the idCard to set
-	 */
-	public void setIdCard(String idCard) {
-		this.idCard = idCard;
-	}
+    public void setAccount(String account) {
+        this.account = account == null ? null : account.trim();
+    }
 
-	/**
-	 * @return the idCardFront
-	 */
-	public String getIdCardFront() {
-		return idCardFront;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	/**
-	 * @param idCardFront the idCardFront to set
-	 */
-	public void setIdCardFront(String idCardFront) {
-		this.idCardFront = idCardFront;
-	}
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
 
-	/**
-	 * @return the idCardBack
-	 */
-	public String getIdCardBack() {
-		return idCardBack;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	/**
-	 * @param idCardBack the idCardBack to set
-	 */
-	public void setIdCardBack(String idCardBack) {
-		this.idCardBack = idCardBack;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
 
-	/**
-	 * @return the address
-	 */
-	public String getAddress() {
-		return address;
-	}
+    public String getRealName() {
+        return realName;
+    }
 
-	/**
-	 * @param address the address to set
-	 */
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public void setRealName(String realName) {
+        this.realName = realName == null ? null : realName.trim();
+    }
 
-	/**
-	 * @return the createTime
-	 */
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public Boolean getSex() {
+        return sex;
+    }
 
-	/**
-	 * @param createTime the createTime to set
-	 */
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setSex(Boolean sex) {
+        this.sex = sex;
+    }
 
-	/**
-	 * @return the createUser
-	 */
-	public Integer getCreateUser() {
-		return createUser;
-	}
+    public Date getBirthday() {
+        return birthday;
+    }
 
-	/**
-	 * @param createUser the createUser to set
-	 */
-	public void setCreateUser(Integer createUser) {
-		this.createUser = createUser;
-	}
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
-	/**
-	 * @return the updateTime
-	 */
-	public Date getUpdateTime() {
-		return updateTime;
-	}
+    public String getNation() {
+        return nation;
+    }
 
-	/**
-	 * @param updateTime the updateTime to set
-	 */
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
+    public void setNation(String nation) {
+        this.nation = nation == null ? null : nation.trim();
+    }
 
-	/**
-	 * @return the updateUser
-	 */
-	public Integer getUpdateUser() {
-		return updateUser;
-	}
+    public String getIdCard() {
+        return idCard;
+    }
 
-	/**
-	 * @param updateUser the updateUser to set
-	 */
-	public void setUpdateUser(Integer updateUser) {
-		this.updateUser = updateUser;
-	}
+    public void setIdCard(String idCard) {
+        this.idCard = idCard == null ? null : idCard.trim();
+    }
 
-	/**
-	 * @return the isDelete
-	 */
-	public int getIsDelete() {
-		return isDelete;
-	}
+    public String getIdCardFront() {
+        return idCardFront;
+    }
 
-	/**
-	 * @param i the isDelete to set
-	 */
-	public void setIsDelete(int i) {
-		this.isDelete = i;
-	}
+    public void setIdCardFront(String idCardFront) {
+        this.idCardFront = idCardFront == null ? null : idCardFront.trim();
+    }
 
-	/**
-	 * @return the rolePO
-	 */
-	public RolePO getRole() {
-		return rolePO;
-	}
+    public String getIdCardBack() {
+        return idCardBack;
+    }
 
-	/**
-	 * @param rolePO the rolePO to set
-	 */
-	public void setRole(RolePO rolePO) {
-		this.rolePO = rolePO;
-	}
+    public void setIdCardBack(String idCardBack) {
+        this.idCardBack = idCardBack == null ? null : idCardBack.trim();
+    }
 
-	/**
-	 * @return the departmentPO
-	 */
-	public DepartmentPO getDepartment() {
-		return departmentPO;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	/**
-	 * @param departmentPO the departmentPO to set
-	 */
-	public void setDepartment(DepartmentPO departmentPO) {
-		this.departmentPO = departmentPO;
-	}
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
+    }
 
-	/**
-	 * @return the createUserObj
-	 */
-	public UserPO getCreateUserObj() {
-		return createUserObj;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	/**
-	 * @param createUserObj the createUserObj to set
-	 */
-	public void setCreateUserObj(UserPO createUserObj) {
-		this.createUserObj = createUserObj;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	/**
-	 * @return the updateUserObj
-	 */
-	public UserPO getUpdateUserObj() {
-		return updateUserObj;
-	}
+    public Integer getCreateUser() {
+        return createUser;
+    }
 
-	/**
-	 * @param updateUserObj the updateUserObj to set
-	 */
-	public void setUpdateUserObj(UserPO updateUserObj) {
-		this.updateUserObj = updateUserObj;
-	}
+    public void setCreateUser(Integer createUser) {
+        this.createUser = createUser;
+    }
 
-	@Override
-	public String toString() {
-		return "UserPO [userId=" + userId + ", roleId=" + roleId + ", departmentId=" + departmentId + ", account="
-				+ account + ", password=" + password + ", userName=" + userName + ", realName=" + realName + ", sex="
-				+ sex + ", birthday=" + birthday + ", nation=" + nation + ", idCard=" + idCard + ", idCardFront="
-				+ idCardFront + ", idCardBack=" + idCardBack + ", address=" + address + ", createTime=" + createTime
-				+ ", createUser=" + createUser + ", updateTime=" + updateTime + ", updateUser=" + updateUser
-				+ ", isDelete=" + isDelete + ", rolePO=" + rolePO + ", departmentPO=" + departmentPO + ", createUserObj="
-				+ createUserObj + ", updateUserObj=" + updateUserObj + "]";
-	}
+    public Date getUpdateTime() {
+        return updateTime;
+    }
 
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Integer getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(Integer updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public RolePO getRolePO() {
+        return rolePO;
+    }
+
+    public void setRolePO(RolePO rolePO) {
+        this.rolePO = rolePO;
+    }
+
+    public DepartmentPO getDepartmentPO() {
+        return departmentPO;
+    }
+
+    public void setDepartmentPO(DepartmentPO departmentPO) {
+        this.departmentPO = departmentPO;
+    }
+
+    public UserPO getCreateUserObj() {
+        return createUserObj;
+    }
+
+    public void setCreateUserObj(UserPO createUserObj) {
+        this.createUserObj = createUserObj;
+    }
+
+    public UserPO getUpdateUserObj() {
+        return updateUserObj;
+    }
+
+    public void setUpdateUserObj(UserPO updateUserObj) {
+        this.updateUserObj = updateUserObj;
+    }
+    
+    
 }
