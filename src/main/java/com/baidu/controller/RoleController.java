@@ -21,7 +21,6 @@ import com.github.pagehelper.PageInfo;
 @Controller
 @RequestMapping("/role")
 public class RoleController {
-
     @Autowired
     private IRoleService roleService;
 
@@ -30,14 +29,18 @@ public class RoleController {
     @ResponseBody
     public ModelAndView roleFind(//
             @RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum,
-            @RequestParam(value = "searchKey", required = false) String searchKey) {
+            @RequestParam(value = "searchKey", required = false) String searchKey,
+            @RequestParam(value = "startTime",required = false)String startTime,
+            @RequestParam(value = "endTime",required = false)String endTime) {
         PageHelper.startPage(pageNum, 5);
-        List<RolePO> roleList = roleService.queryList(searchKey);
+        List<RolePO> roleList = roleService.queryList(searchKey,startTime,endTime);
         PageInfo<RolePO> pi = new PageInfo<RolePO>(roleList);
         ModelAndView mav = new ModelAndView();
         mav.addObject("role", roleList);
         mav.addObject("modelName", searchKey);
         mav.addObject("limitmodel", pi);
+        mav.addObject("startTime", startTime);
+        mav.addObject("endTime", endTime);
         mav.setViewName("role/list");
         return mav;
     }

@@ -10,7 +10,7 @@ public interface IRoleService {
 
 	void updateRole(RolePO rolePO, int updateUser);
 
-	List<RolePO> queryList(String searchKey);
+	List<RolePO> queryList(String searchKey,String startTime,String endTime);
 
 	void deleteRole(int roleId);
 

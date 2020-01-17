@@ -34,11 +34,14 @@
 						<a href="${ctx}/department/list.do" target="myIframe">部门管理</a>
 					</div>
 					<div class="row">
-						<a href="${ctx}/device/list.do" target="myIframe">销售管理</a>
+						<a href="${ctx}/device/list.do" target="myIframe">设备管理</a>
+					</div>
+					<div class="row">
+						<a href="${ctx}/station/list.do" target="myIframe">服务网点</a>
 					</div>
 				</div>
 				<div class="col-md-9 pull-left right">
-					<iframe name="myIframe" class="col-md-12" src="${ctx}/device/list.do"></iframe>
+					<iframe name="myIframe" class="col-md-12" src="${ctx}/station/list.do"></iframe>
 				</div>
 			</div>
 

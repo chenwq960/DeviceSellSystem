@@ -24,13 +24,19 @@ public class DeviceController {
 
     @ResponseBody
     @RequestMapping("/list")
-    public ModelAndView list(@RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum) {
+    public ModelAndView list(@RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum,
+            @RequestParam(value = "seachKey",required = false)String seachKey,
+            @RequestParam(value = "startTime",required = false)String startTime,
+            @RequestParam(value = "endTime",required = false)String endTime) {
         PageHelper.startPage(pageNum, 5);
-        List<DevicePO> seachDevice = service.seachDevice();
+        List<DevicePO> seachDevice = service.seachDevice(seachKey,startTime,endTime);
         PageInfo<DevicePO> pi = new PageInfo<DevicePO>(seachDevice);
         ModelAndView mav = new ModelAndView();
         mav.addObject("list", seachDevice);
         mav.addObject("limitmodel", pi);
+        mav.addObject("seachKey", seachKey);
+        mav.addObject("endTime", endTime);
+        mav.addObject("startTime", startTime);
         mav.setViewName("device/list");
         return mav;
     };
@@ -67,7 +73,7 @@ public class DeviceController {
     @RequestMapping("/update")
     public boolean update(DevicePO devicePO, HttpSession session) {
         try {
-            
+
             service.update(devicePO, session);
         }
         catch (Exception e) {

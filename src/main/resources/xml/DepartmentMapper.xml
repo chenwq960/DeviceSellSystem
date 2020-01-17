@@ -26,10 +26,9 @@
     select 
     <include refid="Base_Column_List" />
     from tb_department
-    
     where is_delete = 0
-     <if test="searchKey != null and searchKey != ''">
-    	and department_name like concat('%',#{searchKey},'%') 
+    <if test="searchKey != null and searchKey != ''">
+    	and department_name like concat('%',#{searchKey},'%')
     </if>
     <if test="startTime != null">
     	and create_time &gt;= #{startTime}

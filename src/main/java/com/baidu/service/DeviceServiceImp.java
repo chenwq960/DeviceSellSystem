@@ -18,8 +18,8 @@ public class DeviceServiceImp implements IDeviceService{
 	private static int count = 000000;
 	@Autowired
 	private deviceMapper mapper;
-	public List<DevicePO> seachDevice() {
-		return mapper.seachDevice();
+	public List<DevicePO> seachDevice(String seachKey,String startTime,String endTime) {
+		return mapper.seachDevice(seachKey,startTime,endTime);
 	}
 	@Override
 	public void create(DevicePO DevicePO, HttpSession session) {
@@ -28,7 +28,6 @@ public class DeviceServiceImp implements IDeviceService{
 		DevicePO.setCreateUser(attribute.getUserId());
 		DevicePO.setUpdateTime(new Date());
 		DevicePO.setUpdateUser(attribute.getUserId());
-		
 		SimpleDateFormat datefm = new SimpleDateFormat("yyyy-mm");
 		String date = datefm.format(new Date());
 		date+="-"+(count++);

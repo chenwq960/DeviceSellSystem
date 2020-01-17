@@ -1,6 +1,5 @@
 package com.baidu.service;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -9,7 +8,7 @@ import com.baidu.po.DepartmentPO;
 
 public interface IDepartmentService {
 
-	List<DepartmentPO> departmentFind(String searchKey, Date startTime, Date endTime);
+	List<DepartmentPO> departmentFind(String searchKey,String startTime, String endTime);
 
 	int createdepartment(DepartmentPO departmentPO,HttpSession session);
 

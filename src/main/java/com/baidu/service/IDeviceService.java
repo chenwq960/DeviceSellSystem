@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import com.baidu.po.DevicePO;
 
 public interface IDeviceService {
-	List<DevicePO> seachDevice();
+	List<DevicePO> seachDevice(String seachKey,String startTime,String endTime);
 
 	void create(DevicePO DevicePO,HttpSession session);
 

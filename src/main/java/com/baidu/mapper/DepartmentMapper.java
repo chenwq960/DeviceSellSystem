@@ -1,6 +1,5 @@
 package com.baidu.mapper;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -16,7 +15,7 @@ public interface DepartmentMapper {
 
 	DepartmentPO selectByPrimaryKey(Integer departmentId);
 
-	List<DepartmentPO> selectList(@Param("searchKey")String searchKey,@Param("startTime")Date startTime,@Param("endTime")Date endTime);
+	List<DepartmentPO> selectList(@Param("searchKey")String searchKey,@Param("startTime")String startTime,@Param("endTime")String endTime);
 
 	int updateByPrimaryKeySelective(DepartmentPO record);
 

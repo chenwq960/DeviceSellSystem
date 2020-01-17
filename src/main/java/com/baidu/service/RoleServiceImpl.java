@@ -38,8 +38,8 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public List<RolePO> queryList(String searchKey) {
-		return roleMapper.selectList();
+	public List<RolePO> queryList(String searchKey,String startTime,String endTime) {
+		return roleMapper.selectList(searchKey,startTime,endTime);
 	}
 
 	@Override

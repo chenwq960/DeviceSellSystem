@@ -19,8 +19,7 @@ public class DepartmentServiceImpl implements IDepartmentService {
 	private DepartmentMapper departmentMapper;
 	// 部门表的查询方式
 	@Override
-	public List<DepartmentPO> departmentFind(String searchKey, Date startTime, Date endTime) {
-		// TODO 尚未实现模糊查询
+	public List<DepartmentPO> departmentFind(String searchKey, String startTime,String endTime) {
 		return departmentMapper.selectList(searchKey,startTime,endTime);
 	}
 	// 部门表的增加方法

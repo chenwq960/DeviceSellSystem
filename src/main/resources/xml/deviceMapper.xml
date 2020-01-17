@@ -142,6 +142,16 @@
   
   
   <select id="seachDevice" resultMap="BaseResultMap">
-  	select * from tb_device  where is_delete = 0 ORDER BY create_time desc  
+  	select * from tb_device  where is_delete = 0 
+  	<if test="seachKey != null and seachKey != ''">
+  		and device_name like concat('%',#{seachKey},'%')
+  	</if>
+  		<if test="startTime != null and startTime != ''">
+  		and create_time &gt;= #{startTime}
+  	</if>
+  		<if test="endTime != null and endTime != ''">
+  		and create_time &lt;= #{endTime}
+  	</if>
+  	ORDER BY create_time desc  
   </select>
 </mapper>

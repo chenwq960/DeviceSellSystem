@@ -30,15 +30,16 @@ import com.github.pagehelper.PageInfo;
 public class DepartmentController {
     @Autowired
     private IDepartmentService departmentService;
-
     // 部门表的查询
     @RequestMapping("/list")
     @ResponseBody
     public ModelAndView departmentList(
             @RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum,
             @RequestParam(value = "searchKey", required = false) String searchKey,
-            @RequestParam(value = "startTime", required = false) Date startTime,
-            @RequestParam(value = "endTime", required = false) Date endTime) {
+            @RequestParam(value = "startTime", required = false) String startTime,
+            @RequestParam(value = "endTime", required = false) String endTime) {
+        
+        System.out.println(searchKey+startTime+endTime);
         PageHelper.startPage(pageNum, 5);
         List<DepartmentPO> departmentFind = departmentService.departmentFind(searchKey, startTime, endTime);
         PageInfo<DepartmentPO> pi = new PageInfo<DepartmentPO>(departmentFind);

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.mapper.RegionPOMapper" >
+  <resultMap id="BaseResultMap" type="com.baidu.po.RegionPO" >
+    <id column="region_id" property="regionId" jdbcType="INTEGER" />
+    <result column="region_name" property="regionName" jdbcType="VARCHAR" />
+    <result column="parent_region_id" property="parentRegionId" jdbcType="INTEGER" />
+    <result column="region_level" property="regionLevel" jdbcType="TINYINT" />
+    <result column="region_code" property="regionCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    region_id, region_name, parent_region_id, region_level, region_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_region
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_region
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.baidu.po.RegionPO" >
+    insert into tb_region (region_id, region_name, parent_region_id, 
+      region_level, region_code)
+    values (#{regionId,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, #{parentRegionId,jdbcType=INTEGER}, 
+      #{regionLevel,jdbcType=TINYINT}, #{regionCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.baidu.po.RegionPO" >
+    insert into tb_region
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="regionName != null" >
+        region_name,
+      </if>
+      <if test="parentRegionId != null" >
+        parent_region_id,
+      </if>
+      <if test="regionLevel != null" >
+        region_level,
+      </if>
+      <if test="regionCode != null" >
+        region_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="regionId != null" >
+        #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="regionName != null" >
+        #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentRegionId != null" >
+        #{parentRegionId,jdbcType=INTEGER},
+      </if>
+      <if test="regionLevel != null" >
+        #{regionLevel,jdbcType=TINYINT},
+      </if>
+      <if test="regionCode != null" >
+        #{regionCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.RegionPO" >
+    update tb_region
+    <set >
+      <if test="regionName != null" >
+        region_name = #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentRegionId != null" >
+        parent_region_id = #{parentRegionId,jdbcType=INTEGER},
+      </if>
+      <if test="regionLevel != null" >
+        region_level = #{regionLevel,jdbcType=TINYINT},
+      </if>
+      <if test="regionCode != null" >
+        region_code = #{regionCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baidu.po.RegionPO" >
+    update tb_region
+    set region_name = #{regionName,jdbcType=VARCHAR},
+      parent_region_id = #{parentRegionId,jdbcType=INTEGER},
+      region_level = #{regionLevel,jdbcType=TINYINT},
+      region_code = #{regionCode,jdbcType=VARCHAR}
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </update>
+	
+
+	<select id="selectByparentRegionId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select 
+    	<include refid="Base_Column_List" />
+  	 	from tb_region
+  	 	where parent_region_id = #{userId}
+	</select>
+	
+	<!-- 子查询 -->
+	<select id="selectChild" parameterType="java.lang.Integer" resultType="java.lang.String">
+		select region_name from tb_region where region_id = #{userId}
+	</select>
+
+</mapper>

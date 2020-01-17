@@ -32,6 +32,21 @@ input {
 		<table
 			class="table table-hover table-bordered table-striped text-center">
 			<tr>
+				<td colspan="111">
+					<form action="${ctx}/device/list.do" method="post">
+						<div class="pull-left">
+							<input type="text" name="seachKey" value="${seachKey}">
+							<input type="submit" value="搜索" style="width:50px;">
+						</div>
+						<div class="pull-right">
+							<input type="text" name="startTime" value="${startTime}">----
+							<input type="text" name="endTime" value="${endTime}">
+						</div>
+					</form>
+				</td>
+			</tr>
+			
+			<tr>
 				<td>设备名称：</td>
 				<td>设备编号：</td>
 				<td>设备型号：</td>

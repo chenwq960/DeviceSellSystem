@@ -1,0 +1,63 @@
+package com.baidu.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.baidu.po.StationPO;
+import com.baidu.service.IStationService;
+
+@Controller
+@RequestMapping("/station")
+public class StationController {
+    @Autowired 
+    private IStationService service;
+    
+    @ResponseBody
+    @RequestMapping("/list")
+    public ModelAndView list() {
+       List<StationPO> list = service.list();
+       ModelAndView mav = new ModelAndView();
+       mav.addObject("list",list);
+       mav.setViewName("station/list");
+       return mav;
+    }
+   //增加的按钮
+    @ResponseBody
+    @RequestMapping("/create")
+    public boolean create(StationPO station) {
+        try {
+            service.create(station);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+   //删除的方法
+    @ResponseBody
+    @RequestMapping("/delete")
+    public boolean delete(Integer stationId) {
+        try {
+            service.delete(stationId);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    };
+    //回显的方法
+    @ResponseBody
+    @RequestMapping("/update")
+    public StationPO update(Integer stationId) {
+        StationPO update = service.update(stationId);
+        return update;
+    }
+    
+}
