@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
@@ -6,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>设备列表</title>
 <script src="${ctx}/static/js/jquery-1.8.3.js"></script>
 <link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet" />
 <style type="text/css">
@@ -19,9 +20,11 @@ ul li {
 	background-color: #EEEEEE;
 	border-radius: 5px;
 }
+
 input {
 	width: 150px;
 }
+
 .number {
 	color: blue;
 }
@@ -35,8 +38,8 @@ input {
 				<td colspan="111">
 					<form action="${ctx}/device/list.do" method="post">
 						<div class="pull-left">
-							<input type="text" name="seachKey" value="${seachKey}">
-							<input type="submit" value="搜索" style="width:50px;">
+							<input type="text" name="seachKey" value="${seachKey}"> <input
+								type="submit" value="搜索" style="width: 50px;">
 						</div>
 						<div class="pull-right">
 							<input type="text" name="startTime" value="${startTime}">----
@@ -45,7 +48,7 @@ input {
 					</form>
 				</td>
 			</tr>
-			
+
 			<tr>
 				<td>设备名称：</td>
 				<td>设备编号：</td>
@@ -68,7 +71,8 @@ input {
 								pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						<td>
 							<button onclick="deviceDel(${s.deviceId})">删除</button>
-							<button onclick="location.href='${ctx}/views/device/update.jsp?id=${s.deviceId}&name=${s.deviceName}&model=${s.deviceModel}'">修改</button>
+							<button
+								onclick="location.href='${ctx}/views/device/update.jsp?id=${s.deviceId}&name=${s.deviceName}&model=${s.deviceModel}'">修改</button>
 						</td>
 					</tr>
 				</c:forEach>

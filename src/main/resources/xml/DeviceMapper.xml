@@ -1,157 +1,112 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.baidu.mapper.DeviceMapper" >
-  <resultMap id="BaseResultMap" type="com.baidu.po.DevicePO" >
-    <id column="device_id" property="deviceId" jdbcType="INTEGER" />
-    <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
-    <result column="device_code" property="deviceCode" jdbcType="VARCHAR" />
-    <result column="device_model" property="deviceModel" jdbcType="VARCHAR" />
-    <result column="create_user" property="createUser" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_user" property="updateUser" jdbcType="INTEGER" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
-    <association column="create_user" property="createUserName" select="com.baidu.mapper.RoleMapper.selectUserName"></association>
-    
-    
-  </resultMap>
-  <sql id="Base_Column_List" >
-    device_id, device_name, device_code, device_model, create_user, create_time, update_user, 
-    update_time, is_delete
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from tb_device
-    where device_id = #{deviceId,jdbcType=INTEGER}
-  </select>
-  <update  id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-  	update tb_device set is_delete = 1 where device_id = #{deviceId}
-  </update>
-  
-  <insert id="insert" parameterType="com.baidu.po.DevicePO" >
-    insert into tb_device (device_name, device_code, 
-      device_model, create_user, create_time, 
-      update_user, update_time, is_delete
-      )
-    values (#{deviceName,jdbcType=VARCHAR}, #{deviceCode,jdbcType=VARCHAR}, 
-      #{deviceModel,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=TINYINT}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.baidu.po.DevicePO" >
-    insert into tb_device
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="deviceId != null" >
-        device_id,
-      </if>
-      <if test="deviceName != null" >
-        device_name,
-      </if>
-      <if test="deviceCode != null" >
-        device_code,
-      </if>
-      <if test="deviceModel != null" >
-        device_model,
-      </if>
-      <if test="createUser != null" >
-        create_user,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateUser != null" >
-        update_user,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-      <if test="isDelete != null" >
-        is_delete,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="deviceId != null" >
-        #{deviceId,jdbcType=INTEGER},
-      </if>
-      <if test="deviceName != null" >
-        #{deviceName,jdbcType=VARCHAR},
-      </if>
-      <if test="deviceCode != null" >
-        #{deviceCode,jdbcType=VARCHAR},
-      </if>
-      <if test="deviceModel != null" >
-        #{deviceModel,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null" >
-        #{createUser,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateUser != null" >
-        #{updateUser,jdbcType=INTEGER},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="isDelete != null" >
-        #{isDelete,jdbcType=TINYINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.DevicePO" >
-    update tb_device
-    <set >
-      <if test="deviceName != null" >
-        device_name = #{deviceName,jdbcType=VARCHAR},
-      </if>
-      <if test="deviceCode != null" >
-        device_code = #{deviceCode,jdbcType=VARCHAR},
-      </if>
-      <if test="deviceModel != null" >
-        device_model = #{deviceModel,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null" >
-        create_user = #{createUser,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateUser != null" >
-        update_user = #{updateUser,jdbcType=INTEGER},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="isDelete != null" >
-        is_delete = #{isDelete,jdbcType=TINYINT},
-      </if>
-    </set>
-    where device_id = #{deviceId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.baidu.po.DevicePO" >
-    update tb_device
-    set device_name = #{deviceName,jdbcType=VARCHAR},
-      device_model = #{deviceModel,jdbcType=VARCHAR},
-      update_user = #{updateUser,jdbcType=INTEGER},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where device_id = #{deviceId,jdbcType=INTEGER}
-  </update>
-  
-  
-  
-  <select id="seachDevice" resultMap="BaseResultMap">
-  	select * from tb_device  where is_delete = 0 
-  	<if test="seachKey != null and seachKey != ''">
-  		and device_name like concat('%',#{seachKey},'%')
-  	</if>
-  		<if test="startTime != null and startTime != ''">
-  		and create_time &gt;= #{startTime}
-  	</if>
-  		<if test="endTime != null and endTime != ''">
-  		and create_time &lt;= #{endTime}
-  	</if>
-  	ORDER BY create_time desc  
-  </select>
+<mapper namespace="com.baidu.mapper.DeviceMapper">
+	<resultMap id="BaseResultMap" type="com.baidu.po.DevicePO">
+		<id column="device_id" property="deviceId" jdbcType="INTEGER" />
+		<result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+		<result column="device_code" property="deviceCode" jdbcType="VARCHAR" />
+		<result column="device_model" property="deviceModel" jdbcType="VARCHAR" />
+		<result column="create_user" property="createUser" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_user" property="updateUser" jdbcType="INTEGER" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+		<association column="create_user" property="createUserName"
+			select="com.baidu.mapper.RoleMapper.selectUserName"></association>
+	</resultMap>
+	<sql id="Base_Column_List"> device_id, device_name, device_code, device_model, create_user, create_time,
+		update_user, update_time, is_delete
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from tb_device where device_id = #{deviceId,jdbcType=INTEGER}
+	</select>
+	<insert id="insert" parameterType="com.baidu.po.DevicePO"> insert into tb_device (device_name, device_code,
+		device_model, create_user, create_time, update_user, update_time, is_delete ) values
+		(#{deviceName,jdbcType=VARCHAR}, #{deviceCode,jdbcType=VARCHAR}, #{deviceModel,jdbcType=VARCHAR},
+		#{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER},
+		#{updateTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=TINYINT} )
+	</insert>
+	<insert id="insertSelective" parameterType="com.baidu.po.DevicePO">
+		insert into tb_device
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="deviceId != null"> device_id,
+			</if>
+			<if test="deviceName != null"> device_name,
+			</if>
+			<if test="deviceCode != null"> device_code,
+			</if>
+			<if test="deviceModel != null"> device_model,
+			</if>
+			<if test="createUser != null"> create_user,
+			</if>
+			<if test="createTime != null"> create_time,
+			</if>
+			<if test="updateUser != null"> update_user,
+			</if>
+			<if test="updateTime != null"> update_time,
+			</if>
+			<if test="isDelete != null"> is_delete,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="deviceId != null"> #{deviceId,jdbcType=INTEGER},
+			</if>
+			<if test="deviceName != null"> #{deviceName,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceCode != null"> #{deviceCode,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceModel != null"> #{deviceModel,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null"> #{createUser,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null"> #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null"> #{updateUser,jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null"> #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDelete != null"> #{isDelete,jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.DevicePO">
+		update tb_device
+		<set>
+			<if test="deviceName != null"> device_name = #{deviceName,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceCode != null"> device_code = #{deviceCode,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceModel != null"> device_model = #{deviceModel,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null"> create_user = #{createUser,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null"> create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null"> update_user = #{updateUser,jdbcType=INTEGER},
+			</if>
+			<if test="updateTime != null"> update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDelete != null"> is_delete = #{isDelete,jdbcType=TINYINT},
+			</if>
+		</set>
+		where device_id = #{deviceId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.baidu.po.DevicePO"> update tb_device set device_name =
+		#{deviceName,jdbcType=VARCHAR}, device_model = #{deviceModel,jdbcType=VARCHAR}, update_user =
+		#{updateUser,jdbcType=INTEGER}, update_time = #{updateTime,jdbcType=TIMESTAMP} where device_id =
+		#{deviceId,jdbcType=INTEGER}
+	</update>
+	<select id="selectDeviceList" parameterType="com.baidu.form.SearchParam"
+		resultMap="BaseResultMap">
+		select * from tb_device where is_delete = 0
+		<if test="seachKey != null and seachKey != ''"> and device_name like concat('%',#{seachKey},'%')
+		</if>
+		<if test="startTime != null and startTime != ''"> <![CDATA[ and create_time >= #{startTime}]]>
+		</if>
+		<if test="endTime != null and endTime != ''"> <![CDATA[and create_time <= #{endTime}]]>
+		</if>
+		ORDER BY create_time desc
+	</select>
 </mapper>
