@@ -25,16 +25,17 @@ font {
 	<div class="container">
 		<form>
 			<div class="input-group">
-				<font>网点名称</font>
-				<input type="text" class="form-control" name="stationName">
+				<font>网点名称</font> <input type="text" class="form-control"
+					name="stationName">
 			</div>
 			<div class="input-group">
-				<select class="form-control" name="provinceId" onchange="update()">
+				<select class="form-control" name="provinceId"
+					onchange="provinceChange()">
 				</select>
 			</div>
 
 			<div class="input-group">
-				<select class="form-control" name="cityId" onchange="updateTo()">
+				<select class="form-control" name="cityId" onchange="cityChange()">
 				</select>
 			</div>
 
@@ -45,81 +46,89 @@ font {
 			<div class="input-group">
 				<input type="text" class="form-control" name="address">
 			</div>
-			
+
 		</form>
 		<input type="button" value="修改">
 	</div>
 </body>
 <script type="text/javascript">
-	$("input[type=button]").click(function(){
-		$.post(
-			"${ctx}/station/change.do",
-			$("form").serialize(),
-			function(station){
-				console.log(station)
-			}
-		)
-		
+	var provinceId, cityId, countyId;
+
+	$(function() {
+
+		$("input[type=button]").click(
+				function() {
+					$.post("${ctx}/station/change.do", $("form").serialize(),
+							function(station) {
+								console.log(station)
+							})
+
+				});
+
+		$.post("${ctx}/station/update.do", {
+			stationId : "${param.stationId}"
+		}, function(station) {
+			console.log(station)
+			$("input[name=stationName]").val(station.stationName);
+			$("input[name=address]").val(station.address);
+
+			provinceId = station.provinceId;
+			cityId = station.cityId;
+			countyId = station.countyId;
+
+			$.post("${ctx}/region/create.do", {
+				regionId : 0
+			}, function(provinces) {
+				for ( let i in provinces) {
+					var province = provinces[i];
+					var flag = province.regionId == provinceId ? "selected"
+							: "";
+					$("select[name=provinceId]").append(
+							"<option "+flag+" value='"+province.regionId+"'>"
+									+ province.regionName + "</option>")
+				}
+				provinceChange()
+
+			});
+
+		})
+
 	})
-	$(function(){
-		$.post(
-			"${ctx}/region/create.do",
-			{regionId:0},
-			function(region){
-				for(let i in region){
-					var data = region[i]
-					$("select[name=provinceId]").append("<option value='"+data.regionId+"'>"+data.regionName+"</option>")
-				}
-				update()
+
+	function provinceChange() {
+
+		var provinceId = $("select[name=provinceId]").val()
+		$.post("${ctx}/region/create.do", {
+			regionId : provinceId
+		}, function(citys) {
+			$("select[name=cityId]").empty();
+			for ( let i in citys) {
+				var city = citys[i]
+				var flag = city.regionId == cityId ? "selected" : "";
+				$("select[name=cityId]").append(
+						"<option " + flag + " value='"+city.regionId+"'>"
+								+ city.regionName + "</option>")
 			}
-		)
-	})
-	
-	function update(){
-		$("select[name=cityId]").empty()
-		let aim = $("select[name=provinceId]").val()
-		$.post(
-			"${ctx}/region/create.do",
-			{regionId:aim},
-			function(region){
-				for(let i in region){
-					var data = region[i]
-					$("select[name=cityId]").append("<option value='"+data.regionId+"'>"+data.regionName+"</option>")
-				}
-				updateTo()
-			}
-		)
+
+			cityChange()
+		})
 	}
-	function updateTo(){
-		$("select[name=countyId]").empty()
-		let aim = $("select[name=cityId]").val()
-		$.post(
-			"${ctx}/region/create.do",
-			{regionId:aim},
-			function(region){
-				for(let i in region){
-					var data = region[i]
-					$("select[name=countyId]").append("<option value='"+data.regionId+"'>"+data.regionName+"</option>")
-				}
-				hx()
+
+	function cityChange() {
+		$("select[name=countyId]").empty();
+		var cityId = $("select[name=cityId]").val()
+		$.post("${ctx}/region/create.do", {
+			regionId : cityId
+		}, function(countys) {
+			for ( let i in countys) {
+				var county = countys[i]
+				var flag = county.regionId == countyId ? "selected" : "";
+
+				$("select[name=countyId]").append(
+						"<option " + flag + " value='"+county.regionId+"'>"
+								+ county.regionName + "</option>")
 			}
-		)
+		})
 	}
-//回显的方法
-	function hx(){
-		$.post(
-			"${ctx}/station/update.do",
-			{stationId:"${param.stationId}"},
-			function(station){
-				console.log(station)
-				$("input[name=stationName]").val(station.stationName)
-				$("select[name=provinceId]").append("<option selected>"+station.provinceName+"</option>")
-				$("select[name=cityId]").append("<option selected>"+station.cityName+"</option>")
-				$("select[name=countyId]").append("<option selected>"+station.countyName+"</option>")
-				$("input[name=address]").val(station.address)
-			}
-		)
-	}
-	
 </script>
 </html>
