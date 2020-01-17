@@ -1,196 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.baidu.mapper.RegionPOMapper">
-  <resultMap id="BaseResultMap" type="com.baidu.po.RegionPO">
-    <id column="region_id" jdbcType="INTEGER" property="regionId" />
-    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
-    <result column="parent_region_id" jdbcType="INTEGER" property="parentRegionId" />
-    <result column="region_level" jdbcType="TINYINT" property="regionLevel" />
-    <result column="region_code" jdbcType="VARCHAR" property="regionCode" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    region_id, region_name, parent_region_id, region_level, region_code
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_region
-    where region_id = #{regionId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_region
-    where region_id = #{regionId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.baidu.po.RegionPO">
-    insert into tb_region (region_id, region_name, parent_region_id, 
-      region_level, region_code)
-    values (#{regionId,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, #{parentRegionId,jdbcType=INTEGER}, 
-      #{regionLevel,jdbcType=TINYINT}, #{regionCode,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.baidu.po.RegionPO">
-    insert into tb_region
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="regionId != null">
-        region_id,
-      </if>
-      <if test="regionName != null">
-        region_name,
-      </if>
-      <if test="parentRegionId != null">
-        parent_region_id,
-      </if>
-      <if test="regionLevel != null">
-        region_level,
-      </if>
-      <if test="regionCode != null">
-        region_code,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="regionId != null">
-        #{regionId,jdbcType=INTEGER},
-      </if>
-      <if test="regionName != null">
-        #{regionName,jdbcType=VARCHAR},
-      </if>
-      <if test="parentRegionId != null">
-        #{parentRegionId,jdbcType=INTEGER},
-      </if>
-      <if test="regionLevel != null">
-        #{regionLevel,jdbcType=TINYINT},
-      </if>
-      <if test="regionCode != null">
-        #{regionCode,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.RegionPO">
-    update tb_region
-    <set>
-      <if test="regionName != null">
-        region_name = #{regionName,jdbcType=VARCHAR},
-      </if>
-      <if test="parentRegionId != null">
-        parent_region_id = #{parentRegionId,jdbcType=INTEGER},
-      </if>
-      <if test="regionLevel != null">
-        region_level = #{regionLevel,jdbcType=TINYINT},
-      </if>
-      <if test="regionCode != null">
-        region_code = #{regionCode,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where region_id = #{regionId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.baidu.po.RegionPO">
-    update tb_region
-    set region_name = #{regionName,jdbcType=VARCHAR},
-      parent_region_id = #{parentRegionId,jdbcType=INTEGER},
-      region_level = #{regionLevel,jdbcType=TINYINT},
-      region_code = #{regionCode,jdbcType=VARCHAR}
-    where region_id = #{regionId,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.baidu.po.RegionPO">
-    <id column="region_id" jdbcType="INTEGER" property="regionId" />
-    <result column="parent_region_id" jdbcType="INTEGER" property="parentRegionId" />
-    <result column="region_level" jdbcType="TINYINT" property="regionLevel" />
-    <result column="region_code" jdbcType="VARCHAR" property="regionCode" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.baidu.po.RegionPO">
-    <result column="region_name" jdbcType="VARBINARY" property="regionName" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    region_id, parent_region_id, region_level, region_code
-  </sql>
-  <sql id="Blob_Column_List">
-    region_name
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from tb_region
-    where region_id = #{regionId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_region
-    where region_id = #{regionId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.baidu.po.RegionPO">
-    insert into tb_region (region_id, parent_region_id, region_level, 
-      region_code, region_name)
-    values (#{regionId,jdbcType=INTEGER}, #{parentRegionId,jdbcType=INTEGER}, #{regionLevel,jdbcType=TINYINT}, 
-      #{regionCode,jdbcType=VARCHAR}, #{regionName,jdbcType=VARBINARY})
-  </insert>
-  <insert id="insertSelective" parameterType="com.baidu.po.RegionPO">
-    insert into tb_region
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="regionId != null">
-        region_id,
-      </if>
-      <if test="parentRegionId != null">
-        parent_region_id,
-      </if>
-      <if test="regionLevel != null">
-        region_level,
-      </if>
-      <if test="regionCode != null">
-        region_code,
-      </if>
-      <if test="regionName != null">
-        region_name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="regionId != null">
-        #{regionId,jdbcType=INTEGER},
-      </if>
-      <if test="parentRegionId != null">
-        #{parentRegionId,jdbcType=INTEGER},
-      </if>
-      <if test="regionLevel != null">
-        #{regionLevel,jdbcType=TINYINT},
-      </if>
-      <if test="regionCode != null">
-        #{regionCode,jdbcType=VARCHAR},
-      </if>
-      <if test="regionName != null">
-        #{regionName,jdbcType=VARBINARY},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.RegionPO">
-    update tb_region
-    <set>
-      <if test="parentRegionId != null">
-        parent_region_id = #{parentRegionId,jdbcType=INTEGER},
-      </if>
-      <if test="regionLevel != null">
-        region_level = #{regionLevel,jdbcType=TINYINT},
-      </if>
-      <if test="regionCode != null">
-        region_code = #{regionCode,jdbcType=VARCHAR},
-      </if>
-      <if test="regionName != null">
-        region_name = #{regionName,jdbcType=VARBINARY},
-      </if>
-    </set>
-    where region_id = #{regionId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.baidu.po.RegionPO">
-    update tb_region
-    set parent_region_id = #{parentRegionId,jdbcType=INTEGER},
-      region_level = #{regionLevel,jdbcType=TINYINT},
-      region_code = #{regionCode,jdbcType=VARCHAR},
-      region_name = #{regionName,jdbcType=VARBINARY}
-    where region_id = #{regionId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.baidu.po.RegionPO">
-    update tb_region
-    set parent_region_id = #{parentRegionId,jdbcType=INTEGER},
-      region_level = #{regionLevel,jdbcType=TINYINT},
-      region_code = #{regionCode,jdbcType=VARCHAR}
-    where region_id = #{regionId,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap" type="com.baidu.po.RegionPO">
+		<id column="region_id" jdbcType="INTEGER" property="regionId" />
+		<result column="region_name" jdbcType="VARCHAR" property="regionName" />
+		<result column="parent_region_id" jdbcType="INTEGER" property="parentRegionId" />
+		<result column="region_level" jdbcType="TINYINT" property="regionLevel" />
+		<result column="region_code" jdbcType="VARCHAR" property="regionCode" />
+	</resultMap>
+	<sql id="Base_Column_List"> region_id, region_name, parent_region_id, region_level, region_code 
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tb_region where region_id = #{regionId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer"> delete from tb_region where region_id =
+		#{regionId,jdbcType=INTEGER} 
+	</delete>
+	<insert id="insert" parameterType="com.baidu.po.RegionPO"> insert into tb_region (region_id, region_name,
+		parent_region_id, region_level, region_code) values (#{regionId,jdbcType=INTEGER},
+		#{regionName,jdbcType=VARCHAR}, #{parentRegionId,jdbcType=INTEGER},
+		#{regionLevel,jdbcType=TINYINT}, #{regionCode,jdbcType=VARCHAR}) 
+	</insert>
+	<insert id="insertSelective" parameterType="com.baidu.po.RegionPO">
+		insert into tb_region
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="regionId != null"> region_id, 
+			</if>
+			<if test="regionName != null"> region_name, 
+			</if>
+			<if test="parentRegionId != null"> parent_region_id, 
+			</if>
+			<if test="regionLevel != null"> region_level, 
+			</if>
+			<if test="regionCode != null"> region_code, 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="regionId != null"> #{regionId,jdbcType=INTEGER}, 
+			</if>
+			<if test="regionName != null"> #{regionName,jdbcType=VARCHAR}, 
+			</if>
+			<if test="parentRegionId != null"> #{parentRegionId,jdbcType=INTEGER}, 
+			</if>
+			<if test="regionLevel != null"> #{regionLevel,jdbcType=TINYINT}, 
+			</if>
+			<if test="regionCode != null"> #{regionCode,jdbcType=VARCHAR}, 
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.RegionPO">
+		update tb_region
+		<set>
+			<if test="regionName != null"> region_name = #{regionName,jdbcType=VARCHAR}, 
+			</if>
+			<if test="parentRegionId != null"> parent_region_id = #{parentRegionId,jdbcType=INTEGER}, 
+			</if>
+			<if test="regionLevel != null"> region_level = #{regionLevel,jdbcType=TINYINT}, 
+			</if>
+			<if test="regionCode != null"> region_code = #{regionCode,jdbcType=VARCHAR}, 
+			</if>
+		</set>
+		where region_id = #{regionId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.baidu.po.RegionPO"> update tb_region set region_name =
+		#{regionName,jdbcType=VARCHAR}, parent_region_id = #{parentRegionId,jdbcType=INTEGER},
+		region_level = #{regionLevel,jdbcType=TINYINT}, region_code = #{regionCode,jdbcType=VARCHAR} where
+		region_id = #{regionId,jdbcType=INTEGER} 
+	</update>
 </mapper>
