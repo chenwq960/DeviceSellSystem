@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.baidu.po.DevicePO;
 
-public interface deviceMapper {
+public interface DeviceMapper {
     int deleteByPrimaryKey(Integer deviceId);
 
     int insert(DevicePO record);

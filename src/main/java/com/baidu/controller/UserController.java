@@ -56,7 +56,7 @@ public class UserController {
         }
         catch (Exception e) {
             mav.addObject("msg", e.getMessage());
-            mav.setViewName("userPO/login");
+            mav.setViewName("user/login");
         }
         return mav;
     }

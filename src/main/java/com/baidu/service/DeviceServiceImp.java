@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.baidu.mapper.deviceMapper;
+import com.baidu.mapper.DeviceMapper;
 import com.baidu.po.UserPO;
 import com.baidu.po.DevicePO;
 
@@ -17,7 +17,7 @@ import com.baidu.po.DevicePO;
 public class DeviceServiceImp implements IDeviceService{
 	private static int count = 000000;
 	@Autowired
-	private deviceMapper mapper;
+	private DeviceMapper mapper;
 	public List<DevicePO> seachDevice() {
 		return mapper.seachDevice();
 	}
