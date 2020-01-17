@@ -31,7 +31,7 @@ public class DepartmentServiceImpl implements IDepartmentService {
 		departmentPO.setCreateUser(userId);
 		departmentPO.setCreateTime(new Date());
 		departmentPO.setUpdateTime(new Date());
-		departmentPO.setIsDelete(0);
+		departmentPO.setIsDelete(false);
 		return departmentMapper.insert(departmentPO);
 	}
 	// 部门表格删除的方法
