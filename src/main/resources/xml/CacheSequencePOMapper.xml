@@ -1,71 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.baidu.mapper.CacheSequencePOMapper">
-  <resultMap id="BaseResultMap" type="com.baidu.po.CacheSequencePO">
-    <id column="sequence_entity" jdbcType="VARCHAR" property="sequenceEntity" />
-    <result column="sequence_key" jdbcType="VARCHAR" property="sequenceKey" />
-    <result column="sequence_value" jdbcType="INTEGER" property="sequenceValue" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    sequence_entity, sequence_key, sequence_value
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_cache_sequence
-    where sequence_entity = #{sequenceEntity,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from tb_cache_sequence
-    where sequence_entity = #{sequenceEntity,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="com.baidu.po.CacheSequencePO">
-    insert into tb_cache_sequence (sequence_entity, sequence_key, sequence_value
-      )
-    values (#{sequenceEntity,jdbcType=VARCHAR}, #{sequenceKey,jdbcType=VARCHAR}, #{sequenceValue,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.baidu.po.CacheSequencePO">
-    insert into tb_cache_sequence
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="sequenceEntity != null">
-        sequence_entity,
-      </if>
-      <if test="sequenceKey != null">
-        sequence_key,
-      </if>
-      <if test="sequenceValue != null">
-        sequence_value,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="sequenceEntity != null">
-        #{sequenceEntity,jdbcType=VARCHAR},
-      </if>
-      <if test="sequenceKey != null">
-        #{sequenceKey,jdbcType=VARCHAR},
-      </if>
-      <if test="sequenceValue != null">
-        #{sequenceValue,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.CacheSequencePO">
-    update tb_cache_sequence
-    <set>
-      <if test="sequenceKey != null">
-        sequence_key = #{sequenceKey,jdbcType=VARCHAR},
-      </if>
-      <if test="sequenceValue != null">
-        sequence_value = #{sequenceValue,jdbcType=INTEGER},
-      </if>
-    </set>
-    where sequence_entity = #{sequenceEntity,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.baidu.po.CacheSequencePO">
-    update tb_cache_sequence
-    set sequence_key = #{sequenceKey,jdbcType=VARCHAR},
-      sequence_value = #{sequenceValue,jdbcType=INTEGER}
-    where sequence_entity = #{sequenceEntity,jdbcType=VARCHAR}
-  </update>
+	<resultMap id="BaseResultMap" type="com.baidu.po.CacheSequencePO">
+		<id column="sequence_id" jdbcType="INTEGER" property="sequenceId" />
+		<result column="sequence_entity" jdbcType="VARCHAR" property="sequenceEntity" />
+		<result column="sequence_key" jdbcType="VARCHAR" property="sequenceKey" />
+		<result column="sequence_value" jdbcType="INTEGER" property="sequenceValue" />
+	</resultMap>
+	<sql id="Base_Column_List"> sequence_id, sequence_entity, sequence_key, sequence_value
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tb_cache_sequence where sequence_id = #{sequenceId,jdbcType=INTEGER}
+	</select>
+	<select id="selectByEntityAndKey"  resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tb_cache_sequence where sequence_entity = #{entity} and sequence_key = #{key}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer"> delete from tb_cache_sequence where
+		sequence_id = #{sequenceId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.baidu.po.CacheSequencePO"> insert into tb_cache_sequence (sequence_id,
+		sequence_entity, sequence_key, sequence_value) values (#{sequenceId,jdbcType=INTEGER},
+		#{sequenceEntity,jdbcType=VARCHAR}, #{sequenceKey,jdbcType=VARCHAR},
+		#{sequenceValue,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.baidu.po.CacheSequencePO">
+		insert into tb_cache_sequence
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sequenceId != null"> sequence_id,
+			</if>
+			<if test="sequenceEntity != null"> sequence_entity,
+			</if>
+			<if test="sequenceKey != null"> sequence_key,
+			</if>
+			<if test="sequenceValue != null"> sequence_value,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sequenceId != null"> #{sequenceId,jdbcType=INTEGER},
+			</if>
+			<if test="sequenceEntity != null"> #{sequenceEntity,jdbcType=VARCHAR},
+			</if>
+			<if test="sequenceKey != null"> #{sequenceKey,jdbcType=VARCHAR},
+			</if>
+			<if test="sequenceValue != null"> #{sequenceValue,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.CacheSequencePO">
+		update tb_cache_sequence
+		<set>
+			<if test="sequenceEntity != null"> sequence_entity = #{sequenceEntity,jdbcType=VARCHAR},
+			</if>
+			<if test="sequenceKey != null"> sequence_key = #{sequenceKey,jdbcType=VARCHAR},
+			</if>
+			<if test="sequenceValue != null"> sequence_value = #{sequenceValue,jdbcType=INTEGER},
+			</if>
+		</set>
+		where sequence_id = #{sequenceId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.baidu.po.CacheSequencePO"> update tb_cache_sequence set sequence_entity
+		= #{sequenceEntity,jdbcType=VARCHAR}, sequence_key = #{sequenceKey,jdbcType=VARCHAR},
+		sequence_value = #{sequenceValue,jdbcType=INTEGER} where sequence_id =
+		#{sequenceId,jdbcType=INTEGER}
+	</update>
 </mapper>

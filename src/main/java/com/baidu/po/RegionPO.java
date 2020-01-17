@@ -1,15 +1,12 @@
 package com.baidu.po;
 
 public class RegionPO {
+
     private Integer regionId;
-
+    private String regionName;
     private Integer parentRegionId;
-
     private Byte regionLevel;
-
     private String regionCode;
-
-    private byte[] regionName;
 
     public Integer getRegionId() {
         return regionId;
@@ -17,6 +14,14 @@ public class RegionPO {
 
     public void setRegionId(Integer regionId) {
         this.regionId = regionId;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName == null ? null : regionName.trim();
     }
 
     public Integer getParentRegionId() {
@@ -41,13 +46,5 @@ public class RegionPO {
 
     public void setRegionCode(String regionCode) {
         this.regionCode = regionCode == null ? null : regionCode.trim();
-    }
-
-    public byte[] getRegionName() {
-        return regionName;
-    }
-
-    public void setRegionName(byte[] regionName) {
-        this.regionName = regionName;
     }
 }

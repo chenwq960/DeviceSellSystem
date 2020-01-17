@@ -3,19 +3,14 @@ package com.baidu.po;
 import java.util.Date;
 
 public class DepartmentPO {
+
     private Integer departmentId;
-
     private String departmentName;
-
     private Date createTime;
-
     private Integer createUser;
-
     private Date updateTime;
-
     private Integer updateUser;
-
-    private int isDelete;
+    private Boolean isDelete;
 
     private String createUserName;
     private String updateUserName;
@@ -68,12 +63,12 @@ public class DepartmentPO {
         this.updateUser = updateUser;
     }
 
-    public int getIsDelete() {
+    public Boolean getIsDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(int i) {
-        this.isDelete = i;
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
     }
 
     public String getCreateUserName() {

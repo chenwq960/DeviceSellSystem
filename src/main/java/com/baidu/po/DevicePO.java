@@ -3,28 +3,21 @@ package com.baidu.po;
 import java.util.Date;
 
 public class DevicePO {
+
     private Integer deviceId;
-
     private String deviceName;
-
     private String deviceCode;
-
     private String deviceModel;
-
     private Integer createUser;
-
     private Date createTime;
-
     private Integer updateUser;
-
     private Date updateTime;
-
-    private Byte isDelete;
+    private Boolean isDelete;
 
     private String createUserName;
 
     public DevicePO(Integer deviceId, String deviceName, String deviceCode, String deviceModel, Integer createUser,
-            Date createTime, Integer updateUser, Date updateTime, Byte isDelete) {
+            Date createTime, Integer updateUser, Date updateTime, Boolean isDelete) {
         super();
         this.deviceId = deviceId;
         this.deviceName = deviceName;
@@ -105,11 +98,11 @@ public class DevicePO {
         this.updateTime = updateTime;
     }
 
-    public Byte getIsDelete() {
+    public Boolean getIsDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(Byte isDelete) {
+    public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
     }
 

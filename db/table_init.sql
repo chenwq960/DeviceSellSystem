@@ -19,10 +19,11 @@ DROP TABLE IF EXISTS device.tb_role;
 -- 缓存序列号
 CREATE TABLE device.tb_cache_sequence
 (
+	sequence_id int NOT NULL AUTO_INCREMENT COMMENT '序列ID',
 	sequence_entity varchar(32) NOT NULL COMMENT '实体名称',
 	sequence_key varchar(32) NOT NULL COMMENT '序列号Key',
 	sequence_value int unsigned DEFAULT 1 NOT NULL COMMENT '序列号增长值',
-	PRIMARY KEY (sequence_entity)
+	PRIMARY KEY (sequence_id)
 ) ENGINE = InnoDB COMMENT = '缓存序列号';
 
 
@@ -54,7 +55,7 @@ CREATE TABLE device.tb_device
 	create_time datetime NOT NULL COMMENT '创建时间',
 	update_user int NOT NULL COMMENT '更新人',
 	update_time datetime NOT NULL COMMENT '更新时间',
-	is_delete tinyint DEFAULT 0 NOT NULL COMMENT '是否已删除',
+	is_delete tinyint(1) DEFAULT 0 NOT NULL COMMENT '是否已删除',
 	PRIMARY KEY (device_id),
 	UNIQUE (device_code)
 ) ENGINE = InnoDB COMMENT = '设备表';
@@ -64,7 +65,7 @@ CREATE TABLE device.tb_device
 CREATE TABLE device.tb_region
 (
 	region_id int NOT NULL AUTO_INCREMENT COMMENT '地区ID',
-	region_name varbinary(64) NOT NULL COMMENT '名称',
+	region_name varchar(32) NOT NULL COMMENT '名称',
 	parent_region_id int DEFAULT 0 NOT NULL COMMENT '上级地区ID',
 	-- 1表示省，
 	-- 2表示市，
@@ -110,7 +111,7 @@ CREATE TABLE device.tb_sale_device
 	create_time datetime NOT NULL COMMENT '创建时间',
 	update_user int NOT NULL COMMENT '更新人',
 	update_time datetime NOT NULL COMMENT '更新时间',
-	is_delete tinyint DEFAULT 0 NOT NULL COMMENT '是否已删除',
+	is_delete tinyint(1) DEFAULT 0 NOT NULL COMMENT '是否已删除',
 	PRIMARY KEY (record_id)
 ) ENGINE = InnoDB COMMENT = '设备销售表';
 
@@ -124,13 +125,13 @@ CREATE TABLE device.tb_station
 	city_id int NOT NULL COMMENT '市ID',
 	county_id int NOT NULL COMMENT '县区ID',
 	address varchar(128) NOT NULL COMMENT '详细地址',
-	longitude decimal(10,12) NOT NULL COMMENT '经度',
-	latitude decimal(10,12) NOT NULL COMMENT '维度',
+	longitude decimal(10,8) NOT NULL COMMENT '经度',
+	latitude decimal(10,8) NOT NULL COMMENT '维度',
 	create_user int NOT NULL COMMENT '创建人',
 	create_time datetime NOT NULL COMMENT '创建时间',
 	update_user int NOT NULL COMMENT '更新人',
 	update_time datetime NOT NULL COMMENT '更新时间',
-	is_delete tinyint DEFAULT 0 NOT NULL COMMENT '是否已删除',
+	is_delete tinyint(1) DEFAULT 0 NOT NULL COMMENT '是否已删除',
 	PRIMARY KEY (station_id)
 ) ENGINE = InnoDB COMMENT = '服务网点表';
 
@@ -148,7 +149,7 @@ CREATE TABLE device.tb_user
 	-- 0，未提供
 	-- 1，男
 	-- 2，女
-	sex tinyint(1) COMMENT '性别 : 0，未提供
+	sex tinyint COMMENT '性别 : 0，未提供
 1，男
 2，女',
 	birthday datetime COMMENT '生日',

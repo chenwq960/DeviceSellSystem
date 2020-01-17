@@ -1,11 +1,19 @@
 package com.baidu.po;
 
 public class CacheSequencePO {
+
+    private Integer sequenceId;
     private String sequenceEntity;
-
     private String sequenceKey;
-
     private Integer sequenceValue;
+
+    public Integer getSequenceId() {
+        return sequenceId;
+    }
+
+    public void setSequenceId(Integer sequenceId) {
+        this.sequenceId = sequenceId;
+    }
 
     public String getSequenceEntity() {
         return sequenceEntity;

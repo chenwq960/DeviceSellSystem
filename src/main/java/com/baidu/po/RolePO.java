@@ -3,22 +3,16 @@ package com.baidu.po;
 import java.util.Date;
 
 public class RolePO {
+
     private Integer roleId;
-
     private String roleName;
-
     private Date createTime;
-
     private Integer createUser;
-
     private Date updateTime;
-
     private Integer updateUser;
-
     private Boolean isDelete;
 
     private String createUserName;
-
     private String updateUserName;
 
     public RolePO() {

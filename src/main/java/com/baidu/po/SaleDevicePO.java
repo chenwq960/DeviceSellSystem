@@ -3,29 +3,19 @@ package com.baidu.po;
 import java.util.Date;
 
 public class SaleDevicePO {
+
     private Integer recordId;
-
     private Integer stationId;
-
     private Integer deviceId;
-
     private Integer saleUser;
-
     private Date saleTime;
-
     private Integer saleNumber;
-
     private String remark;
-
     private Integer createUser;
-
     private Date createTime;
-
     private Integer updateUser;
-
     private Date updateTime;
-
-    private Byte isDelete;
+    private Boolean isDelete;
 
     public Integer getRecordId() {
         return recordId;
@@ -115,11 +105,11 @@ public class SaleDevicePO {
         this.updateTime = updateTime;
     }
 
-    public Byte getIsDelete() {
+    public Boolean getIsDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(Byte isDelete) {
+    public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
     }
 }

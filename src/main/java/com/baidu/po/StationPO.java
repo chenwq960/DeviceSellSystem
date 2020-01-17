@@ -4,31 +4,20 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class StationPO {
+
     private Integer stationId;
-
     private String stationName;
-
     private Integer provinceId;
-
     private Integer cityId;
-
     private Integer countyId;
-
     private String address;
-
     private BigDecimal longitude;
-
     private BigDecimal latitude;
-
     private Integer createUser;
-
     private Date createTime;
-
     private Integer updateUser;
-
     private Date updateTime;
-
-    private Byte isDelete;
+    private Boolean isDelete;
 
     public Integer getStationId() {
         return stationId;
@@ -126,11 +115,11 @@ public class StationPO {
         this.updateTime = updateTime;
     }
 
-    public Byte getIsDelete() {
+    public Boolean getIsDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(Byte isDelete) {
+    public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
     }
 }

@@ -4,43 +4,25 @@ import java.util.Date;
 
 public class UserPO {
     private Integer userId;
-
     private Integer roleId;
-
     private Integer departmentId;
-
     private String account;
-
     private String password;
-
     private String userName;
-
     private String realName;
-
-    private Boolean sex;
-
+    private Byte sex;
     private Date birthday;
-
     private String nation;
-
     private String idCard;
-
     private String idCardFront;
-
     private String idCardBack;
-
     private String address;
-
     private Date createTime;
-
     private Integer createUser;
-
     private Date updateTime;
-
     private Integer updateUser;
-
     private Boolean isDelete;
-    
+
     private RolePO rolePO;
     private DepartmentPO departmentPO;
     private UserPO createUserObj;
@@ -102,11 +84,11 @@ public class UserPO {
         this.realName = realName == null ? null : realName.trim();
     }
 
-    public Boolean getSex() {
+    public Byte getSex() {
         return sex;
     }
 
-    public void setSex(Boolean sex) {
+    public void setSex(Byte sex) {
         this.sex = sex;
     }
 
@@ -229,6 +211,5 @@ public class UserPO {
     public void setUpdateUserObj(UserPO updateUserObj) {
         this.updateUserObj = updateUserObj;
     }
-    
-    
+
 }

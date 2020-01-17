@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
+	<properties resource="db.properties" />
 	<context id="spring" targetRuntime="MyBatis3">
 		<commentGenerator>
 			<!-- 这个元素用来去除指定生成的注释中是否包含生成的日期 false:表示保护 -->
@@ -12,8 +13,8 @@
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 		<!--数据库URL，用户名、密码 -->
-		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/device" userId="deviceAdmin" password="deviceAdmin">
+		<jdbcConnection driverClass="${driver}" connectionURL="${url}" userId="${use}"
+			password="${pwd}">
 		</jdbcConnection>
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
@@ -23,15 +24,15 @@
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
+		<!--mapper.xml路径 -->
+		<sqlMapGenerator targetPackage="com.baidu.mapper" targetProject="src/test/java">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
 		<!--mapper接口路径 -->
 		<javaClientGenerator type="XMLMAPPER" targetPackage="com.baidu.mapper"
 			targetProject="src/test/java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
-		<!--mapper.xml路径 -->
-		<sqlMapGenerator targetPackage="com.baidu.mapper" targetProject="src/test/java">
-			<property name="enableSubPackages" value="true" />
-		</sqlMapGenerator>
 		<!-- tables -->
 		<table tableName="tb_cache_sequence" domainObjectName="CacheSequencePO"
 			enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
