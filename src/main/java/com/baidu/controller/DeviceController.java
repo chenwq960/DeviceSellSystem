@@ -2,83 +2,111 @@ package com.baidu.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.baidu.form.DeviceParam;
+import com.baidu.form.SearchParam;
 import com.baidu.po.DevicePO;
 import com.baidu.service.IDeviceService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+/**
+ * 设备相关接口
+ * 
+ * @author songyz
+ * @createTime 2020-01-17 17:52:49
+ */
 @Controller
 @RequestMapping("/device")
 public class DeviceController {
-    @Autowired
-    private IDeviceService service;
 
-    @ResponseBody
+    private static Logger logger = LoggerFactory.getLogger(DeviceController.class);
+
+    @Autowired
+    private IDeviceService deviceService;
+
+    /**
+     * 查询社保列表
+     * 
+     * @param searchParam
+     * @param modelAndView
+     * @return
+     */
     @RequestMapping("/list")
-    public ModelAndView list(@RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum,
-            @RequestParam(value = "seachKey",required = false)String seachKey,
-            @RequestParam(value = "startTime",required = false)String startTime,
-            @RequestParam(value = "endTime",required = false)String endTime) {
-        PageHelper.startPage(pageNum, 5);
-        List<DevicePO> seachDevice = service.seachDevice(seachKey,startTime,endTime);
-        PageInfo<DevicePO> pi = new PageInfo<DevicePO>(seachDevice);
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("list", seachDevice);
-        mav.addObject("limitmodel", pi);
-        mav.addObject("seachKey", seachKey);
-        mav.addObject("endTime", endTime);
-        mav.addObject("startTime", startTime);
-        mav.setViewName("device/list");
-        return mav;
+    public String list(SearchParam searchParam, ModelAndView modelAndView) {
+        PageHelper.startPage(searchParam.getPageNum(), searchParam.getPageSize());
+
+        List<DevicePO> deviceList = deviceService.searchDeviceList(searchParam);
+
+        PageInfo<DevicePO> pi = new PageInfo<>(deviceList);
+        modelAndView.addObject("list", deviceList);
+        modelAndView.addObject("limitmodel", pi);
+        modelAndView.addObject("searchParam", searchParam);
+
+        return "device/list";
     };
 
-    // 增加设备
+    /**
+     * 增加设备
+     * 
+     * @param deviceParam
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/create")
-    public boolean create(DevicePO devicePO, HttpSession session) {
+    public boolean create(DeviceParam deviceParam) {
         try {
-            service.create(devicePO, session);
+            deviceService.create(deviceParam);
+            return true;
         }
-        catch (Exception e) {
+        catch (Exception ext) {
+            logger.error("添加设备发生异常，param:{},exc:{}", deviceParam, ext);
             return false;
         }
-        return true;
-
     }
 
-    // 删除设备的
+    /**
+     * 逻辑删除设备
+     * 
+     * @param deviceId
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/delete")
     public boolean delete(Integer deviceId) {
         try {
-            service.delete(deviceId);
+            deviceService.delete(deviceId);
+            return true;
         }
-        catch (Exception e) {
+        catch (Exception ext) {
+            logger.error("修改设备发生异常，param:{},exc:{}", deviceId, ext);
             return false;
         }
-        return true;
     }
 
-    // 修改数据
+    /**
+     * 修改设备数据
+     * 
+     * @param deviceParam
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/update")
-    public boolean update(DevicePO devicePO, HttpSession session) {
+    public boolean update(DeviceParam deviceParam) {
         try {
-
-            service.update(devicePO, session);
+            deviceService.update(deviceParam);
+            return true;
         }
-        catch (Exception e) {
+        catch (Exception ext) {
+            logger.error("修改设备发生异常，param:{},exc:{}", deviceParam, ext);
             return false;
         }
-        return true;
     }
 }

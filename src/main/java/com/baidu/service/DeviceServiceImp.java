@@ -1,58 +1,76 @@
 package com.baidu.service;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baidu.form.DeviceParam;
+import com.baidu.form.SearchParam;
+import com.baidu.interceptor.CurrentContext;
 import com.baidu.mapper.DeviceMapper;
 import com.baidu.po.DevicePO;
-import com.baidu.po.UserPO;
+import com.baidu.service.CacheSequenceService.Entity;
 
 @Service
 public class DeviceServiceImp implements IDeviceService {
-    private static int count = 000000;
-    @Autowired
-    private DeviceMapper mapper;
 
-    public List<DevicePO> seachDevice(String seachKey, String startTime, String endTime) {
-        return mapper.seachDevice(seachKey, startTime, endTime);
+    @Autowired
+    private DeviceMapper deviceMapper;
+    @Autowired
+    private CacheSequenceService sequenceService;
+
+    @Override
+    public List<DevicePO> searchDeviceList(SearchParam searchParam) {
+        return deviceMapper.selectDeviceList(searchParam);
     }
 
     @Override
-    public void create(DevicePO DevicePO, HttpSession session) {
-        DevicePO.setCreateTime(new Date());
-        UserPO attribute = (UserPO) session.getAttribute("currentUser");
-        DevicePO.setCreateUser(attribute.getUserId());
-        DevicePO.setUpdateTime(new Date());
-        DevicePO.setUpdateUser(attribute.getUserId());
-        SimpleDateFormat datefm = new SimpleDateFormat("yyyy-mm");
-        String date = datefm.format(new Date());
-        date += "-" + (count++);
-        System.out.println("时间为" + date);
-        DevicePO.setDeviceCode(date);
-        DevicePO.setIsDelete(false);
-        System.out.println(count++ + "count的数量为");
-        mapper.insert(DevicePO);
+    public void create(DeviceParam deviceParam) {
+        DevicePO devicePO = new DevicePO();
+
+        // 使用Spring工具类进行字段拷贝
+        BeanUtils.copyProperties(deviceParam, devicePO);
+
+        // 添加数据处理
+        devicePO.setDeviceId(null);
+        devicePO.setCreateTime(new Date());
+        devicePO.setUpdateTime(new Date());
+        devicePO.setCreateUser(CurrentContext.getUser().getUserId());
+        devicePO.setUpdateUser(CurrentContext.getUser().getUserId());
+        devicePO.setIsDelete(false);
+
+        // 设备序列号生成
+        String sequenceKey = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        devicePO.setDeviceCode("DO-" + sequenceKey + "-" + sequenceService.getSequenceCode(Entity.DEVICE, sequenceKey));
+
+        deviceMapper.insert(devicePO);
     }
 
     @Override
     public void delete(Integer deviceId) {
-        mapper.deleteByPrimaryKey(deviceId);
+        DevicePO devicePO = deviceMapper.selectByPrimaryKey(deviceId);
 
+        devicePO.setIsDelete(true);
+        devicePO.setUpdateTime(new Date());
+        devicePO.setUpdateUser(CurrentContext.getUser().getUserId());
+        deviceMapper.updateByPrimaryKey(devicePO);
     }
 
-    @SuppressWarnings("unused")
     @Override
-    public void update(DevicePO DevicePO, HttpSession session) {
-        DevicePO.setUpdateTime(new Date());
-        UserPO attribute = (UserPO) session.getAttribute("currentUser");
-        DevicePO.setUpdateUser(attribute.getUserId());
-        int updateByPrimaryKey = mapper.updateByPrimaryKey(DevicePO);
+    public void update(DeviceParam deviceParam) {
+        DevicePO devicePO = deviceMapper.selectByPrimaryKey(deviceParam.getDeviceId());
+
+        devicePO.setDeviceName(deviceParam.getDeviceName());
+        devicePO.setDeviceModel(deviceParam.getDeviceModel());
+
+        devicePO.setUpdateTime(new Date());
+        devicePO.setUpdateUser(CurrentContext.getUser().getUserId());
+        deviceMapper.updateByPrimaryKey(devicePO);
     }
 
 }
