@@ -3,47 +3,38 @@ package com.baidu.po;
 import java.util.Date;
 
 public class DevicePO {
+
     private Integer deviceId;
-
     private String deviceName;
-
     private String deviceCode;
-
     private String deviceModel;
-
     private Integer createUser;
-
     private Date createTime;
-
     private Integer updateUser;
-
     private Date updateTime;
+    private Boolean isDelete;
 
-    private Byte isDelete;
-    
     private String createUserName;
-    
-    
 
     public DevicePO(Integer deviceId, String deviceName, String deviceCode, String deviceModel, Integer createUser,
-			Date createTime, Integer updateUser, Date updateTime, Byte isDelete) {
-		super();
-		this.deviceId = deviceId;
-		this.deviceName = deviceName;
-		this.deviceCode = deviceCode;
-		this.deviceModel = deviceModel;
-		this.createUser = createUser;
-		this.createTime = createTime;
-		this.updateUser = updateUser;
-		this.updateTime = updateTime;
-		this.isDelete = isDelete;
-	}
+            Date createTime, Integer updateUser, Date updateTime, Boolean isDelete) {
+        super();
+        this.deviceId = deviceId;
+        this.deviceName = deviceName;
+        this.deviceCode = deviceCode;
+        this.deviceModel = deviceModel;
+        this.createUser = createUser;
+        this.createTime = createTime;
+        this.updateUser = updateUser;
+        this.updateTime = updateTime;
+        this.isDelete = isDelete;
+    }
 
-	public DevicePO() {
-		super();
-	}
+    public DevicePO() {
+        super();
+    }
 
-	public Integer getDeviceId() {
+    public Integer getDeviceId() {
         return deviceId;
     }
 
@@ -107,29 +98,20 @@ public class DevicePO {
         this.updateTime = updateTime;
     }
 
-    public Byte getIsDelete() {
+    public Boolean getIsDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(Byte isDelete) {
+    public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
     }
-	public String getCreateUserName() {
-		return createUserName;
-	}
 
-	/**
-	 * @param createUserName the createUserName to set
-	 */
-	public void setCreateUserName(String createUserName) {
-		this.createUserName = createUserName;
-	}
+    public String getCreateUserName() {
+        return createUserName;
+    }
 
-	@Override
-	public String toString() {
-		return "device [deviceId=" + deviceId + ", deviceName=" + deviceName + ", deviceCode=" + deviceCode
-				+ ", deviceModel=" + deviceModel + ", createUser=" + createUser + ", createTime=" + createTime
-				+ ", updateUser=" + updateUser + ", updateTime=" + updateTime + ", isDelete=" + isDelete + "]";
-	}
-    
+    public void setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
+    }
+
 }

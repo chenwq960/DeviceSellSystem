@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.mapper.SaleDevicePOMapper">
+  <resultMap id="BaseResultMap" type="com.baidu.po.SaleDevicePO">
+    <id column="record_id" jdbcType="INTEGER" property="recordId" />
+    <result column="station_id" jdbcType="INTEGER" property="stationId" />
+    <result column="device_id" jdbcType="INTEGER" property="deviceId" />
+    <result column="sale_user" jdbcType="INTEGER" property="saleUser" />
+    <result column="sale_time" jdbcType="TIMESTAMP" property="saleTime" />
+    <result column="sale_number" jdbcType="INTEGER" property="saleNumber" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    record_id, station_id, device_id, sale_user, sale_time, sale_number, remark, create_user, 
+    create_time, update_user, update_time, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_sale_device
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_sale_device
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.baidu.po.SaleDevicePO">
+    insert into tb_sale_device (record_id, station_id, device_id, 
+      sale_user, sale_time, sale_number, 
+      remark, create_user, create_time, 
+      update_user, update_time, is_delete
+      )
+    values (#{recordId,jdbcType=INTEGER}, #{stationId,jdbcType=INTEGER}, #{deviceId,jdbcType=INTEGER}, 
+      #{saleUser,jdbcType=INTEGER}, #{saleTime,jdbcType=TIMESTAMP}, #{saleNumber,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.baidu.po.SaleDevicePO">
+    insert into tb_sale_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        record_id,
+      </if>
+      <if test="stationId != null">
+        station_id,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="saleUser != null">
+        sale_user,
+      </if>
+      <if test="saleTime != null">
+        sale_time,
+      </if>
+      <if test="saleNumber != null">
+        sale_number,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordId != null">
+        #{recordId,jdbcType=INTEGER},
+      </if>
+      <if test="stationId != null">
+        #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="saleUser != null">
+        #{saleUser,jdbcType=INTEGER},
+      </if>
+      <if test="saleTime != null">
+        #{saleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="saleNumber != null">
+        #{saleNumber,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.SaleDevicePO">
+    update tb_sale_device
+    <set>
+      <if test="stationId != null">
+        station_id = #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="saleUser != null">
+        sale_user = #{saleUser,jdbcType=INTEGER},
+      </if>
+      <if test="saleTime != null">
+        sale_time = #{saleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="saleNumber != null">
+        sale_number = #{saleNumber,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+    </set>
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baidu.po.SaleDevicePO">
+    update tb_sale_device
+    set station_id = #{stationId,jdbcType=INTEGER},
+      device_id = #{deviceId,jdbcType=INTEGER},
+      sale_user = #{saleUser,jdbcType=INTEGER},
+      sale_time = #{saleTime,jdbcType=TIMESTAMP},
+      sale_number = #{saleNumber,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=TINYINT}
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </update>
+</mapper>

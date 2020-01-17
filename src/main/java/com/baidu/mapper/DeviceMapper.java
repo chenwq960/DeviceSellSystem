@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.baidu.po.DevicePO;
 
-public interface deviceMapper {
+public interface DeviceMapper {
     int deleteByPrimaryKey(Integer deviceId);
 
     int insert(DevicePO record);

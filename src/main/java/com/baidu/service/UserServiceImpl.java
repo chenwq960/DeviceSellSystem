@@ -57,7 +57,7 @@ public class UserServiceImpl implements IUserService {
         userPO.setNation(idCardFrontInfo.getNation());
         userPO.setAddress(idCardFrontInfo.getAddress());
         userPO.setIdCard(idCardFrontInfo.getIdCard());
-        userPO.setSex(idCardFrontInfo.getSex() == "男" ? 1 : 2);
+        userPO.setSex((byte) (idCardFrontInfo.getSex() == "男" ? 1 : 2));
         userPO.setIdCardFront(subPath);
         userPO.setBirthday(new Date());
 
@@ -65,7 +65,7 @@ public class UserServiceImpl implements IUserService {
         userPO.setUpdateUser(CurrentContext.getUser().getUserId());
         userPO.setCreateTime(new Date());
         userPO.setUpdateTime(new Date());
-        userPO.setIsDelete(0);
+        userPO.setIsDelete(false);
         @SuppressWarnings("unused")
         int insert = userMapper.insert(userPO);
     }
