@@ -1,8 +1,5 @@
 package com.baidu.form;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.springframework.web.multipart.MultipartFile;
 
 public class UserParam {
@@ -69,10 +66,6 @@ public class UserParam {
 
     public void setIdCardFile(MultipartFile idCardFile) {
         this.idCardFile = idCardFile;
-    }
-
-    public void transferIdCardFile(File distFile) throws IllegalStateException, IOException {
-        this.idCardFile.transferTo(distFile);
     }
 
 }

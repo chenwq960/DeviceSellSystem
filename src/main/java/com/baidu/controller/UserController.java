@@ -9,16 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.baidu.form.SearchParam;
 import com.baidu.form.UserParam;
 import com.baidu.interceptor.CurrentContext;
 import com.baidu.po.UserPO;
+import com.baidu.service.IFileService;
 import com.baidu.service.IUserService;
 import com.baidu.util.CommonUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 /**
  * 人员相关接口
@@ -32,6 +38,9 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
+    @Autowired
+    @Qualifier("localFileService")
+    private IFileService fileService;
 
     // 登陆的验证方法
     @RequestMapping("/login")
@@ -63,19 +72,26 @@ public class UserController {
 
     // 查看所有的方法
     @RequestMapping("/list")
-    public ModelAndView list() {
-        List<UserPO> list = userService.showUser();
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("list", list);
-        mav.setViewName("user/list");
-        return mav;
+    public String list(SearchParam searchParam, ModelMap modelMap) {
+        PageHelper.startPage(searchParam.getPageNum(), searchParam.getPageSize());
+
+        List<UserPO> userList = userService.showUser();
+
+        PageInfo<UserPO> pi = new PageInfo<>(userList);
+        modelMap.put("list", userList);
+        modelMap.put("limitmodel", pi);
+        modelMap.put("searchParam", searchParam);
+
+        return "user/list";
     }
 
     // 查看详细的方法
     @ResponseBody
     @RequestMapping("/detailed")
     public UserPO detailed(String userId) {
-        return userService.showDetailed(userId);
+        UserPO userPO = userService.showDetailed(userId);
+        userPO.setIdCardFront(fileService.getHost() + userPO.getIdCardFront());
+        return userPO;
     }
 
     // 增加的方法

@@ -51,7 +51,7 @@ font {
 		</div>
 
 		<div class="input-group">
-			<font>照片：</font> <img id="idCardFront" alt="" src="">
+			<font>照片：</font> <img id="idCardFront" alt="号身份证" width="300" src="">
 		</div>
 
 		<div class="input-group">
@@ -87,7 +87,6 @@ font {
 </body>
 <script type="text/javascript">
 	$(function() {
-		alert("${param.userId}")
 		$.post("${ctx}/user/detailed.do", {
 			userId : "${param.userId}"
 		}, function(user) {
@@ -99,7 +98,7 @@ font {
 			$("input[name=nation]").val(user.nation)
 			$("input[name=birthday]").val(user.birthday)
 			$("input[name=address]").val(user.address)
-			$("#idCardFront").attr("src", "${ctx}" + user.idCardFront)
+			$("#idCardFront").attr("src", user.idCardFront)
 			$("input[name=createTime]").val(user.createTime)
 			$("input[name=createUser]").val(user.createUser)
 			$("input[name=updateTime]").val(user.updateTime)

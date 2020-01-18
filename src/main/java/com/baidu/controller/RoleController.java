@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,9 @@ import com.github.pagehelper.PageInfo;
 @Controller
 @RequestMapping("/role")
 public class RoleController {
+
+    private static Logger logger = LoggerFactory.getLogger(RoleController.class);
+
     @Autowired
     private IRoleService roleService;
 
@@ -30,10 +35,10 @@ public class RoleController {
     public ModelAndView roleFind(//
             @RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum,
             @RequestParam(value = "searchKey", required = false) String searchKey,
-            @RequestParam(value = "startTime",required = false)String startTime,
-            @RequestParam(value = "endTime",required = false)String endTime) {
+            @RequestParam(value = "startTime", required = false) String startTime,
+            @RequestParam(value = "endTime", required = false) String endTime) {
         PageHelper.startPage(pageNum, 5);
-        List<RolePO> roleList = roleService.queryList(searchKey,startTime,endTime);
+        List<RolePO> roleList = roleService.queryList(searchKey, startTime, endTime);
         PageInfo<RolePO> pi = new PageInfo<RolePO>(roleList);
         ModelAndView mav = new ModelAndView();
         mav.addObject("role", roleList);
@@ -55,7 +60,9 @@ public class RoleController {
             roleService.createRole(roleName, user.getUserId());
             return true;
         }
-        catch (Exception e) {
+        catch (Exception ext) {
+            logger.error("添加角色发生异常，param:{},exc:{}", roleName, ext);
+
             return false;
         }
     }

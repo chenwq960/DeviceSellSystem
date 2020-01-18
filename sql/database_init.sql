@@ -3,7 +3,6 @@ DROP DATABASE IF EXISTS device;
 CREATE DATABASE IF NOT EXISTS `device` CHARACTER SET 'utf8mb4';
 
 -- 创建用户
-drop user 'deviceAdmin'@'%' ;
 CREATE USER 'deviceAdmin'@'%' IDENTIFIED BY 'deviceAdmin';
 
 -- 对用户进行授权数据库
