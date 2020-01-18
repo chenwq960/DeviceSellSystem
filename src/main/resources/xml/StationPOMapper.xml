@@ -223,5 +223,9 @@
   	 	where parent_region_id = #{userId}
 	</select>
 	
+	<select id="selectStationName"  parameterType="java.lang.Integer" resultType="java.lang.String">
+		select station_name from tb_station where station_id = #{stationId}
+	</select>
+	
 	
 </mapper>

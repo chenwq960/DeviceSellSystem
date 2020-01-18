@@ -38,12 +38,12 @@ input {
 				<td colspan="111">
 					<form action="${ctx}/device/list.do" method="post">
 						<div class="pull-left">
-							<input type="text" name="seachKey" value="${seachKey}"> <input
+							<input type="text" name="seachKey" value="${searchParam.seachKey}"> <input
 								type="submit" value="搜索" style="width: 50px;">
 						</div>
 						<div class="pull-right">
-							<input type="text" name="startTime" value="${startTime}">----
-							<input type="text" name="endTime" value="${endTime}">
+							<input type="text" name="startTime" value="${searchParam.startTime}">----
+							<input type="text" name="endTime" value="${searchParam.endTime}">
 						</div>
 					</form>
 				</td>

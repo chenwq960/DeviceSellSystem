@@ -39,15 +39,17 @@
 					<div class="row">
 						<a href="${ctx}/station/list.do" target="myIframe">服务网点</a>
 					</div>
+					<div class="row">
+						<a href="${ctx}/saleDevice/list.do" target="myIframe">设备销售</a>
+					</div>
 				</div>
 				<div class="col-md-9 pull-left right">
-					<iframe name="myIframe" class="col-md-12" src="${ctx}/station/list.do"></iframe>
+					<iframe name="myIframe" class="col-md-12"
+						src="${ctx}/station/list.do"></iframe>
 				</div>
 			</div>
 
 		</div>
-	</div>
-	</div>
 	</div>
 </body>
 

@@ -24,6 +24,7 @@ font {
 <body>
 	<div class="container">
 		<form>
+			
 			<div class="input-group">
 				<font>网点名称</font> <input type="text" class="form-control"
 					name="stationName">

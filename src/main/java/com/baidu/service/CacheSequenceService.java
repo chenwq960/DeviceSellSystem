@@ -19,7 +19,7 @@ import com.baidu.po.CacheSequencePO;
 @Component
 public class CacheSequenceService {
 
-    private static Format numberFormat = new DecimalFormat("0000");
+    private static Format numberFormat = new DecimalFormat("000000");
 
     static enum Entity {
         DEVICE

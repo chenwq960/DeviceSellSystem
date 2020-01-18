@@ -9,7 +9,6 @@
 <title>Insert title here</title>
 <script src="${ctx}/static/js/jquery-1.8.3.js"></script>
 <link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet">
-<script src="${ctx}/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
 	<div>
@@ -20,6 +19,7 @@
 				</td>
 			</tr>
 			<tr>
+				<td>服务网点:</td>
 				<td>省份:</td>
 				<td>市区：:</td>
 				<td>县城:</td>
@@ -32,6 +32,7 @@
 			</tr>
 			<c:forEach items="${list}" var="s">
 				<tr>
+					<td>${s.stationName}</td>
 					<td>${s.provinceName}</td>
 					<td>${s.cityName}</td>
 					<td>${s.countyName}</td>

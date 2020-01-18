@@ -7,7 +7,7 @@ import com.baidu.po.StationPO;
 
 public interface IStationService {
 
-    List<StationPO> list();
+    List<StationPO> getStationList();
 
     void create(StationPO station);
 

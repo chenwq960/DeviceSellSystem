@@ -45,7 +45,7 @@ public class DeviceServiceImp implements IDeviceService {
         devicePO.setIsDelete(false);
 
         // 设备序列号生成
-        String sequenceKey = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        String sequenceKey = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMM"));
         devicePO.setDeviceCode("DO-" + sequenceKey + "-" + sequenceService.getSequenceCode(Entity.DEVICE, sequenceKey));
 
         deviceMapper.insert(devicePO);

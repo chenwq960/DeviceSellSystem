@@ -145,4 +145,10 @@
       is_delete = #{isDelete,jdbcType=BIT}
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
+  
+  
+  <!-- 子查询 -->
+  <select id="selectRoleName" parameterType="java.lang.Integer" resultType="java.lang.String">
+  	select role_name from tb_role where role_id = #{RoleId}
+  </select>
 </mapper>
