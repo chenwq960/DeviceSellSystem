@@ -10,16 +10,30 @@
 <link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet">
 <script src="${ctx}/My97DatePicker/WdatePicker.js"></script>
 <style type="text/css">
-	font{
-		font-size:16px;
-		line-height:45px;
-	}
+font {
+	font-size: 16px;
+	line-height: 45px;
+}
 </style>
 </head>
+<script type="text/javascript">
+	function submitDeviceForm() {
+		$.post("${ctx}/device/create.do", $("#form").serialize(),
+				function(obj) {
+					if (obj) {
+						alert("添加成功")
+						location.href = "${ctx}/device/list.do"
+					} else {
+						alert("添加失败")
+					}
+				});
 
+		return false;
+	}
+</script>
 <body>
 	<div class="container">
-		<form id="form">
+		<form id="form" onsubmit="return submitDeviceForm()">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="input-group">
 					<font>设备名称：</font> <input type="text" class="form-control"
@@ -36,21 +50,5 @@
 		</form>
 	</div>
 </body>
-<script type="text/javascript">
-	$("input[type=submit]").click(function(){
-		$.post(
-			"${ctx}/device/create.do",
-			$("#form").serialize(),
-			function(obj){
-				if(obj){
-					alert("添加成功")
-					location.href="${ctx}/device/list.do"
-				}else{
-					alert("添加失败")
-				}
-			}
-		)
-	})
-</script>
 
 </html>

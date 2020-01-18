@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.baidu.form.DeviceParam;
 import com.baidu.form.SearchParam;
@@ -34,25 +34,27 @@ public class DeviceController {
 
     /**
      * 查询社保列表
-     * 
      * @param searchParam
      * @param modelAndView
      * @return
      */
     @RequestMapping("/list")
-    public String list(SearchParam searchParam, ModelAndView modelAndView) {
+    public String list(SearchParam searchParam, ModelMap modelMap) {
         PageHelper.startPage(searchParam.getPageNum(), searchParam.getPageSize());
-
         List<DevicePO> deviceList = deviceService.searchDeviceList(searchParam);
-
         PageInfo<DevicePO> pi = new PageInfo<>(deviceList);
-        modelAndView.addObject("list", deviceList);
-        modelAndView.addObject("limitmodel", pi);
-        modelAndView.addObject("searchParam", searchParam);
-
+        modelMap.put("list", deviceList);
+        modelMap.put("limitmodel", pi);
+        modelMap.put("searchParam", searchParam);
         return "device/list";
     };
-
+//查询所有的设备转发到设备销售中
+    @ResponseBody
+    @RequestMapping("/selectDevice")
+    public List<DevicePO> selectDevice() {
+        List<DevicePO> deviceList = deviceService.searchDeviceList(null);
+        return deviceList;
+    }
     /**
      * 增加设备
      * 

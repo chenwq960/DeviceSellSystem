@@ -14,6 +14,14 @@
     <result column="update_user" jdbcType="INTEGER" property="updateUser" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+
+	<association column="create_user" property="createUserName" select="com.baidu.mapper.RoleMapper.selectUserName"></association>    
+    <association column="device_id" property="saleDeviceName" select="com.baidu.mapper.DeviceMapper.selectDeviceName"></association>
+    <association column="device_id" property="saleDeviceModel" select="com.baidu.mapper.DeviceMapper.selectDeviceModel"></association>
+    <association column="station_id" property="stationName" select="com.baidu.mapper.StationPOMapper.selectStationName"></association>
+    <association column="sale_user" property="roleName" select="com.baidu.mapper.RoleMapper.selectRoleName"></association>
+    
+    
   </resultMap>
   <sql id="Base_Column_List">
     record_id, station_id, device_id, sale_user, sale_time, sale_number, remark, create_user, 
@@ -174,4 +182,16 @@
       is_delete = #{isDelete,jdbcType=TINYINT}
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  
+  <select id="selectList" resultMap="BaseResultMap">
+   	select 
+    <include refid="Base_Column_List" />
+    from tb_sale_device
+    where is_delete = 0
+  </select>
+  
+  
 </mapper>

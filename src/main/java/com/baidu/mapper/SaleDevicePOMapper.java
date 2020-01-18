@@ -1,5 +1,7 @@
 package com.baidu.mapper;
 
+import java.util.List;
+
 import com.baidu.po.SaleDevicePO;
 
 public interface SaleDevicePOMapper {
@@ -14,4 +16,6 @@ public interface SaleDevicePOMapper {
     int updateByPrimaryKeySelective(SaleDevicePO record);
 
     int updateByPrimaryKey(SaleDevicePO record);
+
+    List<SaleDevicePO> selectList();
 }

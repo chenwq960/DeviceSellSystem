@@ -44,7 +44,14 @@ public class RoleController {
         mav.setViewName("role/list");
         return mav;
     }
-
+//查询所有的事角色  作为销售人员
+    @ResponseBody
+    @RequestMapping("/roleName")
+    public List<RolePO> roleName() {
+        List<RolePO> roleList = roleService.queryList(null,null,null);
+        return roleList;
+    }
+    
     // 角色增加的方法
     @ResponseBody
     @RequestMapping("/create")
