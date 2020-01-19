@@ -6,10 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>人员表</title>
+<title>部门表</title>
 <script src="${ctx}/static/js/jquery-1.8.3.js"></script>
 <link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet" />
-<script src="${ctx}/javascript/jquery.cookie.js"></script>
 <style type="text/css">
 ul li {
 	list-style: none;
@@ -34,22 +33,22 @@ input {
 	<div class="container">
 		<table class="table table-hover table-bordered table-striped">
 			<tr>
-				<form action="${ctx}/department/list.do" method="post">
-					<td colspan="111">
+				<td colspan="111">
+					<form action="${ctx}/department/list.do" method="post">
 						<div class="pull-left">
-							<input type="text" name="searchKey" width="100px;"
-								value="${searchKey}"> <input type="submit" value="搜索"
+							<input type="text" name="seachKey" width="100px;"
+								value="${searchparam.searchKey}"> <input type="submit" value="搜索"
 								style="width: 50px">
-						</div>
-						<div class="pull-right">
-							<label> 开始： <input type="text" name="startTime"
-								value="${starttime}"> -- 结束 <input type="text"
-								name="endTime" value="${endTime}">
+							</div>
+							<div class="pull-right">
+								<label> 开始： <input type="text" name="startTime"
+								value="${searchparam.starttime}"> -- 结束 <input type="text"
+								name="endTime" value="${searchparam.endTime}">
 							</label>
 						</div>
-					</td>
-				</form>
-			</tr>
+					</form>
+				    </td>
+				</tr>
 			<tr>
 				<td>部门名称：</td>
 				<td>创建时间：</td>

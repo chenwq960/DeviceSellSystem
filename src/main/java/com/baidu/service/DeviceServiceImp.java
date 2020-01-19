@@ -32,10 +32,8 @@ public class DeviceServiceImp implements IDeviceService {
     @Override
     public void create(DeviceParam deviceParam) {
         DevicePO devicePO = new DevicePO();
-
         // 使用Spring工具类进行字段拷贝
         BeanUtils.copyProperties(deviceParam, devicePO);
-
         // 添加数据处理
         devicePO.setDeviceId(null);
         devicePO.setCreateTime(new Date());

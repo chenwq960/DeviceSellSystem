@@ -26,7 +26,14 @@ table {
 			<td width="40%">
 				<div id="roleBarChar" style="width: 100%; height: 400px;"></div>
 			</td>
-			<td></td>
+			<td width="30%">
+				<div id="departmentPieDiagramChar"  style="width: 100%; height: 400px;"></div>
+			</td>
+		</tr>
+		<tr>
+			<td width="30%">
+				<div id="userCreateTimeLine"  style="width: 100%; height: 400px;"></div>
+			</td>
 		</tr>
 	</table>
 
@@ -36,5 +43,6 @@ table {
 <script src="${ctx}/static/plugins/echarts/echarts.min.js"></script>
 <script src="${ctx}/static/js/report/base.role.pie.js"></script>
 <script src="${ctx}/static/js/report/base.role.bar.js"></script>
+<script src="${ctx}/static/js/report/baes.role.pieDiagram.js"></script>
 
 </html>

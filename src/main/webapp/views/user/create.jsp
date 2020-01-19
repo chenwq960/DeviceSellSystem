@@ -10,7 +10,6 @@
 <title>Insert title here</title>
 <script src="${ctx}/static/js/jquery-1.8.3.js"></script>
 <link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet">
-<script src="${ctx}/My97DatePicker/WdatePicker.js"></script>
 <style type="text/css">
 font {
 	line-height: 45px;

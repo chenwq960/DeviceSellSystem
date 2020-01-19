@@ -32,7 +32,7 @@ public class RoleController {
     // 角色表的查询方式
     @RequestMapping("/list")
     @ResponseBody
-    public ModelAndView roleFind(//
+    public ModelAndView roleFind(
             @RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum,
             @RequestParam(value = "searchKey", required = false) String searchKey,
             @RequestParam(value = "startTime", required = false) String startTime,
@@ -63,14 +63,12 @@ public class RoleController {
     @RequestMapping("/create")
     public boolean createRole(String roleName, HttpSession session) {
         UserPO user = CurrentContext.getUser();
-
         try {
             roleService.createRole(roleName, user.getUserId());
             return true;
         }
         catch (Exception ext) {
             logger.error("添加角色发生异常，param:{},exc:{}", roleName, ext);
-
             return false;
         }
     }
@@ -80,10 +78,15 @@ public class RoleController {
     @RequestMapping("/update")
     public boolean updateRole(RolePO rolePO, HttpSession session) {
         int userId = UserPO.class.cast(session.getAttribute("currentUser")).getUserId();
-        roleService.updateRole(rolePO, userId);
-        return true;
+        try {
+            roleService.updateRole(rolePO, userId);
+            return true;
+        }
+        catch (Exception e) {
+            logger.error("角色修改发生异常param{}",rolePO);
+            return false;
+        }
     }
-
     // 角色表格删除的方法
     @ResponseBody
     @RequestMapping("/delete")
@@ -91,7 +94,6 @@ public class RoleController {
         roleService.deleteRole(roleId);
         return true;
     }
-
     // 角色回显的方法
     @ResponseBody
     @RequestMapping("/detail")

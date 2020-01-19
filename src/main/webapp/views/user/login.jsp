@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 <script src="${ctx}/javascript/jquery-1.8.3.js"></script>
 <link href="${ctx}/javascript/bootstrap.min.css" rel="stylesheet"/>
-<script src="${ctx}/javascript/jquery.cookie.js"></script>
 <style type="text/css">
 	font {
 		line-height: 40px;

@@ -27,8 +27,8 @@
     <include refid="Base_Column_List" />
     from tb_department
     where is_delete = 0
-    <if test="searchKey != null and searchKey != ''">
-    	and department_name like concat('%',#{searchKey},'%')
+    <if test="seachKey != null and seachKey != ''">
+    	and department_name like concat('%',#{seachKey},'%')
     </if>
     <if test="startTime != null">
     	and create_time &gt;= #{startTime}
@@ -141,6 +141,12 @@
   	select 
     user_name 
     from tb_user where user_id = #{userId}
+  </select>
+  
+  
+  <select id="ofThereDepartment"   resultType="java.lang.String" parameterType="java.lang.Integer">
+  	select department_name from tb_department where department_id = #{departmentId}
+  	
   </select>
   
   

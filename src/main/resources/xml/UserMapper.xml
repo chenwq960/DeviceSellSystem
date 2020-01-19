@@ -21,6 +21,13 @@
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
 		<result column="update_user" property="updateUser" jdbcType="INTEGER" />
 		<result column="is_delete" property="isDelete" jdbcType="BIT" />
+		<association column="department_id" property="ofThereDepartment" select="com.baidu.mapper.DepartmentMapper.ofThereDepartment"></association>
+		<association column="create_user" property="createUserName" select="com.baidu.mapper.RoleMapper.selectRoleName"></association>
+		
+		
+		
+		
+		
 	</resultMap>
 	<resultMap id="ResultMap" type="com.baidu.po.UserPO" extends="BaseResultMap">
 
@@ -45,6 +52,13 @@
 		from tb_user
 		where user_id = #{userId,jdbcType=INTEGER}
 	</select>
+	
+	
+	
+	
+	
+	
+	
 	<select id="selectByAccount" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />

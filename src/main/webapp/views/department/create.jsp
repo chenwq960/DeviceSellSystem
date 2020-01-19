@@ -10,15 +10,21 @@
 <script src="${ctx}/static/js/jquery-1.8.3.js"></script>
 <link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet"/>
 <script src="${ctx}/javascript/jquery.cookie.js"></script>
-<script src="${ctx}/My97DatePicker/WdatePicker.js"></script>
 </head>
+<style>
+	span{
+		color:red;
+		display: none;
+	}
+</style>
 <body>
 	<div class="container">
 		<form id="form">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="input-group">
 				  <font>部门名称</font>
-				  <input type="text" class="form-control" name="departmentName">
+				  <input type="text" class="form-control" name="departmentName"><br/>
+				  <span>部门不可为空</span>
 				</div>
 			</div>
 			<input type="button" onclick="createdepartment()" value="提交数据" class="btn btn-info" >
@@ -27,18 +33,27 @@
 </body>
 <script type="text/javascript">
 	function  createdepartment() {
-		$.post(
-			"${ctx}/department/createdepartment.do",
-			$("#form").serialize(),
-			function(obj){
-				if(obj){
-					alert("添加成功")
-					location.href="${ctx}/department/list.do"
-				}else{
-					alert("添加失败")
-				}
-			}
-		)
+		let aim = $("input[name=departmentName]").val()
+		if(aim != null && aim != ""){
+			$.post(
+					"${ctx}/department/createdepartment.do",
+					$("#form").serialize(),
+					function(obj){
+						if(obj){
+							alert("添加成功")
+							$("span").css("display","none")
+							location.href="${ctx}/department/list.do"
+						}else{
+							alert("添加失败")
+						}
+					}
+				)
+		}
+		else{
+			$("span").css("display","inline")
+		}
+		
+		
 	}
 </script>
 </html>

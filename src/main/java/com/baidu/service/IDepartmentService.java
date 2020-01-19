@@ -2,15 +2,14 @@ package com.baidu.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
+import com.baidu.form.SearchParam;
 import com.baidu.po.DepartmentPO;
 
 public interface IDepartmentService {
 
-	List<DepartmentPO> departmentFind(String searchKey,String startTime, String endTime);
+	List<DepartmentPO> departmentFind(SearchParam searchParam);
 
-	int createdepartment(DepartmentPO departmentPO,HttpSession session);
+	int createdepartment(DepartmentPO departmentPO);
 
 	void departmentdel(Integer id);
 

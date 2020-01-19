@@ -10,7 +10,6 @@
 <title>Insert title here</title>
 <script src="${ctx}/static/js/jquery-1.8.3.js"></script>
 <link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet">
-<script src="${ctx}/My97DatePicker/WdatePicker.js"></script>
 <style type="text/css">
 ul li {
 	list-style: none;
@@ -74,8 +73,10 @@ input {
 					<td><fmt:formatDate value="${s.updateTime}"
 							pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<td><a
-						href="${ctx}/views/user/detailed.jsp?userId=${s.userId}">查看详细</a>
-						<button onclick="userDelete(${s.userId})">删除</button></td>
+						href="${ctx}/views/user/detailed.jsp?userId=${s.userId}">查看详细</a><br/>
+						<button onclick="userDelete(${s.userId})">删除</button>
+						<button onclick="location.href='${ctx}/views/user/update.jsp?userId=${s.userId}'">修改</button>
+						</td>
 				</tr>
 			</c:forEach>
 		</table>

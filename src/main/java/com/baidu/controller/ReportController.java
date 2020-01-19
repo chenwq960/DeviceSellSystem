@@ -1,5 +1,6 @@
 package com.baidu.controller;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,16 @@ public class ReportController {
     public Map<String, Integer> getRoleUserData() {
 
         return reportService.queryRoleUserData();
+    }
+    
+    @RequestMapping("/departmentApply")
+    public Map<String,Integer> getDepartmentApply(){
+        return reportService.queryDepartmentApply();
+    }
+    @RequestMapping("/userCreateTime")
+    public Map<String,Date> selectUserCreateTime() {
+        Map<String, Date> selectUserCreateTime = reportService.selectUserCreateTime();
+        return selectUserCreateTime;
     }
 
 }

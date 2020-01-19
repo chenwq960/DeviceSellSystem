@@ -15,7 +15,7 @@ public interface DepartmentMapper {
 
 	DepartmentPO selectByPrimaryKey(Integer departmentId);
 
-	List<DepartmentPO> selectList(@Param("searchKey")String searchKey,@Param("startTime")String startTime,@Param("endTime")String endTime);
+	List<DepartmentPO> selectList(@Param("seachKey")String seachKey,@Param("startTime")String startTime,@Param("endTime")String endTime);
 
 	int updateByPrimaryKeySelective(DepartmentPO record);
 

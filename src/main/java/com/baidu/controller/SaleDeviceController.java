@@ -95,6 +95,7 @@ public class SaleDeviceController {
             return true;
         }
         catch (Exception e) {
+            logger.error("删除发生异常,param:{},exc:{}",stationId,e);
             return false;
         }
     }

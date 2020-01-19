@@ -81,10 +81,10 @@ input {
 		<div class="row">
 			<div class="pull-right">
 				<ul>
-					<li>${limitmodel.pageNum }/${limitmodel.pages },共${limitmodel.pages }</li>
-					<li onclick="getlimit('${limitmodel.prePage}')"><<</li>
-					<li class="number" onclick="getlimit(1)">1</li>
-					<li onclick="getlimit(${limitmodel.nextPage})">>></li>
+					<li>${pageInfo.pageNum }/${pageInfo.pages },共${pageInfo.pages }</li>
+					<li onclick="pageInfo'${pageInfo.prePage}')"><<</li>
+					<li class="number" onclick="pageInfo(1)">1</li>
+					<li onclick="pageInfo">>></li>
 				</ul>
 			</div>
 		</div>
@@ -92,7 +92,7 @@ input {
 </body>
 <script type="text/javascript">
 //改变页数的
-function getlimit(id){
+function pageInfo(id){
 	location.href="${ctx}/device/list.do?pageNum="+id
 }
 //删除的

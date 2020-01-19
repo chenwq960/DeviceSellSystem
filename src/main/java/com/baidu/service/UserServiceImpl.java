@@ -77,8 +77,7 @@ public class UserServiceImpl implements IUserService {
     // 删除用户
     @Override
     public void delete(Integer userId) {
-        @SuppressWarnings("unused")
-        int deleteByPrimaryKey = userMapper.deleteByPrimaryKey(userId);
+        userMapper.deleteByPrimaryKey(userId);
     }
 
 }

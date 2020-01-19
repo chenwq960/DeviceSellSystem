@@ -17,7 +17,7 @@
 				<div class="pull-left col-md-10 text-left">
 					<h3>销售管理系统</h3>
 				</div>
-				<div class="pull-right col-md-2" id="userModel">欢迎：${currentUser.userName}</div>
+				<div class="pull-right col-md-2" id="userModel">欢迎：${currentUser.userName}&nbsp;&nbsp;<a href="${ctx}/views/user/login.jsp" style="color:white;font-size:12px">退出登录</a></div>
 			</div>
 
 		</nav>
@@ -48,7 +48,7 @@
 				</div>
 				<div class="col-md-9 pull-left right">
 					<iframe name="myIframe" class="col-md-12"
-						src="${ctx}/station/list.do"></iframe>
+						></iframe>
 				</div>
 			</div>
 

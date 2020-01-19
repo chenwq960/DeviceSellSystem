@@ -1,8 +1,14 @@
 package com.baidu.po;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserPO {
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+public class UserPO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private Integer userId;
     private Integer roleId;
     private Integer departmentId;
@@ -19,9 +25,12 @@ public class UserPO {
     private String address;
     private Date createTime;
     private Integer createUser;
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date updateTime;
     private Integer updateUser;
     private Boolean isDelete;
+    private String createUserName;
+    private String ofThereDepartment;
 
     private RolePO rolePO;
     private DepartmentPO departmentPO;
@@ -30,6 +39,22 @@ public class UserPO {
 
     public Integer getUserId() {
         return userId;
+    }
+
+    public String getOfThereDepartment() {
+        return ofThereDepartment;
+    }
+
+    public void setOfThereDepartment(String ofThereDepartment) {
+        this.ofThereDepartment = ofThereDepartment;
+    }
+
+    public String getCreateUserName() {
+        return createUserName;
+    }
+
+    public void setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
     }
 
     public void setUserId(Integer userId) {

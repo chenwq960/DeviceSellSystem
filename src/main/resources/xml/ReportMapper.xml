@@ -17,4 +17,37 @@
 				user .role_id
 		]]>
 	</select>
+	
+	
+	<select id="departmentApply" resultType="com.baidu.vo.DepartmentApply">
+		<![CDATA[
+			SELECT
+				d.department_name department,
+				count(user_id) userNum
+			FROM
+				tb_user u
+			LEFT JOIN tb_department d ON u.department_id = d.department_id
+			GROUP BY
+				u.department_id
+		]]>
+		
+	</select>
+	
+	<select id="selectUserCreateTime" resultType="com.baidu.vo.UserCreateTime">
+		<![CDATA[
+		SELECT
+			u.user_name as username,
+			u.create_time as createTime
+		FROM
+			tb_user u
+		LEFT JOIN tb_role r ON r.role_id = u.role_id
+		WHERE
+			r.is_delete = 0
+		AND u.is_delete = 0
+		
+		]]>
+	</select>
+	
+	
+	
 </mapper>

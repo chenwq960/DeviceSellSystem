@@ -3,14 +3,13 @@ package com.baidu.service;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baidu.form.SearchParam;
+import com.baidu.interceptor.CurrentContext;
 import com.baidu.mapper.DepartmentMapper;
 import com.baidu.po.DepartmentPO;
-import com.baidu.po.UserPO;
 
 @Service
 public class DepartmentServiceImpl implements IDepartmentService {
@@ -19,16 +18,18 @@ public class DepartmentServiceImpl implements IDepartmentService {
 	private DepartmentMapper departmentMapper;
 	// 部门表的查询方式
 	@Override
-	public List<DepartmentPO> departmentFind(String searchKey, String startTime,String endTime) {
-		return departmentMapper.selectList(searchKey,startTime,endTime);
+	public List<DepartmentPO> departmentFind(SearchParam searchParam) {
+	    String seachKey = searchParam.getSeachKey();
+	    String startTime = searchParam.getStartTime();
+	    String endTime = searchParam.getEndTime();
+		return departmentMapper.selectList(seachKey,startTime,endTime);
 	}
 	// 部门表的增加方法
 	@Override
-	public int createdepartment(DepartmentPO departmentPO,HttpSession session) {
+	public int createdepartment(DepartmentPO departmentPO) {
 	// 当前用户
-		int userId = UserPO.class.cast(session.getAttribute("currentUser")).getUserId();
-		departmentPO.setUpdateUser(userId);
-		departmentPO.setCreateUser(userId);
+		departmentPO.setUpdateUser(CurrentContext.getUser().getUserId());
+		departmentPO.setCreateUser(CurrentContext.getUser().getUserId());
 		departmentPO.setCreateTime(new Date());
 		departmentPO.setUpdateTime(new Date());
 		departmentPO.setIsDelete(false);
@@ -38,8 +39,7 @@ public class DepartmentServiceImpl implements IDepartmentService {
 	@Override
 	public void departmentdel(Integer departmentId) {
 		// TODO 进行逻辑删除
-		@SuppressWarnings("unused")
-		int i =  departmentMapper.deleteByPrimaryKey(departmentId);
+		departmentMapper.deleteByPrimaryKey(departmentId);
 	}
 
 	// 部门表格回显的方法
@@ -51,6 +51,8 @@ public class DepartmentServiceImpl implements IDepartmentService {
 	// 部门表修改的方法
 	@Override
 	public int updatedepartment(DepartmentPO departmentPO) {
+	    departmentPO.setUpdateTime(new Date());
+        departmentPO.setUpdateUser(CurrentContext.getUser().getUserId());
 		return departmentMapper.updateByPrimaryKeySelective(departmentPO);
 	}
 

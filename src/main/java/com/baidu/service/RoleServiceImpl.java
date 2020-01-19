@@ -25,15 +25,13 @@ public class RoleServiceImpl implements IRoleService {
         rolePO.setUpdateTime(new Date());
         rolePO.setUpdateUser(createUser);
         rolePO.setIsDelete(false);
-        @SuppressWarnings("unused")
-        int insert = roleMapper.insert(rolePO);
+        roleMapper.insert(rolePO);
     }
 
     @Override
     public void updateRole(RolePO rolePO, int updateUser) {
         rolePO.setUpdateTime(new Date());
         rolePO.setUpdateUser(updateUser);
-
         roleMapper.updateByPrimaryKeySelective(rolePO);
     }
 
@@ -45,12 +43,9 @@ public class RoleServiceImpl implements IRoleService {
     @Override
     public void deleteRole(int roleId) {
         roleMapper.deleteByPrimaryKey(roleId);
-
     }
-
     @Override
     public RolePO roleDetail(int roleId) {
         return roleMapper.selectByPrimaryKey(roleId);
     }
-
 }

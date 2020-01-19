@@ -34,6 +34,7 @@ public class DeviceController {
 
     /**
      * 查询社保列表
+     * 
      * @param searchParam
      * @param modelAndView
      * @return
@@ -42,19 +43,21 @@ public class DeviceController {
     public String list(SearchParam searchParam, ModelMap modelMap) {
         PageHelper.startPage(searchParam.getPageNum(), searchParam.getPageSize());
         List<DevicePO> deviceList = deviceService.searchDeviceList(searchParam);
-        PageInfo<DevicePO> pi = new PageInfo<>(deviceList);
+        PageInfo<DevicePO> pageInfo = new PageInfo<>(deviceList);
         modelMap.put("list", deviceList);
-        modelMap.put("limitmodel", pi);
+        modelMap.put("pageInfo", pageInfo);
         modelMap.put("searchParam", searchParam);
         return "device/list";
     };
-//查询所有的设备转发到设备销售中
+
+    // 查询所有的设备转发到设备销售中
     @ResponseBody
     @RequestMapping("/selectDevice")
     public List<DevicePO> selectDevice() {
         List<DevicePO> deviceList = deviceService.searchDeviceList(null);
         return deviceList;
     }
+
     /**
      * 增加设备
      * 
