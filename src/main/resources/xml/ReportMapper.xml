@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.mapper.ReportMapper">
+	<!-- 子查询 -->
+	<select id="queryRoleUserData" resultType="com.baidu.vo.RoleUserVO"> 
+		<![CDATA[
+			select
+				role.role_name roleName,
+				count(user .user_id) userCount
+			from
+				tb_user user
+			left join tb_role role on user .role_id = role.role_id
+			where
+				user .is_delete = 0
+			and role.is_delete = 0
+			group by
+				user .role_id
+		]]>
+	</select>
+</mapper>

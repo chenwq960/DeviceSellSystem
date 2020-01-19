@@ -31,7 +31,7 @@ public class DepartmentController {
     @Autowired
     private IDepartmentService departmentService;
     // 部门表的查询
-    @RequestMapping("/list")
+    @RequestMapping("/list/page")
     @ResponseBody
     public ModelAndView departmentList(
             @RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum,

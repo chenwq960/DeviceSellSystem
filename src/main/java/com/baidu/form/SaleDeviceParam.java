@@ -66,4 +66,11 @@ public class SaleDeviceParam {
         this.remark = remark;
     }
 
+    @Override
+    public String toString() {
+        return "SaleDeviceParam [recordId=" + recordId + ", stationId=" + stationId + ", deviceId=" + deviceId
+                + ", saleUser=" + saleUser + ", saleTime=" + saleTime + ", saleNumber=" + saleNumber + ", remark="
+                + remark + "]";
+    }
+
 }

@@ -51,8 +51,8 @@ input {
 				</td>
 			</tr>
 			<tr>
-				<td>登录账号:</td>
 				<td>用户名称:</td>
+				<td>登录账号:</td>
 				<td>身份证号:</td>
 				<td>创建人:</td>
 				<td>修改时间：:</td>
@@ -64,8 +64,8 @@ input {
 			</tr>
 			<c:forEach items="${list}" var="s">
 				<tr>
-					<td>${s.account}</td>
 					<td>${s.userName}</td>
+					<td>${s.account}</td>
 					<td>${s.idCard}</td>
 					<td>${s.createUserObj.userName}</td>
 					<td><fmt:formatDate value="${s.createTime}"
@@ -93,7 +93,7 @@ input {
 </body>
 <script type="text/javascript">
 function getlimit(id){
-	location.href="${ctx}/device/list.do?pageNum="+id
+	location.href="${ctx}/user/list.do?pageNum="+id
 }
 
 //删除的方法

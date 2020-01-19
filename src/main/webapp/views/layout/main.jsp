@@ -42,6 +42,9 @@
 					<div class="row">
 						<a href="${ctx}/saleDevice/list.do" target="myIframe">设备销售</a>
 					</div>
+					<div class="row">
+						<a href="${ctx}/page/report/baseReport.do" target="_block">基础报表</a>
+					</div>
 				</div>
 				<div class="col-md-9 pull-left right">
 					<iframe name="myIframe" class="col-md-12"

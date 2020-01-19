@@ -22,18 +22,19 @@ font {
 		<form action="${ctx}/user/create.do" method="post"
 			enctype="multipart/form-data">
 			<div class="input-group">
-				<font>注册账号：</font> <input type="text" class="form-control"
+				<font>用户名：</font> <input type="text" class="form-control"
+					name="userName">
+			</div>
+			<div class="input-group">
+				<font>登陆账号：</font> <input type="text" class="form-control"
 					name="account">
 			</div>
 
 			<div class="input-group">
-				<font>注册密码：</font> <input type="text" class="form-control"
+				<font>登陆密码：</font> <input type="text" class="form-control"
 					name="password">
 			</div>
-			<div class="input-group">
-				<font>用户名：</font> <input type="text" class="form-control"
-					name="userName">
-			</div>
+
 			<div class="input-group">
 				<font>身份证正面</font> <input type="file" name="idCardFile">
 			</div>
@@ -41,12 +42,10 @@ font {
 				<font>身份证反面</font> <input type="file" name="">
 			</div>
 			<div class="input-group">
-				<font>担任角色：</font> <input type="text" name="roleId" value="">
+				<font>担任角色：</font> <select name="roleId"></select>
 			</div>
 			<div class="input-group">
-				<font>所属的部门</font> <select name="departmentId">
-					<option value="">
-				</select>
+				<font>所属的部门</font> <select name="departmentId"></select>
 			</div>
 			<input type="submit" value="提交" class="btn btn-info"> <input
 				type="button" value="返回" onclick="history.back()">
@@ -58,11 +57,19 @@ font {
 		$.post("${ctx}/department/departmentfind.do", function(departmentList) {
 			for ( let i in departmentList) {
 				var department = departmentList[i]
-				$("select").append(
+				$("[name=departmentId]").append(
 						"<option value='"+department.departmentId+"'>"
 								+ department.departmentName + "</option>")
 			}
-		})
+		});
+		$.post("${ctx}/role/roleName.do", function(roleList) {
+			for ( let i in roleList) {
+				var role = roleList[i]
+				$("[name=roleId]").append(
+						"<option value='"+role.roleId+"'>" + role.roleName
+								+ "</option>")
+			}
+		});
 	})
 </script>
 </html>

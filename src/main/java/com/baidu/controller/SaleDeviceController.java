@@ -65,26 +65,23 @@ public class SaleDeviceController {
     }
 
     // 回显的方法
-    // 回显的方法
     @ResponseBody
     @RequestMapping("/returnMessage")
     public SaleDevicePO returnMessage(Integer userId) {
         SaleDevicePO returnMessage = saleDeviceService.getSaleDeviceById(userId);
-        System.out.println(returnMessage + "回显的数据");
         return returnMessage;
     }
 
     // 修改的方法
     @RequestMapping("/update")
     @ResponseBody
-    public boolean update(SaleDevicePO saleDevice) {
-        System.out.println(saleDevice + "修改的信息");
+    public boolean update(SaleDeviceParam saleDeviceParam) {
         try {
-            saleDeviceService.update(saleDevice);
+            saleDeviceService.update(saleDeviceParam);
             return true;
         }
         catch (Exception ext) {
-            logger.error("修改设备发生异常，param:{},exc:{}", saleDevice, ext);
+            logger.error("修改设备发生异常，param:{},exc:{}", saleDeviceParam, ext);
             return false;
         }
     }

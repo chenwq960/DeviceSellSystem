@@ -22,12 +22,13 @@ font {
 	<div class="container">
 
 		<form id="form">
-			<input type="hidden" name="recordId">
+			<input type="hidden" name="recordId" value="${saleDevice.recordId}">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="input-group">
 					<font>销售设备：</font> <select name="deviceId">
 						<c:forEach items="${deviceList}" var="device">
-							<option ${device.deviceId == saleDevice.deviceId ? 'selected':''}>
+							<option ${device.deviceId == saleDevice.deviceId ? 'selected':''}
+								value="${device.deviceId}">
 								${device.deviceName}-${device.deviceModel}</option>
 						</c:forEach>
 					</select>
@@ -38,8 +39,19 @@ font {
 				<div class="input-group">
 					<font>销售人员：</font> <select name="saleUser">
 						<c:forEach items="${userList}" var="user">
-							<option ${user.userId == saleDevice.saleUser ? 'selected':''}>
-								${user.userName}</option>
+							<option ${user.userId == saleDevice.saleUser ? 'selected':''}
+								value="${user.userId}">${user.userName}</option>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-6 col-md-offset-3">
+				<div class="input-group">
+					<font>服务网点：</font> <select name="stationId">
+						<c:forEach items="${stationList}" var="station">
+							<option
+								${station.stationId == saleDevice.stationId ? 'selected':''}
+								value="${station.stationId}">${station.stationName}</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -48,17 +60,6 @@ font {
 				<div class="input-group">
 					<font>销售数量：</font> <input type="text" class="form-control"
 						name="saleNumber" value="${saleDevice.saleNumber}">
-				</div>
-			</div>
-			<div class="col-md-6 col-md-offset-3">
-				<div class="input-group">
-					<font>服务网点：</font> <select name="stationId">
-						<c:forEach items="${stationList}" var="station">
-							<option
-								${station.stationId == saleDevice.stationId ? 'selected':''}>
-								${station.stationName}</option>
-						</c:forEach>
-					</select>
 				</div>
 			</div>
 			<div class="col-md-6 col-md-offset-3">

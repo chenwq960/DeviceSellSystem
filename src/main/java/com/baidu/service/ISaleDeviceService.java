@@ -14,7 +14,7 @@ public interface ISaleDeviceService {
 
     void create(SaleDeviceParam saleDeviceParam) throws ParseException;
 
-    void update(SaleDevicePO saleDevice);
+    void update(SaleDeviceParam saleDeviceParam) throws ParseException;
 
     void delete(Integer stationId);
 

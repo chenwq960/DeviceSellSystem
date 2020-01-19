@@ -33,9 +33,18 @@ public class SaleDeviceServiceImp implements ISaleDeviceService {
 
     // 修改的方法
     @Override
-    public void update(SaleDevicePO saleDevice) {
-        saleDevice.setUpdateTime(new Date());
+    public void update(SaleDeviceParam saleDeviceParam) throws ParseException {
+        SaleDevicePO saleDevice = new SaleDevicePO();
+
+        BeanUtils.copyProperties(saleDeviceParam, saleDevice);
+
+        // 设置创建参数
+        saleDevice.setSaleTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(saleDeviceParam.getSaleTime()));
+
         saleDevice.setUpdateUser(CurrentContext.getUser().getUserId());
+        saleDevice.setUpdateTime(new Date());
+        saleDevice.setIsDelete(false);
+
         saleDeviceMapper.updateByPrimaryKeySelective(saleDevice);
     }
 

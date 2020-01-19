@@ -14,16 +14,16 @@
 	</welcome-file-list>
 	<!-- mvc核心控制器 -->
 	<servlet>
-		<servlet-name>mmm</servlet-name>
+		<servlet-name>core-servlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:springMVC.xml</param-value>
+			<param-value>classpath:spring-mvc.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>mmm</servlet-name>
+		<servlet-name>core-servlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	<!-- 编码过滤器 -->
