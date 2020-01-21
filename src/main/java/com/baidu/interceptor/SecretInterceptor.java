@@ -28,7 +28,7 @@ public class SecretInterceptor implements HandlerInterceptor {
 
         // 判断上下文中是否存在登录用户
         if (Objects.isNull(CurrentContext.getUser())) {
-            response.sendRedirect(request.getContextPath() + "/views/user/error.jsp");
+            response.sendRedirect(request.getContextPath() + "/views/error/relogin.jsp");
             return false;
         }
         else {

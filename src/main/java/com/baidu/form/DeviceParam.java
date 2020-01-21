@@ -7,7 +7,6 @@ package com.baidu.form;
  * @createTime 2020-01-17 18:34:03
  */
 public class DeviceParam {
-
     private Integer deviceId;
     private String deviceName;
     private String deviceModel;

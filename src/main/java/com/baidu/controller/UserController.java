@@ -1,13 +1,20 @@
 package com.baidu.controller;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -35,7 +42,7 @@ import com.github.pagehelper.PageInfo;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
+    private static Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private IUserService userService;
     @Autowired
@@ -59,7 +66,6 @@ public class UserController {
 
             CurrentContext.setUser(user);
             request.getSession().setAttribute("currentUser", user);
-
             response.sendRedirect(request.getContextPath() + "/views/layout/main.jsp");
             return null;
         }
@@ -71,40 +77,52 @@ public class UserController {
     }
 
     // 查看所有的方法
-    @RequestMapping("/list")
+    @RequestMapping("/list/page")
     public String list(SearchParam searchParam, ModelMap modelMap) {
-        PageHelper.startPage(searchParam.getPageNum(), searchParam.getPageSize());
-
-        List<UserPO> userList = userService.showUser();
-
-        PageInfo<UserPO> pi = new PageInfo<>(userList);
+        // 开启分页
+        PageHelper.startPage(searchParam.getPageNum(), 4);
+        List<UserPO> userList = userService.showUser(searchParam);
+        PageInfo<UserPO> pageInfo = new PageInfo<>(userList);
         modelMap.put("list", userList);
-        modelMap.put("limitmodel", pi);
+        modelMap.put("pageInfo", pageInfo);
         modelMap.put("searchParam", searchParam);
-
         return "user/list";
     }
 
     // 查看详细的方法
     @ResponseBody
-    @RequestMapping("/detailed")
-    public UserPO detailed(String userId) {
+    @RequestMapping("/detail")
+    public UserPO detailed(Integer userId) {
         UserPO userPO = userService.showDetailed(userId);
         userPO.setIdCardFront(fileService.getHost() + userPO.getIdCardFront());
         return userPO;
     }
 
     // 增加的方法
-    @ResponseBody
     @RequestMapping("/create")
-    public boolean create(UserParam userParam, HttpSession session) {
+    public String create(UserParam userParam, ModelMap modelMap) {
         try {
             userService.create(userParam);
-            return true;
+            return list(new SearchParam(), modelMap);
         }
         catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            logger.error("人员表增加的方法发生异常,param{},exc{}", userParam, e);
+            modelMap.put("error", e);
+            return "error/error";
+        }
+    }
+
+    // 人员修改的方法
+    @RequestMapping("/update")
+    public String update(UserParam userParam, ModelMap modelMap) {
+        try {
+            userService.update(userParam);
+            return list(new SearchParam(), modelMap);
+        }
+        catch (Exception e) {
+            logger.error("人员修改的方法发生异常，param{},exc:{}", userParam, e);
+            modelMap.put("error", e);
+            return "error/error";
         }
     }
 
@@ -117,7 +135,41 @@ public class UserController {
             return true;
         }
         catch (Exception e) {
+            logger.error("人员删除方法发生异常，param{}:exc:{}", userId, e);
             return false;
         }
     }
+
+    @RequestMapping("/idcard/download")
+    public void downloadIdCard(Integer userId, HttpServletRequest request, HttpServletResponse response)
+            throws UnsupportedEncodingException {
+        UserPO userPO = userService.showDetailed(userId);
+
+        String filePath = fileService.getWorkPath() + userPO.getIdCardFront();
+        String fileName = userPO.getRealName() + ".png";
+        String fileType = "application/octet-stream";
+
+        String agent = request.getHeader("User-agent");
+        if (agent.indexOf("Firefox") != -1) {
+            response.addHeader("content-Disposition", "attachment;fileName==?UTF-8?B?"
+                    + Base64.getEncoder().encodeToString(fileName.getBytes("utf-8")) + "?=");
+        }
+        else {
+            response.addHeader("content-Disposition", "attachment;fileName=" + URLEncoder.encode(fileName, "utf-8"));
+        }
+
+        // 设置文件的类型
+        response.setContentType(fileType);
+        // 确保弹出下载对话框
+        try (FileInputStream inputStream = new FileInputStream(filePath)) {
+            OutputStream outputStream = response.getOutputStream();
+
+            IOUtils.copy(inputStream, response.getOutputStream());
+            outputStream.flush();
+        }
+        catch (IOException e) {
+            logger.error("人员身份证下载异常，userId{} ", userId, e);
+        }
+    }
+
 }

@@ -20,7 +20,6 @@ import com.baidu.dto.FileDTO;
 public class LocalFileServiceImpl implements IFileService {
 
     private static Logger logger = LoggerFactory.getLogger(LocalFileServiceImpl.class);
-
     @Value("${file.workpath}")
     private String fileWorkpath;// 文件真实路径
     @Value("${file.host}")
@@ -32,25 +31,25 @@ public class LocalFileServiceImpl implements IFileService {
     }
 
     @Override
+    public String getWorkPath() {
+        return fileWorkpath;
+    }
+
+    @Override
     public FileDTO saveFile(InputStream inputStream, String suffix) {
         FileDTO fileDTO = new FileDTO();
-
         // 生成文件名称
         String subPath = UUID.randomUUID().toString() + suffix;
 
         fileDTO.setAbsolutePath(fileWorkpath + subPath);
         fileDTO.setSubPath(subPath);
         fileDTO.setHttpPath(fileHost + subPath);
-
         logger.info(fileDTO.getHttpPath());
 
         try (BufferedInputStream bis = new BufferedInputStream(inputStream);
                 BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(fileDTO.getAbsolutePath()))) {
-
             new File(fileDTO.getAbsolutePath()).createNewFile();
-
             IOUtils.copy(bis, bos);
-
             return fileDTO;
         }
         catch (IOException e) {

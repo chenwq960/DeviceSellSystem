@@ -3,22 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<%
-    String path = request.getContextPath();
-%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="${ctx}/static/js/jquery-1.8.3.js"></script>
-<link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet">
-<style type="text/css">
-font {
-	line-height: 40px;
-	padding-left: 20px;
-}
-</style>
+<title>人员详细</title>
+<script src="${ctx}/static/plugins/jquery/jquery-1.8.3.js"></script>
+<link href="${ctx}/static/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
+<link href="${ctx}/static/css/person.css" rel="stylesheet">
 </head>
 <body>
 
@@ -52,6 +44,7 @@ font {
 
 		<div class="input-group">
 			<font>照片：</font> <img id="idCardFront" alt="号身份证" width="300" src="">
+			<a href="${ctx}/user/idcard/download.do?userId=${param.userId}">下载身份证照片</a>
 		</div>
 
 		<div class="input-group">
@@ -82,7 +75,7 @@ font {
 </body>
 <script type="text/javascript">
 	$(function() {
-		$.post("${ctx}/user/detailed.do", {
+		$.post("${ctx}/user/detail.do", {
 			userId : "${param.userId}"
 		}, function(user) {
 			console.log(user)

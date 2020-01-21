@@ -30,11 +30,11 @@
     <if test="seachKey != null and seachKey != ''">
     	and department_name like concat('%',#{seachKey},'%')
     </if>
-    <if test="startTime != null">
-    	and create_time &gt;= #{startTime}
+    <if test="startTime != null and startTime != ''">
+    	and create_time <![CDATA[>=]]> #{startTime}
     </if>
-    <if test="endTime != null">
-    	and create_time &lt;= #{endTime}
+    <if test="endTime != null and endTime != ''">
+    	and create_time<![CDATA[<=]]> #{endTime}
     </if>
     
     
@@ -42,7 +42,7 @@
     
     
   </select>
-  <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <update id="updateSetIdDelete" parameterType="java.lang.Integer">
   		update tb_department set is_delete= 1 where department_id = #{departmentId}
   </update>
   <insert id="insert" parameterType="com.baidu.po.DepartmentPO" >
@@ -136,19 +136,12 @@
       is_delete = #{isDelete,jdbcType=BIT}
     where department_id = #{departmentId,jdbcType=INTEGER}
   </update>
-
   <select id="selectUserName"  resultType="java.lang.String" parameterType="java.lang.Integer">
   	select 
     user_name 
     from tb_user where user_id = #{userId}
   </select>
-  
-  
   <select id="ofThereDepartment"   resultType="java.lang.String" parameterType="java.lang.Integer">
   	select department_name from tb_department where department_id = #{departmentId}
-  	
   </select>
-  
-  
-  
 </mapper>

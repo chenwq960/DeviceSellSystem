@@ -9,7 +9,7 @@ public interface IDepartmentService {
 
 	List<DepartmentPO> departmentFind(SearchParam searchParam);
 
-	int createdepartment(DepartmentPO departmentPO);
+	int createdepartment(String departmentName);
 
 	void departmentdel(Integer id);
 

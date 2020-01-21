@@ -1,104 +1,75 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<%
-    String path = request.getContextPath();
-%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="${ctx}/static/js/jquery-1.8.3.js"></script>
-<link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet">
-<style type="text/css">
-font {
-	line-height: 40px;
-	padding-left: 20px;
-}
-</style>
+<script src="${ctx}/static/plugins/jquery/jquery-1.8.3.js"></script>
+<link href="${ctx}/static/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
+<link href="${ctx}/static/css/person.css" rel="stylesheet">
 </head>
 <body>
-
-	<div class="container">
-		<div class="input-group">
-			<font>账号：</font> 
-			<span class="account"></span>
-		</div>
-		<div class="input-group">
-			<font>人员：</font> 
-			<span class="userName"></span>
-		</div>
-
-		<div class="input-group">
-			<font>姓名：</font> <span class="realName"></span>
-		</div>
-		<div class="input-group">
-			<font>性别：</font> 
-			<span class="sex"></span>
-		</div>
-
-		<div class="input-group">
-			<font>民族：</font>
-			<span class="nation"></span>
-		</div>
-
-		<div class="input-group">
-			<font>生日：</font>
-			<span class="birthday"></span>
+	<form action="${ctx}/user/update.do" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="userId">
+		<div class="container">
+			<div class="input-group">
+				<font>账号：</font> <input type="text" class="form-control" name="account">
+			</div>
+			<div class="input-group">
+				<font>人员：</font> <input type="text" class="form-control" name="userName">
+			</div>
+			<div class="input-group">
+				<font>照片：</font> <img id="idCardFront" alt="号身份证" width="300" src=""> <br /> <span>重新上传身份证照片</span>
+				<input type="file" name="idCardFile">
+			</div>
+			<div class="input-group">
+				<font>担任角色：</font> <select name="roleId"></select>
+			</div>
+			<div class="input-group">
+				<font>所属的部门</font> <select name="departmentId"></select>
+			</div>
+			<input type="submit" value="修改" class="btn btn-info"> <input type="button" value="返回"
+				onclick="history.back()">
 		</div>
 
-		<div class="input-group">
-			<font>照片：</font> <img id="idCardFront" alt="号身份证" width="300" src="">
-		</div>
 
-		<div class="input-group">
-			<font>籍贯：</font>
-			<span class="address"></span>
-		</div>
-		<div class="input-group">
-			<font>创建时间</font>
-			<span class="createTime"></span>
-		</div>
-		<div class="input-group">
-			<font>修改时间</font> 
-			<span class="updateTime"></span>
-		</div>
-		<div class="input-group">
-			<font>所属的部门:</font> 
-			<span class="departmentId"></span>
-			<a href="${ctx}/views/department/create.jsp">编辑部门</a>
-		</div>
-		<div class="input-group">
-			<font>角色：</font> 
-			
-			<span class="roleId"></span>
-			<a href="${ctx}/views/role/create.jsp">编辑角色</a>
-		</div>
-		<input	type="button" value="返回" onclick="history.back()">
-	</div>
+
+	</form>
 </body>
 <script type="text/javascript">
 	$(function() {
-		$.post("${ctx}/user/detailed.do", {
+		$.post("${ctx}/user/detail.do", {
 			userId : "${param.userId}"
 		}, function(user) {
 			console.log(user)
-			$(".account").html(user.account)
-			$(".userName").html(user.userName)
-			$(".realName").html(user.realName)
-			$(".sex").html(user.sex == "1" ? "男" : "女")
-			$(".nation").html(user.nation)
-			$(".birthday").html(user.birthday)
-			$(".address").html(user.address)
-			$("#idCardFront").attr("src", user.idCardFront)
-			$(".createTime").html(user.createTime)
-			$(".updateTime").html(user.updateTime)
-			$(".departmentId").html(user.ofThereDepartment)
-			$(".roleId").html(user.createUserName)
+			$("[name=userId]").val(user.userId);
+			$("[name=account]").val(user.account);
+			$("[name=userName]").val(user.userName);
+			$(".realName").html(user.realName);
+			$("#idCardFront").attr("src", user.idCardFront);
 		})
+	})
+
+	$(function() {
+		$.post("${ctx}/department/list.do", function(departmentList) {
+			for ( let i in departmentList) {
+				var department = departmentList[i]
+				$("[name=departmentId]").append(
+						"<option value='"+department.departmentId+"'>"
+								+ department.departmentName + "</option>")
+			}
+		});
+		$.post("${ctx}/role/list.do", function(userList) {
+			for ( let i in userList) {
+				var role = userList[i]
+				$("[name=roleId]").append(
+						"<option value='"+role.roleId+"'>" + role.roleName
+								+ "</option>")
+			}
+		});
 	})
 </script>
 </html>

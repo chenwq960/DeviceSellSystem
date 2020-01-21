@@ -4,11 +4,12 @@ import java.text.ParseException;
 import java.util.List;
 
 import com.baidu.form.SaleDeviceParam;
+import com.baidu.form.SearchParam;
 import com.baidu.po.SaleDevicePO;
 
 public interface ISaleDeviceService {
 
-    List<SaleDevicePO> list();
+    List<SaleDevicePO> list(SearchParam searchParam);
 
     SaleDevicePO getSaleDeviceById(Integer recordId);
 

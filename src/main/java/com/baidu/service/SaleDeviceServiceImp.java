@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baidu.form.SaleDeviceParam;
+import com.baidu.form.SearchParam;
 import com.baidu.interceptor.CurrentContext;
 import com.baidu.mapper.SaleDevicePOMapper;
 import com.baidu.po.SaleDevicePO;
@@ -20,58 +21,47 @@ public class SaleDeviceServiceImp implements ISaleDeviceService {
     private SaleDevicePOMapper saleDeviceMapper;
 
     @Override
-    public List<SaleDevicePO> list() {
-        return saleDeviceMapper.selectList();
+    public List<SaleDevicePO> list(SearchParam searchParam) {
+        String search = searchParam.getSeachKey();
+        String startTime = searchParam.getStartTime();
+        String endTime = searchParam.getEndTime();
+        return saleDeviceMapper.selectList(search,startTime,endTime);
     }
 
     @Override
     public SaleDevicePO getSaleDeviceById(Integer recordId) {
         SaleDevicePO selectByPrimaryKey = saleDeviceMapper.selectByPrimaryKey(recordId);
         return selectByPrimaryKey;
-
     }
-
     // 修改的方法
     @Override
     public void update(SaleDeviceParam saleDeviceParam) throws ParseException {
         SaleDevicePO saleDevice = new SaleDevicePO();
-
         BeanUtils.copyProperties(saleDeviceParam, saleDevice);
-
         // 设置创建参数
         saleDevice.setSaleTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(saleDeviceParam.getSaleTime()));
-
         saleDevice.setUpdateUser(CurrentContext.getUser().getUserId());
         saleDevice.setUpdateTime(new Date());
         saleDevice.setIsDelete(false);
-
         saleDeviceMapper.updateByPrimaryKeySelective(saleDevice);
     }
-
     // 删除
     @Override
     public void delete(Integer stationId) {
         saleDeviceMapper.deleteByPrimaryKey(stationId);
-
     }
-
     @Override
     public void create(SaleDeviceParam saleDeviceParam) throws ParseException {
-
         SaleDevicePO saleDevice = new SaleDevicePO();
-
         BeanUtils.copyProperties(saleDeviceParam, saleDevice);
-
         // 设置创建参数
         saleDevice.setRecordId(null);
         saleDevice.setSaleTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(saleDeviceParam.getSaleTime()));
-
         saleDevice.setCreateUser(CurrentContext.getUser().getUserId());
         saleDevice.setUpdateUser(CurrentContext.getUser().getUserId());
         saleDevice.setCreateTime(new Date());
         saleDevice.setUpdateTime(new Date());
         saleDevice.setIsDelete(false);
-
         saleDeviceMapper.insertSelective(saleDevice);
     }
 }

@@ -6,21 +6,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>增加</title>
-<link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet">
+<title>销售设备修改</title>
+
+<link href="${ctx}/static/plugins/bootstrap/bootstrap.min.css"
+	rel="stylesheet" />
+<link href="${ctx}/static/css/user.css" rel="stylesheet">
 <link
 	href="${ctx}/static/plugins/datetimepicker/bootstrap-datetimepicker.css"
 	rel="stylesheet">
-<style type="text/css">
-font {
-	font-size: 16px;
-	line-height: 45px;
-}
-</style>
 </head>
 <body>
 	<div class="container">
-
 		<form id="form">
 			<input type="hidden" name="recordId" value="${saleDevice.recordId}">
 			<div class="col-md-6 col-md-offset-3">
@@ -82,17 +78,17 @@ font {
 			</div>
 			<input type="button" onclick="update()" value="提交数据"
 				class="btn btn-info">
+			<button class="btn btn-info" onclick="window.history.back(-1);">返回</button>
 		</form>
 	</div>
 </body>
-<script src="${ctx}/static/js/jquery-1.8.3.js"></script>
+<script src="${ctx}/static/plugins/jquery/jquery-1.8.3.js"></script>
 <script
 	src="${ctx}/static/plugins/datetimepicker/bootstrap-datetimepicker.js"></script>
 <script
 	src="${ctx}/static/plugins/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript">
 	$(function() {
-
 		$('[name=saleTime]').datetimepicker({
 			forceParse : 0,//设置为0，时间不会跳转1899，会显示当前时间。
 			language : 'zh-CN',//显示中文
@@ -111,7 +107,7 @@ font {
 				obj) {
 			if (obj) {
 				alert("修改成功")
-				location.href = "${ctx}/saleDevice/list.do";
+				location.href = "${ctx}/saleDevice/list/page.do";
 			} else {
 				alert("修改失败")
 			}

@@ -19,7 +19,6 @@ public final class BaiduUtil {
 
     private BaiduUtil() {
     }
-
     private static final String APP_ID = "18154900";
     private static final String API_KEY = "jOmIBfUZwostrczFdrENmLVR";
     private static final String SECRET_KEY = "vf9ZoHlsVDFQ7Qmfim49Pc7HgNN6Omhj";
@@ -88,7 +87,6 @@ public final class BaiduUtil {
         client.setSocketTimeoutInMillis(60000);
 
     }
-
     @SuppressWarnings("unchecked")
     public static IdCardFront getIdCardFrontInfo(String path) {
         JSONObject jsonObj = client.idcard(path, "front", new HashMap<>());
@@ -96,9 +94,7 @@ public final class BaiduUtil {
 
         Map<String, Object> jsonMap = JSON.parseObject(json, new TypeReference<Map<String, Object>>() {
         });
-
         Map<Object, Object> result = (Map<Object, Object>) jsonMap.get("words_result");
-
         IdCardFront idCardFront = new IdCardFront();
         idCardFront.setName(((Map<String, String>) result.get("姓名")).get("words").toString());
         idCardFront.setNation(((Map<String, Object>) result.get("民族")).get("words").toString());

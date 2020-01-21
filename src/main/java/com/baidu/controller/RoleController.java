@@ -2,17 +2,15 @@ package com.baidu.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.baidu.form.SearchParam;
 import com.baidu.interceptor.CurrentContext;
 import com.baidu.po.RolePO;
 import com.baidu.po.UserPO;
@@ -23,45 +21,32 @@ import com.github.pagehelper.PageInfo;
 @Controller
 @RequestMapping("/role")
 public class RoleController {
-
     private static Logger logger = LoggerFactory.getLogger(RoleController.class);
-
     @Autowired
     private IRoleService roleService;
-
     // 角色表的查询方式
-    @RequestMapping("/list")
-    @ResponseBody
-    public ModelAndView roleFind(
-            @RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum,
-            @RequestParam(value = "searchKey", required = false) String searchKey,
-            @RequestParam(value = "startTime", required = false) String startTime,
-            @RequestParam(value = "endTime", required = false) String endTime) {
-        PageHelper.startPage(pageNum, 5);
-        List<RolePO> roleList = roleService.queryList(searchKey, startTime, endTime);
-        PageInfo<RolePO> pi = new PageInfo<RolePO>(roleList);
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("role", roleList);
-        mav.addObject("modelName", searchKey);
-        mav.addObject("limitmodel", pi);
-        mav.addObject("startTime", startTime);
-        mav.addObject("endTime", endTime);
-        mav.setViewName("role/list");
-        return mav;
+    @RequestMapping("/list/page")
+    public String roleFind(SearchParam searchParam, ModelMap modelMap) {
+        PageHelper.startPage(searchParam.getPageNum(), searchParam.getPageSize());
+        List<RolePO> roleList = roleService.queryList(searchParam);
+        PageInfo<RolePO> pageInfo = new PageInfo<RolePO>(roleList);
+        modelMap.put("role", roleList);
+        modelMap.put("pageInfo", pageInfo);
+        modelMap.put("searchParam", searchParam);
+        return "role/list";
     }
-
     // 查询所有的事角色 作为销售人员
     @ResponseBody
-    @RequestMapping("/roleName")
+    @RequestMapping("/list")
     public List<RolePO> roleName() {
-        List<RolePO> roleList = roleService.queryList(null, null, null);
+        List<RolePO> roleList = roleService.queryList(null);
         return roleList;
     }
 
     // 角色增加的方法
     @ResponseBody
     @RequestMapping("/create")
-    public boolean createRole(String roleName, HttpSession session) {
+    public boolean createRole(String roleName) {
         UserPO user = CurrentContext.getUser();
         try {
             roleService.createRole(roleName, user.getUserId());
@@ -76,14 +61,13 @@ public class RoleController {
     // 角色的修改方法
     @ResponseBody
     @RequestMapping("/update")
-    public boolean updateRole(RolePO rolePO, HttpSession session) {
-        int userId = UserPO.class.cast(session.getAttribute("currentUser")).getUserId();
+    public boolean updateRole(RolePO rolePO) {
         try {
-            roleService.updateRole(rolePO, userId);
+            roleService.updateRole(rolePO);
             return true;
         }
         catch (Exception e) {
-            logger.error("角色修改发生异常param{}",rolePO);
+            logger.error("修改角色发生异常，param:{},exc:{}", rolePO, e);
             return false;
         }
     }
@@ -91,8 +75,14 @@ public class RoleController {
     @ResponseBody
     @RequestMapping("/delete")
     public boolean deleteRole(int roleId) {
-        roleService.deleteRole(roleId);
-        return true;
+        try {
+            roleService.deleteRole(roleId);
+            return true;
+        }
+        catch (Exception e) {
+            logger.error("删除角色发生异常.param:{},exc:{}",roleId,e);
+            return false;
+        }
     }
     // 角色回显的方法
     @ResponseBody

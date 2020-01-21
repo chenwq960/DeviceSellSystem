@@ -15,12 +15,10 @@ import com.baidu.po.StationPO;
 public class StationServiceImp implements IStationService {
     @Autowired
     private StationPOMapper mapper;
-
     @Override
     public List<StationPO> getStationList() {
         return mapper.selectAll();
     }
-
     // 增加销售网点的
     @Override
     public void create(StationPO station) {
@@ -30,15 +28,11 @@ public class StationServiceImp implements IStationService {
         station.setUpdateUser(CurrentContext.getUser().getUserId());
         station.setLongitude((double) 1);
         station.setLatitude((double) 1);
-        @SuppressWarnings("unused")
-        int insertSelective = mapper.insertSelective(station);
+        mapper.insertSelective(station);
     }
-
     @Override
     public void delete(Integer stationId) {
-        @SuppressWarnings("unused")
-        int deleteByPrimaryKey = mapper.deleteByPrimaryKey(stationId);
-
+        mapper.deleteByPrimaryKey(stationId);
     }
 
     // 修改的方法
@@ -47,10 +41,8 @@ public class StationServiceImp implements IStationService {
         StationPO selectByPrimaryKey = mapper.selectByPrimaryKey(stationId);
         return selectByPrimaryKey;
     }
-
     @Override
     public List<RegionPO> selectByparentRegionId(Integer regionId) {
         return mapper.selectByparentStationId(regionId);
     }
-
 }

@@ -26,20 +26,16 @@ import com.github.pagehelper.PageInfo;
 @Controller
 @RequestMapping("/device")
 public class DeviceController {
-
     private static Logger logger = LoggerFactory.getLogger(DeviceController.class);
-
     @Autowired
     private IDeviceService deviceService;
-
     /**
      * 查询社保列表
-     * 
      * @param searchParam
      * @param modelAndView
      * @return
      */
-    @RequestMapping("/list")
+    @RequestMapping("/list/page")
     public String list(SearchParam searchParam, ModelMap modelMap) {
         PageHelper.startPage(searchParam.getPageNum(), searchParam.getPageSize());
         List<DevicePO> deviceList = deviceService.searchDeviceList(searchParam);
@@ -49,18 +45,15 @@ public class DeviceController {
         modelMap.put("searchParam", searchParam);
         return "device/list";
     };
-
     // 查询所有的设备转发到设备销售中
     @ResponseBody
-    @RequestMapping("/selectDevice")
+    @RequestMapping("/list")
     public List<DevicePO> selectDevice() {
         List<DevicePO> deviceList = deviceService.searchDeviceList(null);
         return deviceList;
     }
-
     /**
      * 增加设备
-     * 
      * @param deviceParam
      * @return
      */
@@ -76,29 +69,27 @@ public class DeviceController {
             return false;
         }
     }
-
     /**
      * 逻辑删除设备
-     * 
      * @param deviceId
+     * @return 
      * @return
      */
     @ResponseBody
     @RequestMapping("/delete")
     public boolean delete(Integer deviceId) {
-        try {
+       try {
             deviceService.delete(deviceId);
             return true;
         }
         catch (Exception ext) {
-            logger.error("修改设备发生异常，param:{},exc:{}", deviceId, ext);
+            logger.error("删除设备发生异常，param:{},exc:{}", deviceId, ext);
             return false;
         }
+        
     }
-
     /**
      * 修改设备数据
-     * 
      * @param deviceParam
      * @return
      */
@@ -113,5 +104,12 @@ public class DeviceController {
             logger.error("修改设备发生异常，param:{},exc:{}", deviceParam, ext);
             return false;
         }
+    }
+    //回显数据
+    @ResponseBody
+    @RequestMapping("/detail")
+    public DevicePO detail(Integer deviceId) {
+        DevicePO detail = deviceService.detail(deviceId);
+        return detail;
     }
 }

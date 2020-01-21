@@ -7,43 +7,25 @@
 <head>
 <meta charset="UTF-8">
 <title>部门表</title>
-<script src="${ctx}/static/js/jquery-1.8.3.js"></script>
-<link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet" />
-<style type="text/css">
-ul li {
-	list-style: none;
-	float: left;
-	border: 1px solid gray;
-	padding: 0px 5px;
-	cursor: pointer;
-	background-color: #EEEEEE;
-	border-radius: 5px;
-}
-
-.number {
-	color: blue;
-}
-
-input {
-	width: 150px;
-}
-</style>
+<script src="${ctx}/static/plugins/jquery/jquery-1.8.3.js"></script>
+<link href="${ctx}/static/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
+<link href="${ctx}/static/css/department.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
 		<table class="table table-hover table-bordered table-striped">
 			<tr>
 				<td colspan="111">
-					<form action="${ctx}/department/list.do" method="post">
+					<form action="${ctx}/department/list/page.do" method="post">
 						<div class="pull-left">
 							<input type="text" name="seachKey" width="100px;"
-								value="${searchparam.searchKey}"> <input type="submit" value="搜索"
+								value="${searchParam.seachKey}"> <input type="submit" value="搜索"
 								style="width: 50px">
 							</div>
 							<div class="pull-right">
 								<label> 开始： <input type="text" name="startTime"
-								value="${searchparam.starttime}"> -- 结束 <input type="text"
-								name="endTime" value="${searchparam.endTime}">
+								value="${searchParam.startTime}"> -- 结束 <input type="text"
+								name="endTime" value="${searchParam.endTime}">
 							</label>
 						</div>
 					</form>
@@ -78,24 +60,24 @@ input {
 		<div class="row">
 			<div class="pull-right">
 				<ul>
-					<li>${limitmodel.pageNum }/${limitmodel.pages },共${limitmodel.pages }</li>
-					<li onclick="getlimit(${limitmodel.prePage})"><<</li>
-					<li class="number" onclick="getlimit(1)">1</li>
-					<li onclick="getlimit(${limitmodel.nextPage})">>></li>
+					<li>${pageInfo.pageNum }/${pageInfo.pages },共${pageInfo.pages }</li>
+					<li onclick="pageInfo(${pageInfo.prePage})"><<</li>
+					<li class="number" onclick="pageInfo(1)">1</li>
+					<li onclick="pageInfo(${pageInfo.nextPage})">>></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-	function getlimit(id){
-		location.href="${ctx}/department/list.do?pageNum="+id
+	function pageInfo(id){
+		location.href="${ctx}/department/list/page.do?pageNum="+id
 	}
 	function departmentdel(id) {
 		if(confirm("确认要删除吗")==true){
 			$.post(					
-				"${ctx}/department/departmentdel.do",
-				{UserId:id},
+				"${ctx}/department/delete.do",
+				{departmentId:id},
 				function(obj){
 				if(obj){
 					alert("删除成功")

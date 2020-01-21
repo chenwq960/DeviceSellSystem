@@ -40,6 +40,7 @@ public class CacheSequenceService {
         }
         else {
             sequencePO.setSequenceValue(sequencePO.getSequenceValue() + 1);
+            cacheSequencePOMapper.updateByPrimaryKey(sequencePO);
         }
 
         return numberFormat.format(sequencePO.getSequenceValue());

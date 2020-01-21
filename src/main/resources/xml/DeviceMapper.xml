@@ -95,8 +95,8 @@
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.baidu.po.DevicePO"> update tb_device set device_name =
 		#{deviceName,jdbcType=VARCHAR}, device_model = #{deviceModel,jdbcType=VARCHAR}, update_user =
-		#{updateUser,jdbcType=INTEGER}, update_time = #{updateTime,jdbcType=TIMESTAMP} where device_id =
-		#{deviceId,jdbcType=INTEGER}
+		#{updateUser,jdbcType=INTEGER}, update_time = #{updateTime,jdbcType=TIMESTAMP},is_delete =
+		#{isDelete,jdbcType=TINYINT} where device_id = #{deviceId,jdbcType=INTEGER}
 	</update>
 	<select id="selectDeviceList" parameterType="com.baidu.form.SearchParam"
 		resultMap="BaseResultMap">
@@ -109,18 +109,13 @@
 		</if>
 		ORDER BY create_time desc
 	</select>
-	
-	
 	<!-- 子查询 -->
-	<select id="selectDeviceName" parameterType="java.lang.Integer" resultType="java.lang.String">
-		select device_name from tb_device where device_id= #{deviceId}
+	<select id="selectDeviceName" parameterType="java.lang.Integer"
+		resultType="java.lang.String"> select device_name from tb_device where device_id= #{deviceId}
 	</select>
-	<select id="selectDeviceModel" parameterType="java.lang.Integer" resultType="java.lang.String">
-		select device_model from tb_device where device_id= #{deviceId}
+	<select id="selectDeviceModel" parameterType="java.lang.Integer"
+		resultType="java.lang.String"> select device_model from tb_device where device_id= #{deviceId}
 	</select>
-	
-	
-	
-	
-	
+	<update id="updateByIsDelete"> update tb_device set is_delete = 0 where device_id = #{deviceId}
+	</update>
 </mapper>

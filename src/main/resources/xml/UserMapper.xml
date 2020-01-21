@@ -310,6 +310,15 @@
 		<include refid="Base_Column_List" />
 		from tb_user
 		where is_delete = 0
+		<if test="seachKey != null and seachKey != ''">
+			and user_name like concat('%',#{seachKey},'%')
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and create_time <![CDATA[ >= ]]>#{startTime}
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and create_time <![CDATA[ <= ]]>#{endTime}
+		</if>
 	</select>
 	<!-- 查询所有部门的信息 -->
 	<select id="selectUserDepartment" resultType="java.lang.Integer">

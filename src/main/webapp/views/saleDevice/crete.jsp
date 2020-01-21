@@ -5,19 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>增加</title>
-<link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet">
+<title>销售设备增加</title>
+
+<link href="${ctx}/static/plugins/bootstrap/bootstrap.min.css"
+	rel="stylesheet" />
+<link href="${ctx}/static/css/user.css" rel="stylesheet">
 <link
 	href="${ctx}/static/plugins/datetimepicker/bootstrap-datetimepicker.css"
 	rel="stylesheet">
-
-<style type="text/css">
-font {
-	font-size: 16px;
-	line-height: 45px;
-}
-</style>
-
 </head>
 <body>
 	<div class="container">
@@ -62,10 +57,11 @@ font {
 			</div>
 			<input type="button" onclick="create()" value="提交数据"
 				class="btn btn-info">
+			<button class="btn btn-info" onclick="window.history.back(-1);">返回</button>
 		</form>
 	</div>
 </body>
-<script src="${ctx}/static/js/jquery-1.8.3.js"></script>
+<script src="${ctx}/static/plugins/jquery/jquery-1.8.3.js"></script>
 <script
 	src="${ctx}/static/plugins/datetimepicker/bootstrap-datetimepicker.js"></script>
 <script
@@ -86,7 +82,7 @@ font {
 		})
 
 		//查询所有的设备
-		$.post("${ctx}/device/selectDevice.do", function(device) {
+		$.post("${ctx}/device/list.do", function(device) {
 			console.log(device)
 			for ( let i in device) {
 				var devices = device[i]
@@ -96,7 +92,7 @@ font {
 			}
 		});
 		//查询所有网点
-		$.post("${ctx}/station/selectstaionUser.do", function(station) {
+		$.post("${ctx}/station/list.do", function(station) {
 			console.log(station)
 			for ( let i in station) {
 				var stations = station[i]
@@ -106,7 +102,7 @@ font {
 			}
 		})
 		//查询所有的销售人
-		$.post("${ctx}/role/roleName.do", function(roleName) {
+		$.post("${ctx}/role/list.do", function(roleName) {
 			console.log(roleName)
 			for ( let i in roleName) {
 				var roleNames = roleName[i]
@@ -122,7 +118,7 @@ font {
 				obj) {
 			if (obj) {
 				alert("添加成功")
-				location.href = "${ctx}/saleDevice/list.do";
+				location.href = "${ctx}/saleDevice/list/page.do";
 			} else {
 				alert("添加失败")
 			}

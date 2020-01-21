@@ -68,4 +68,10 @@ public class UserParam {
         this.idCardFile = idCardFile;
     }
 
+    @Override
+    public String toString() {
+        return "UserParam [userId=" + userId + ", roleId=" + roleId + ", departmentId=" + departmentId + ", account="
+                + account + ", password=" + password + ", userName=" + userName + ", idCardFile=" + idCardFile + "]";
+    }
+
 }

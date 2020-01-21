@@ -1,0 +1,17 @@
+ul li {
+	list-style: none;
+	float: left;
+	border: 1px solid gray;
+	padding: 0px 5px;
+	cursor: pointer;
+	background-color: #EEEEEE;
+	border-radius: 5px;
+}
+
+.number {
+	color: blue;
+}
+
+input {
+	width: 150px;
+}

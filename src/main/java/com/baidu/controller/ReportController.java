@@ -18,13 +18,10 @@ import com.baidu.service.IReportService;
 @RestController
 @RequestMapping("/report")
 public class ReportController {
-
     @Autowired
     private IReportService reportService;
-
     @RequestMapping("/roleUser/data")
     public Map<String, Integer> getRoleUserData() {
-
         return reportService.queryRoleUserData();
     }
     

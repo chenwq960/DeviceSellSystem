@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="${ctx}/static/js/jquery-1.8.3.js"></script>
-<link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet">
+<script src="${ctx}/static/plugins/jquery/jquery-1.8.3.js"></script>
+<link href="${ctx}/static/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
 	<div>

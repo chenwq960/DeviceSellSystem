@@ -8,6 +8,8 @@ public interface IFileService {
 
     public String getHost();
 
+    public String getWorkPath();
+
     public FileDTO saveFile(InputStream inputStream, String suffix);
 
 }

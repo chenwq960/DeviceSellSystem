@@ -7,44 +7,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="${ctx}/static/js/jquery-1.8.3.js"></script>
-<link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet">
-<style type="text/css">
-ul li {
-	list-style: none;
-	float: left;
-	border: 1px solid gray;
-	padding: 0px 5px;
-	cursor: pointer;
-	background-color: #EEEEEE;
-	border-radius: 5px;
-}
-
-input {
-	width: 150px;
-}
-
-.number {
-	color: blue;
-}
-</style>
+<title>人员列表</title>
+<script src="${ctx}/static/plugins/jquery/jquery-1.8.3.js"></script>
+<link href="${ctx}/static/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
+<link href="${ctx}/static/css/person.css" rel="stylesheet">
 </head>
 <body>
-	<%-- ${list } --%>
 	<div>
-
 		<table class="table table-hover table-bordered text-center">
 			<tr>
 				<td colspan="111">
-					<form action="${ctx}/user/list.do" method="post">
+					<form action="${ctx}/user/list/page.do" method="post">
 						<div class="pull-left">
-							<input type="text" name="seachKey" value="${seachKey}"> <input
+							<input type="text" name="seachKey" value="${searchParam.seachKey}"> <input
 								type="submit" value="搜索" style="width: 50px;">
 						</div>
 						<div class="pull-right">
-							<input type="text" name="startTime" value="${startTime}">----
-							<input type="text" name="endTime" value="${endTime}">
+							<input type="text" name="startTime" value="${searchParam.startTime}">----
+							<input type="text" name="endTime" value="${searchParam.endTime}">
 						</div>
 					</form>
 				</td>
@@ -72,21 +52,21 @@ input {
 					<td>${s.updateUserObj.userName}</td>
 					<td><fmt:formatDate value="${s.updateTime}"
 							pattern="yyyy-MM-dd HH:mm:ss" /></td>
-					<td><a
-						href="${ctx}/views/user/detailed.jsp?userId=${s.userId}">查看详细</a><br/>
+					<td>
+						<a href="${ctx}/views/user/detail.jsp?userId=${s.userId}">查看详细</a><br/>
 						<button onclick="userDelete(${s.userId})">删除</button>
-						<button onclick="location.href='${ctx}/views/user/update.jsp?userId=${s.userId}'">修改</button>
-						</td>
+						<button onclick="update(${s.userId})">修改</button>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>
 		<div class="row">
 			<div class="pull-right">
 				<ul>
-					<li>${limitmodel.pageNum }/${limitmodel.pages },共${limitmodel.pages }</li>
-					<li onclick="getlimit('${limitmodel.prePage}')"><<</li>
+					<li>${pageInfo.pageNum }/${pageInfo.pages },共${pageInfo.pages }</li>
+					<li onclick="getlimit('${pageInfo.prePage}')"><<</li>
 					<li class="number" onclick="getlimit(1)">1</li>
-					<li onclick="getlimit(${limitmodel.nextPage})">>></li>
+					<li onclick="getlimit(${pageInfo.nextPage})">>></li>
 				</ul>
 			</div>
 		</div>
@@ -94,9 +74,8 @@ input {
 </body>
 <script type="text/javascript">
 function getlimit(id){
-	location.href="${ctx}/user/list.do?pageNum="+id
+	location.href="${ctx}/user/list/page.do?pageNum="+id
 }
-
 //删除的方法
 	function userDelete(id){
 		if(confirm("确定要删除吗")==true){
@@ -114,5 +93,9 @@ function getlimit(id){
 			)
 		}
 	}
+//跳转修改的页面
+	function update(userId){
+		location.href='${ctx}/views/user/update.jsp?userId='+userId
+}
 </script>
 </html>

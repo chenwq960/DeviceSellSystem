@@ -7,9 +7,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="${ctx}/static/js/jquery-1.8.3.js"></script>
-<link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet">
+<title>人员添加</title>
+<script src="${ctx}/static/plugins/jquery/jquery-1.8.3.js"></script>
+<link href="${ctx}/static/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
 <style type="text/css">
 font {
 	line-height: 45px;
@@ -52,8 +52,9 @@ font {
 	</div>
 </body>
 <script type="text/javascript">
+	
 	$(function() {
-		$.post("${ctx}/department/departmentfind.do", function(departmentList) {
+		$.post("${ctx}/department/list.do", function(departmentList) {
 			for ( let i in departmentList) {
 				var department = departmentList[i]
 				$("[name=departmentId]").append(
@@ -61,7 +62,7 @@ font {
 								+ department.departmentName + "</option>")
 			}
 		});
-		$.post("${ctx}/role/roleName.do", function(roleList) {
+		$.post("${ctx}/role/list.do", function(roleList) {
 			for ( let i in roleList) {
 				var role = roleList[i]
 				$("[name=roleId]").append(

@@ -39,7 +39,8 @@ table {
 
 	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 </body>
-<script src="${ctx}/static/js/jquery-1.8.3.js"></script>
+<script src="${ctx}/static/plugins/jquery/jquery-1.8.3.js"></script>
+<link href="${ctx}/static/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
 <script src="${ctx}/static/plugins/echarts/echarts.min.js"></script>
 <script src="${ctx}/static/js/report/base.role.pie.js"></script>
 <script src="${ctx}/static/js/report/base.role.bar.js"></script>

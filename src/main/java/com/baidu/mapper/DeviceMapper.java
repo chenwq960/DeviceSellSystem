@@ -19,4 +19,6 @@ public interface DeviceMapper {
 
     List<DevicePO> selectDeviceList(SearchParam searchParam);
 
+    int updateByIsDelete(Integer deviceId);
+
 }

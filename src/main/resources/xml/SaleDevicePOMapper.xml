@@ -187,10 +187,16 @@
   
   
   <select id="selectList" resultMap="BaseResultMap">
-   	select 
+   		select 
     <include refid="Base_Column_List" />
-    from tb_sale_device
-    where is_delete = 0
+   		from tb_sale_device
+    	where is_delete = 0
+    <if test="startTime != null and startTime != ''">
+    	and create_time <![CDATA[>=]]>#{startTime}
+    </if>
+     <if test="endTime != null and endTime != ''">
+    	and create_time <![CDATA[<=]]>#{endTime}
+    </if>
   </select>
   
   

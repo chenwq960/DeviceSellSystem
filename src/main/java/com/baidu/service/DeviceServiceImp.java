@@ -18,7 +18,6 @@ import com.baidu.service.CacheSequenceService.Entity;
 
 @Service
 public class DeviceServiceImp implements IDeviceService {
-
     @Autowired
     private DeviceMapper deviceMapper;
     @Autowired
@@ -41,18 +40,15 @@ public class DeviceServiceImp implements IDeviceService {
         devicePO.setCreateUser(CurrentContext.getUser().getUserId());
         devicePO.setUpdateUser(CurrentContext.getUser().getUserId());
         devicePO.setIsDelete(false);
-
         // 设备序列号生成
         String sequenceKey = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMM"));
         devicePO.setDeviceCode("DO-" + sequenceKey + "-" + sequenceService.getSequenceCode(Entity.DEVICE, sequenceKey));
-
         deviceMapper.insert(devicePO);
     }
 
     @Override
     public void delete(Integer deviceId) {
         DevicePO devicePO = deviceMapper.selectByPrimaryKey(deviceId);
-
         devicePO.setIsDelete(true);
         devicePO.setUpdateTime(new Date());
         devicePO.setUpdateUser(CurrentContext.getUser().getUserId());
@@ -62,13 +58,16 @@ public class DeviceServiceImp implements IDeviceService {
     @Override
     public void update(DeviceParam deviceParam) {
         DevicePO devicePO = deviceMapper.selectByPrimaryKey(deviceParam.getDeviceId());
-
         devicePO.setDeviceName(deviceParam.getDeviceName());
         devicePO.setDeviceModel(deviceParam.getDeviceModel());
-
         devicePO.setUpdateTime(new Date());
         devicePO.setUpdateUser(CurrentContext.getUser().getUserId());
         deviceMapper.updateByPrimaryKey(devicePO);
+    }
+
+    @Override
+    public DevicePO detail(Integer deviceId) {
+        return deviceMapper.selectByPrimaryKey(deviceId);
     }
 
 }

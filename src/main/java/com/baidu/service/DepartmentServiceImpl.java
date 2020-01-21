@@ -19,17 +19,16 @@ public class DepartmentServiceImpl implements IDepartmentService {
 	// 部门表的查询方式
 	@Override
 	public List<DepartmentPO> departmentFind(SearchParam searchParam) {
-	    String seachKey = searchParam.getSeachKey();
-	    String startTime = searchParam.getStartTime();
-	    String endTime = searchParam.getEndTime();
-		return departmentMapper.selectList(seachKey,startTime,endTime);
+		return departmentMapper.selectList(searchParam);
 	}
 	// 部门表的增加方法
 	@Override
-	public int createdepartment(DepartmentPO departmentPO) {
+	public int createdepartment(String departmentName) {
+	    DepartmentPO departmentPO = new DepartmentPO();
 	// 当前用户
 		departmentPO.setUpdateUser(CurrentContext.getUser().getUserId());
 		departmentPO.setCreateUser(CurrentContext.getUser().getUserId());
+		 departmentPO.setDepartmentName(departmentName);
 		departmentPO.setCreateTime(new Date());
 		departmentPO.setUpdateTime(new Date());
 		departmentPO.setIsDelete(false);
@@ -38,8 +37,7 @@ public class DepartmentServiceImpl implements IDepartmentService {
 	// 部门表格删除的方法
 	@Override
 	public void departmentdel(Integer departmentId) {
-		// TODO 进行逻辑删除
-		departmentMapper.deleteByPrimaryKey(departmentId);
+		departmentMapper.updateSetIdDelete(departmentId);
 	}
 
 	// 部门表格回显的方法

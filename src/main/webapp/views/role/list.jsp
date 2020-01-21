@@ -8,27 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>人员表</title>
-<script src="${ctx}/static/js/jquery-1.8.3.js"></script>
-<link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet" />
-<style type="text/css">
-ul li {
-	list-style: none;
-	float: left;
-	border: 1px solid gray;
-	padding: 0px 5px;
-	cursor: pointer;
-	background-color: #EEEEEE;
-	border-radius: 5px;
-}
-
-input {
-	width: 150px;
-}
-
-.number {
-	color: blue;
-}
-</style>
+<script src="${ctx}/static/plugins/jquery/jquery-1.8.3.js"></script>
+<link href="${ctx}/static/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
+<link href="${ctx}/static/css/user.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
@@ -36,14 +18,14 @@ input {
 			class="table table-hover table-striped table-bordered text-center">
 			<tr>
 				<td colspan="99">
-					<form action="${ctx}/role/list.do" method="post">
+					<form action="${ctx}/role/list/page.do" method="post">
 						<div class="pull-left">
-							<input name="searchKey" value="${modelName}"> <input
+							<input name="seachKey" value="${searchParam.seachKey}"> <input
 								type="submit" value="寻找" style="width: 50px;">
 						</div>
 						<div class="pull-right">
-							起始：<input name="startTime" value="${startTime }"> 终止：<input
-								name="endTime" value="${endTime }">
+							起始：<input name="startTime" value="${searchParam.startTime }"> 终止：<input
+								name="endTime" value="${searchParam.endTime }">
 						</div>
 					</form>
 				</td>
@@ -55,7 +37,7 @@ input {
 				<td>修改时间：</td>
 				<td>修改人：</td>
 				<td>操作：
-					<button onclick="location.href='${ctx}/views/role/create.jsp'">增加</button>
+					<button class="btn btn-info" onclick="location.href='${ctx}/views/role/create.jsp'">增加</button>
 				</td>
 			</tr>
 			<c:forEach items="${role}" var="s">
@@ -82,10 +64,10 @@ input {
 		<div class="row">
 			<div class="pull-right">
 				<ul>
-					<li>${limitmodel.pageNum }/${limitmodel.pages },共${limitmodel.pages }</li>
-					<li onclick="getlimit('${limitmodel.prePage}')"><<</li>
-					<li class="number" onclick="getlimit(1)">1</li>
-					<li onclick="getlimit(${limitmodel.nextPage})">>></li>
+					<li>${pageInfo.pageNum }/${pageInfo.pages },共${pageInfo.pages }</li>
+					<li onclick="pageInfo('${pageInfo.prePage}')"><<</li>
+					<li class="number" onclick="pageInfo(1)">1</li>
+					<li onclick="pageInfo(${pageInfo.nextPage})">>></li>
 				</ul>
 			</div>
 		</div>
@@ -104,8 +86,8 @@ input {
 		)
 	}
 //改变页数的
-	function getlimit(id){
-		location.href="${ctx}/role/list.do?pageNum="+id
+	function pageInfo(id){
+		location.href="${ctx}/role/list/page.do?pageNum="+id
 	}
 //删除的方法
 	function delrole(id) {
@@ -123,7 +105,6 @@ input {
 				}
 			)
 		}else{
-			
 		}
 	}
 </script>

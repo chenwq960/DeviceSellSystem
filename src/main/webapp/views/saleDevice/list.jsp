@@ -6,25 +6,43 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<script src="${ctx}/static/js/jquery-1.8.3.js"></script>
-<link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet" />
+<title>销售设备</title>
+<script src="${ctx}/static/plugins/jquery/jquery-1.8.3.js"></script>
+<link href="${ctx}/static/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
+<link href="${ctx}/static/css/user.css" rel="stylesheet">
+
 </head>
 <body>
 	<div class="container">
 		<table class="table table-hover table-striped table-bordered">
 			<tr>
-				<td>设备名称：</td>
-				<td>设备型号：</td>
-				<td>销售人员</td>
-				<td>服务网点</td>
-				<td>销售数量</td>
+				<td colspan="111">
+					<form action="${ctx}/saleDevice/list/page.do" method="post">
+						<div class="row">
+							<div class="pull-left">
+								<input type="text" name="seachKey" value="${searchParcm.seachKey}" style="width:100px">
+								<input type="submit" value="查找" style="width:50px;">
+							</div>
+							<div class="pull-right">
+								<input name="startTime" value="${searchParcm.startTime}">--
+								<input name="endTime" value="${searchParcm.endTime}">
+							</div>
+						</div>
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td>名称：</td>
+				<td>型号：</td>
+				<td>人员</td>
+				<td>网点</td>
+				<td>数量</td>
 				<td>销售时间</td>
 				<td>创建人</td>
 				<td>创建时间</td>
 				<td>
 					操作
-					<button onclick="location.href='${ctx}/views/saleDevice/crete.jsp'">添加</button>
+					<button class="" onclick="location.href='${ctx}/views/saleDevice/crete.jsp'">添加</button>
 				</td>
 			</tr>
 			<c:forEach items="${list}" var="s">
@@ -43,11 +61,22 @@
 					</td>
 					<td>
 						<button onclick="saleDelete(${s.recordId})">删除</button>
-						<button onclick="location.href='${ctx}/saleDevice/toUpdate.do?recordId=${s.recordId}'">修改</button>
+						<button onclick="location.href='${ctx}/saleDevice/updateDevice.do?saleDeviceId=${s.recordId}'">修改</button>
 					</td>
 				</tr>
 			</c:forEach>
 		</table>
+		
+		<div class="row">
+			<div class="pull-right">
+				<ul>
+					<li>${pageInfo.pageNum }/${pageInfo.pages },共${pageInfo.pages }</li>
+					<li onclick="pageInfo(${pageInfo.prePage})"><<</li>
+					<li class="number" onclick="pageInfo(1)">1</li>
+					<li onclick="pageInfo(${pageInfo.nextPage})">>></li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </body>
 <script type="text/javascript">
@@ -67,6 +96,10 @@ function saleDelete(id){
 			}
 		)
 	}
+}
+//分页的方法
+function pageInfo(pageNum){
+	location.href="${ctx}/saleDevice/list/page.do?pageNum="+pageNum
 }
 </script>
 </html>

@@ -8,27 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>设备列表</title>
-<script src="${ctx}/static/js/jquery-1.8.3.js"></script>
-<link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet" />
-<style type="text/css">
-ul li {
-	list-style: none;
-	float: left;
-	border: 1px solid gray;
-	padding: 0px 5px;
-	cursor: pointer;
-	background-color: #EEEEEE;
-	border-radius: 5px;
-}
-
-input {
-	width: 150px;
-}
-
-.number {
-	color: blue;
-}
-</style>
+<link href="${ctx}/static/plugins/bootstrap/bootstrap.min.css"
+	rel="stylesheet" />
+<link href="${ctx}/static/css/department.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
@@ -36,14 +18,16 @@ input {
 			class="table table-hover table-bordered table-striped text-center">
 			<tr>
 				<td colspan="111">
-					<form action="${ctx}/device/list.do" method="post">
+					<form action="${ctx}/device/list/page.do" method="post">
 						<div class="pull-left">
-							<input type="text" name="seachKey" value="${searchParam.seachKey}"> <input
-								type="submit" value="搜索" style="width: 50px;">
+							<input type="text" name="seachKey"
+								value="${searchParam.seachKey}"> <input type="submit"
+								value="搜索" style="width: 50px;">
 						</div>
 						<div class="pull-right">
-							<input type="text" name="startTime" value="${searchParam.startTime}">----
-							<input type="text" name="endTime" value="${searchParam.endTime}">
+							<input type="text" name="startTime"
+								value="${searchParam.startTime}">---- <input type="text"
+								name="endTime" value="${searchParam.endTime}">
 						</div>
 					</form>
 				</td>
@@ -72,7 +56,7 @@ input {
 						<td>
 							<button onclick="deviceDel(${s.deviceId})">删除</button>
 							<button
-								onclick="location.href='${ctx}/views/device/update.jsp?id=${s.deviceId}&name=${s.deviceName}&model=${s.deviceModel}'">修改</button>
+								onclick="location.href='${ctx}/views/device/update.jsp?deviceId=${s.deviceId}'">修改</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -90,10 +74,11 @@ input {
 		</div>
 	</div>
 </body>
+<script src="${ctx}/static/plugins/jquery/jquery-1.8.3.js"></script>
 <script type="text/javascript">
 //改变页数的
 function pageInfo(id){
-	location.href="${ctx}/device/list.do?pageNum="+id
+	location.href="${ctx}/device/list/page.do?pageNum="+id
 }
 //删除的
 function deviceDel(id){
@@ -104,7 +89,7 @@ function deviceDel(id){
 			function(obj){
 				if(obj){
 					alert("删除成功")
-					location.href="${ctx}/device/list.do"
+					location.reload()
 				}else{
 					alert("删除失败")
 				}

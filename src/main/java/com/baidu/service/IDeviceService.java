@@ -15,4 +15,6 @@ public interface IDeviceService {
     void delete(Integer deviceId);
 
     void update(DeviceParam deviceParam);
+
+    DevicePO detail(Integer deviceId);
 }

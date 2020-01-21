@@ -5,21 +5,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="${ctx}/static/js/jquery-1.8.3.js"></script>
-<link href="${ctx}/static/js/bootstrap.min.css" rel="stylesheet" />
-<style type="text/css">
-font {
-	line-height: 45px;
-}
-</style>
+<title>修改角色</title>
+<script src="${ctx}/static/plugins/jquery/jquery-1.8.3.js"></script>
+<link href="${ctx}/static/plugins/bootstrap/bootstrap.min.css" rel="stylesheet" />
+<link href="${ctx}/static/css/user.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
 		<input type="hidden" class="form-control" name="roleId">
 		<div class="input-group">
 			<font>用户姓名:</font> <input class="form-control" name="roleName">
-		</div>
+		</div><br/>
 		<button onclick="changerole()">修改</button>
 		<button onclick="window.history.back(-1);">返回</button>
 	</div>
@@ -42,7 +38,7 @@ font {
 		}, function(flag) {
 			if (flag) {
 				alert("修改成功")
-				location.href = "${ctx}/role/list.do"
+				location.href = "${ctx}/role/list/page.do"
 			} else {
 				alert("修改失败")
 			}

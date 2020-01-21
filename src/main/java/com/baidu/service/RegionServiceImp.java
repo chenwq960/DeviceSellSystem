@@ -12,11 +12,8 @@ import com.baidu.po.RegionPO;
 public class RegionServiceImp implements IRegionService{
     @Autowired 
     private RegionPOMapper mapper;
-
     @Override
     public List<RegionPO> selectByparentRegionId(Integer userId) {
         return mapper.selectByparentRegionId(userId);
     }
-
-    
 }

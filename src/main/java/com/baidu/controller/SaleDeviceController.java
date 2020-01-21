@@ -9,21 +9,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.baidu.form.SaleDeviceParam;
+import com.baidu.form.SearchParam;
 import com.baidu.po.SaleDevicePO;
 import com.baidu.service.IDeviceService;
 import com.baidu.service.ISaleDeviceService;
 import com.baidu.service.IStationService;
 import com.baidu.service.IUserService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Controller
 @RequestMapping("/saleDevice")
 public class SaleDeviceController {
-
     private static Logger logger = LoggerFactory.getLogger(SaleDeviceController.class);
-
     @Autowired
     private ISaleDeviceService saleDeviceService;
     @Autowired
@@ -33,23 +33,16 @@ public class SaleDeviceController {
     @Autowired
     private IUserService userService;
 
-    @RequestMapping("/list")
-    public ModelAndView list() {
-        List<SaleDevicePO> list = saleDeviceService.list();
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("list", list);
-        mav.setViewName("saleDevice/list");
-        return mav;
+    @RequestMapping("/list/page")
+    public String list(ModelMap modelMap,SearchParam searchParam) {
+        PageHelper.startPage(searchParam.getPageNum(),4);
+        List<SaleDevicePO> list = saleDeviceService.list(searchParam);
+        PageInfo<SaleDevicePO> pageInfo = new PageInfo<>(list);
+        modelMap.put("list", list);
+        modelMap.put("pageInfo",pageInfo);
+        modelMap.put("searchParcm", searchParam);
+        return "saleDevice/list";
     }
-
-    // 查询所有销售时间
-    @ResponseBody
-    @RequestMapping("/saleTime")
-    public List<SaleDevicePO> saleTime() {
-        List<SaleDevicePO> list = saleDeviceService.list();
-        return list;
-    }
-
     // 增加的方法
     @ResponseBody
     @RequestMapping("/create")
@@ -59,56 +52,59 @@ public class SaleDeviceController {
             return true;
         }
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("销售表创建发生异常，param{},exc:{}",saleDeviceParam,e);
             return false;
         }
     }
-
-    // 回显的方法
-    @ResponseBody
-    @RequestMapping("/returnMessage")
-    public SaleDevicePO returnMessage(Integer userId) {
-        SaleDevicePO returnMessage = saleDeviceService.getSaleDeviceById(userId);
-        return returnMessage;
-    }
-
     // 修改的方法
-    @RequestMapping("/update")
     @ResponseBody
+    @RequestMapping("/update")
     public boolean update(SaleDeviceParam saleDeviceParam) {
         try {
             saleDeviceService.update(saleDeviceParam);
             return true;
         }
         catch (Exception ext) {
-            logger.error("修改设备发生异常，param:{},exc:{}", saleDeviceParam, ext);
+            logger.error("销售表修改发生异常，param:{},exc:{}", saleDeviceParam, ext);
             return false;
         }
     }
 
     // 删除的方法
-    @RequestMapping("/delete")
     @ResponseBody
+    @RequestMapping("/delete")
     public boolean delete(Integer stationId) {
         try {
             saleDeviceService.delete(stationId);
             return true;
         }
         catch (Exception e) {
-            logger.error("删除发生异常,param:{},exc:{}",stationId,e);
+            logger.error("销售表删除发生异常,param:{},exc:{}",stationId,e);
             return false;
         }
     }
-
-    @RequestMapping("/toUpdate")
-    public String toUpdatePage(Integer recordId, ModelMap modelMap) {
-
+    @RequestMapping("/updateDevice")
+    public String toUpdatePage(Integer saleDeviceId, ModelMap modelMap) {
         modelMap.put("stationList", stationService.getStationList());
         modelMap.put("deviceList", deviceService.searchDeviceList(null));
-        modelMap.put("userList", userService.showUser());
-        modelMap.put("saleDevice", saleDeviceService.getSaleDeviceById(recordId));
-
+        modelMap.put("userList", userService.showUser(null));
+        modelMap.put("saleDevice", saleDeviceService.getSaleDeviceById(saleDeviceId));
         return "saleDevice/update";
     }
-
+    
+  /*  // 查询所有销售时间
+  @ResponseBody
+  @RequestMapping("/saleTime")
+  public List<SaleDevicePO> saleTime() {
+      List<SaleDevicePO> list = saleDeviceService.list(null);
+      return list;
+  }
+     //回显的方法
+    @ResponseBody
+    @RequestMapping("/returnMessage")
+    public SaleDevicePO returnMessage(Integer userId) {
+        SaleDevicePO returnMessage = saleDeviceService.getSaleDeviceById(userId);
+        return returnMessage;
+    }
+    */
 };
