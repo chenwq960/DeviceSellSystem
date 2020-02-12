@@ -1,9 +1,11 @@
 package com.baidu.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.baidu.form.SearchParam;
 import com.baidu.form.UserParam;
+import com.baidu.po.AuthInfoPO;
 import com.baidu.po.UserPO;
 
 public interface IUserService {
@@ -22,4 +24,6 @@ public interface IUserService {
     void delete(Integer userId);
 
     void update(UserParam userParam);
+
+    Set<AuthInfoPO> queryUserAuth(Integer userId);
 }

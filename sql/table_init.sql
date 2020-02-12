@@ -2,8 +2,11 @@ SET SESSION FOREIGN_KEY_CHECKS=0;
 
 /* Drop Tables */
 
+DROP TABLE IF EXISTS device.tb_role_auth;
+DROP TABLE IF EXISTS device.tb_authinfo;
 DROP TABLE IF EXISTS device.tb_cache_sequence;
 DROP TABLE IF EXISTS device.tb_sale_device;
+DROP TABLE IF EXISTS device.tb_user_role;
 DROP TABLE IF EXISTS device.tb_user;
 DROP TABLE IF EXISTS device.tb_department;
 DROP TABLE IF EXISTS device.tb_device;
@@ -15,6 +18,24 @@ DROP TABLE IF EXISTS device.tb_role;
 
 
 /* Create Tables */
+
+-- 权限表
+CREATE TABLE device.tb_authinfo
+(
+	auth_id int unsigned NOT NULL AUTO_INCREMENT COMMENT '权限ID',
+	auth_code varchar(32) COMMENT '权限编码',
+	auth_name varchar(32) COMMENT '权限名称',
+	auth_url varchar(128) COMMENT '权限地址',
+	-- 1，页面
+	-- 2，按钮
+	-- 3，接口
+	auth_type tinyint COMMENT '权限类型 : 1，页面
+2，按钮
+3，接口',
+	icon varchar(32) COMMENT '权限图标',
+	PRIMARY KEY (auth_id)
+) ENGINE = InnoDB COMMENT = '权限表';
+
 
 -- 缓存序列号
 CREATE TABLE device.tb_cache_sequence
@@ -97,6 +118,16 @@ CREATE TABLE device.tb_role
 ) ENGINE = InnoDB COMMENT = '角色表';
 
 
+-- 角色权限
+CREATE TABLE device.tb_role_auth
+(
+	id int NOT NULL AUTO_INCREMENT COMMENT 'id',
+	auth_id int unsigned NOT NULL COMMENT '权限ID',
+	role_id int NOT NULL COMMENT '角色ID',
+	PRIMARY KEY (id)
+) ENGINE = InnoDB COMMENT = '角色权限';
+
+
 -- 设备销售表
 CREATE TABLE device.tb_sale_device
 (
@@ -140,7 +171,6 @@ CREATE TABLE device.tb_station
 CREATE TABLE device.tb_user
 (
 	user_id int NOT NULL AUTO_INCREMENT COMMENT '人员ID',
-	role_id int NOT NULL COMMENT '角色ID',
 	department_id int NOT NULL COMMENT '部门ID',
 	account varchar(16) NOT NULL COMMENT '登录账号',
 	password varchar(64) NOT NULL COMMENT '密码',
@@ -168,6 +198,16 @@ CREATE TABLE device.tb_user
 1，已删除',
 	PRIMARY KEY (user_id)
 ) ENGINE = InnoDB COMMENT = '人员表';
+
+
+-- 人员角色表
+CREATE TABLE device.tb_user_role
+(
+	id int NOT NULL AUTO_INCREMENT COMMENT 'id',
+	role_id int NOT NULL COMMENT '角色ID',
+	user_id int NOT NULL COMMENT '人员ID',
+	PRIMARY KEY (id)
+) ENGINE = InnoDB COMMENT = '人员角色表';
 
 
 

@@ -58,5 +58,17 @@
 		<table tableName="tb_role" domainObjectName="RolePO" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>
+		<table tableName="tb_authinfo" domainObjectName="AuthInfoPO" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false" />
+		<table tableName="tb_role_auth" domainObjectName="RoleAuthPO" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false" />
+		<table tableName="tb_user_role" domainObjectName="UserRolePO" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false" />
+		<table tableName="tb_user" domainObjectName="UserPO" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false" />
 	</context>
 </generatorConfiguration>

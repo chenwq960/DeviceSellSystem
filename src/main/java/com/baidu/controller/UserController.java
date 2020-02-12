@@ -8,6 +8,8 @@ import java.net.URLEncoder;
 import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,9 +25,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.baidu.form.SearchParam;
 import com.baidu.form.UserParam;
 import com.baidu.interceptor.CurrentContext;
+import com.baidu.po.AuthInfoPO;
 import com.baidu.po.UserPO;
 import com.baidu.service.IFileService;
 import com.baidu.service.IUserService;
@@ -63,9 +67,18 @@ public class UserController {
             else if (Objects.equals(user.getPassword(), CommonUtil.md5(password)) == false) {
                 throw new RuntimeException("密码错误");
             }
-
             CurrentContext.setUser(user);
             request.getSession().setAttribute("currentUser", user);
+
+            Set<AuthInfoPO> currentUserAuths = userService.queryUserAuth(user.getUserId());
+            
+            Set<String> currentUserAuthUrls = currentUserAuths.stream().map(AuthInfoPO::getAuthUrl).collect(Collectors.toSet());
+
+            logger.debug(JSON.toJSONString(currentUserAuths));
+
+            request.getSession().setAttribute("currentUserAuths", currentUserAuths);
+            request.getSession().setAttribute("currentUserAuthUrls", currentUserAuthUrls);
+
             response.sendRedirect(request.getContextPath() + "/views/layout/main.jsp");
             return null;
         }

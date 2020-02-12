@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.mapper.AuthInfoPOMapper">
+  <resultMap id="BaseResultMap" type="com.baidu.po.AuthInfoPO">
+    <id column="auth_id" jdbcType="INTEGER" property="authId" />
+    <result column="auth_code" jdbcType="VARCHAR" property="authCode" />
+    <result column="auth_name" jdbcType="VARCHAR" property="authName" />
+    <result column="auth_url" jdbcType="VARCHAR" property="authUrl" />
+    <result column="auth_type" jdbcType="TINYINT" property="authType" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    auth_id, auth_code, auth_name, auth_url, auth_type, icon
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_authinfo
+    where auth_id = #{authId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_authinfo
+    where auth_id = #{authId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.baidu.po.AuthInfoPO">
+    insert into tb_authinfo (auth_id, auth_code, auth_name, 
+      auth_url, auth_type, icon
+      )
+    values (#{authId,jdbcType=INTEGER}, #{authCode,jdbcType=VARCHAR}, #{authName,jdbcType=VARCHAR}, 
+      #{authUrl,jdbcType=VARCHAR}, #{authType,jdbcType=TINYINT}, #{icon,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.baidu.po.AuthInfoPO">
+    insert into tb_authinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authId != null">
+        auth_id,
+      </if>
+      <if test="authCode != null">
+        auth_code,
+      </if>
+      <if test="authName != null">
+        auth_name,
+      </if>
+      <if test="authUrl != null">
+        auth_url,
+      </if>
+      <if test="authType != null">
+        auth_type,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authId != null">
+        #{authId,jdbcType=INTEGER},
+      </if>
+      <if test="authCode != null">
+        #{authCode,jdbcType=VARCHAR},
+      </if>
+      <if test="authName != null">
+        #{authName,jdbcType=VARCHAR},
+      </if>
+      <if test="authUrl != null">
+        #{authUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null">
+        #{authType,jdbcType=TINYINT},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.AuthInfoPO">
+    update tb_authinfo
+    <set>
+      <if test="authCode != null">
+        auth_code = #{authCode,jdbcType=VARCHAR},
+      </if>
+      <if test="authName != null">
+        auth_name = #{authName,jdbcType=VARCHAR},
+      </if>
+      <if test="authUrl != null">
+        auth_url = #{authUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null">
+        auth_type = #{authType,jdbcType=TINYINT},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where auth_id = #{authId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baidu.po.AuthInfoPO">
+    update tb_authinfo
+    set auth_code = #{authCode,jdbcType=VARCHAR},
+      auth_name = #{authName,jdbcType=VARCHAR},
+      auth_url = #{authUrl,jdbcType=VARCHAR},
+      auth_type = #{authType,jdbcType=TINYINT},
+      icon = #{icon,jdbcType=VARCHAR}
+    where auth_id = #{authId,jdbcType=INTEGER}
+  </update>
+  
+  
+   <select id="selectUserAuth" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    	DISTINCT ta.*
+	FROM
+		tb_user_role tur
+		INNER JOIN tb_role_auth tra ON tur.role_id = tra.role_id
+		INNER JOIN tb_authinfo ta ON tra.auth_id = ta.auth_id 
+	WHERE
+		tur.user_id = #{userId}
+  </select>
+  
+</mapper>

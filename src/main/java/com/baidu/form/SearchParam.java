@@ -7,10 +7,8 @@ package com.baidu.form;
  * @createTime 2020-01-17 17:57:44
  */
 public class SearchParam {
-
     private int pageNum = 1;
     private int pageSize = 5;
-
     private String seachKey;// 搜索的关键词
     private String startTime;// 搜索的开始时间
     private String endTime;// 搜索的结束时间

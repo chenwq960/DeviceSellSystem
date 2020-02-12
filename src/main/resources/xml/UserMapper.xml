@@ -3,7 +3,6 @@
 <mapper namespace="com.baidu.mapper.UserMapper">
 	<resultMap id="BaseResultMap" type="com.baidu.po.UserPO">
 		<id column="user_id" property="userId" jdbcType="INTEGER" />
-		<result column="role_id" property="roleId" jdbcType="INTEGER" />
 		<result column="department_id" property="departmentId" jdbcType="INTEGER" />
 		<result column="account" property="account" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
@@ -31,8 +30,8 @@
 	</resultMap>
 	<resultMap id="ResultMap" type="com.baidu.po.UserPO" extends="BaseResultMap">
 
-		<association column="role_id" property="rolePO"
-			select="com.baidu.mapper.RoleMapper.selectByPrimaryKey"></association>
+		<!-- <association column="role_id" property="rolePO"
+			select="com.baidu.mapper.RoleMapper.selectByPrimaryKey"></association> -->
 		<association column="department_id" property="departmentPO"
 			select="com.baidu.mapper.DepartmentMapper.selectByPrimaryKey"></association>
 
@@ -40,7 +39,7 @@
 		<association column="update_user" property="updateUserObj" select="selectByPrimaryKey"></association>
 	</resultMap>
 	<sql id="Base_Column_List">
-		user_id, role_id, department_id, account, password, user_name, real_name, sex,
+		user_id, department_id, account, password, user_name, real_name, sex,
 		birthday,
 		nation, id_card, id_card_front, id_card_back, address, create_time,
 		create_user,
@@ -53,7 +52,216 @@
 		where user_id = #{userId,jdbcType=INTEGER}
 	</select>
 	
-	
+	<insert id="insert" parameterType="com.baidu.po.UserPO">
+    insert into tb_user (user_id, department_id, account, 
+      password, user_name, real_name, 
+      sex, birthday, nation, 
+      id_card, id_card_front, id_card_back, 
+      address, create_time, create_user, 
+      update_time, update_user, is_delete
+      )
+    values (#{userId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=TINYINT}, #{birthday,jdbcType=TIMESTAMP}, #{nation,jdbcType=VARCHAR}, 
+      #{idCard,jdbcType=VARCHAR}, #{idCardFront,jdbcType=VARCHAR}, #{idCardBack,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.baidu.po.UserPO">
+    insert into tb_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="nation != null">
+        nation,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="idCardFront != null">
+        id_card_front,
+      </if>
+      <if test="idCardBack != null">
+        id_card_back,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nation != null">
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardFront != null">
+        #{idCardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardBack != null">
+        #{idCardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.UserPO">
+    update tb_user
+    <set>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nation != null">
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardFront != null">
+        id_card_front = #{idCardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardBack != null">
+        id_card_back = #{idCardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baidu.po.UserPO">
+    update tb_user
+    set department_id = #{departmentId,jdbcType=INTEGER},
+      account = #{account,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=TINYINT},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      nation = #{nation,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      id_card_front = #{idCardFront,jdbcType=VARCHAR},
+      id_card_back = #{idCardBack,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=BIT}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  
 	
 	
 	
@@ -69,241 +277,6 @@
 		update tb_user set is_delete = 1 where user_id
 		= #{userId}
 	</update>
-
-	<insert id="insert" parameterType="com.baidu.po.UserPO">
-		insert into tb_user (user_id, role_id, department_id,
-		account, password, user_name,
-		real_name, sex, birthday,
-		nation, id_card, id_card_front,
-		id_card_back, address, create_time,
-		create_user, update_time, update_user,
-		is_delete)
-		values
-		(#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER},
-		#{departmentId,jdbcType=INTEGER},
-		#{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
-		#{realName,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT},
-		#{birthday,jdbcType=TIMESTAMP},
-		#{nation,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{idCardFront,jdbcType=VARCHAR},
-		#{idCardBack,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
-		#{createTime,jdbcType=TIMESTAMP},
-		#{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER},
-		#{isDelete,jdbcType=BIT})
-	</insert>
-	<insert id="insertSelective" parameterType="com.baidu.po.UserPO">
-		insert into tb_user
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="userId != null">
-				user_id,
-			</if>
-			<if test="roleId != null">
-				role_id,
-			</if>
-			<if test="departmentId != null">
-				department_id,
-			</if>
-			<if test="account != null">
-				account,
-			</if>
-			<if test="password != null">
-				password,
-			</if>
-			<if test="userName != null">
-				user_name,
-			</if>
-			<if test="realName != null">
-				real_name,
-			</if>
-			<if test="sex != null">
-				sex,
-			</if>
-			<if test="birthday != null">
-				birthday,
-			</if>
-			<if test="nation != null">
-				nation,
-			</if>
-			<if test="idCard != null">
-				id_card,
-			</if>
-			<if test="idCardFront != null">
-				id_card_front,
-			</if>
-			<if test="idCardBack != null">
-				id_card_back,
-			</if>
-			<if test="address != null">
-				address,
-			</if>
-			<if test="createTime != null">
-				create_time,
-			</if>
-			<if test="createUser != null">
-				create_user,
-			</if>
-			<if test="updateTime != null">
-				update_time,
-			</if>
-			<if test="updateUser != null">
-				update_user,
-			</if>
-			<if test="isDelete != null">
-				is_delete,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="userId != null">
-				#{userId,jdbcType=INTEGER},
-			</if>
-			<if test="roleId != null">
-				#{roleId,jdbcType=INTEGER},
-			</if>
-			<if test="departmentId != null">
-				#{departmentId,jdbcType=INTEGER},
-			</if>
-			<if test="account != null">
-				#{account,jdbcType=VARCHAR},
-			</if>
-			<if test="password != null">
-				#{password,jdbcType=VARCHAR},
-			</if>
-			<if test="userName != null">
-				#{userName,jdbcType=VARCHAR},
-			</if>
-			<if test="realName != null">
-				#{realName,jdbcType=VARCHAR},
-			</if>
-			<if test="sex != null">
-				#{sex,jdbcType=TINYINT},
-			</if>
-			<if test="birthday != null">
-				#{birthday,jdbcType=TIMESTAMP},
-			</if>
-			<if test="nation != null">
-				#{nation,jdbcType=VARCHAR},
-			</if>
-			<if test="idCard != null">
-				#{idCard,jdbcType=VARCHAR},
-			</if>
-			<if test="idCardFront != null">
-				#{idCardFront,jdbcType=VARCHAR},
-			</if>
-			<if test="idCardBack != null">
-				#{idCardBack,jdbcType=VARCHAR},
-			</if>
-			<if test="address != null">
-				#{address,jdbcType=VARCHAR},
-			</if>
-			<if test="createTime != null">
-				#{createTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="createUser != null">
-				#{createUser,jdbcType=INTEGER},
-			</if>
-			<if test="updateTime != null">
-				#{updateTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="updateUser != null">
-				#{updateUser,jdbcType=INTEGER},
-			</if>
-			<if test="isDelete != null">
-				#{isDelete,jdbcType=BIT},
-			</if>
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.baidu.po.UserPO">
-		update tb_user
-		<set>
-			<if test="roleId != null">
-				role_id = #{roleId,jdbcType=INTEGER},
-			</if>
-			<if test="departmentId != null">
-				department_id = #{departmentId,jdbcType=INTEGER},
-			</if>
-			<if test="account != null">
-				account = #{account,jdbcType=VARCHAR},
-			</if>
-			<if test="password != null">
-				password = #{password,jdbcType=VARCHAR},
-			</if>
-			<if test="userName != null">
-				user_name = #{userName,jdbcType=VARCHAR},
-			</if>
-			<if test="realName != null">
-				real_name = #{realName,jdbcType=VARCHAR},
-			</if>
-			<if test="sex != null">
-				sex = #{sex,jdbcType=TINYINT},
-			</if>
-			<if test="birthday != null">
-				birthday = #{birthday,jdbcType=TIMESTAMP},
-			</if>
-			<if test="nation != null">
-				nation = #{nation,jdbcType=VARCHAR},
-			</if>
-			<if test="idCard != null">
-				id_card = #{idCard,jdbcType=VARCHAR},
-			</if>
-			<if test="idCardFront != null">
-				id_card_front = #{idCardFront,jdbcType=VARCHAR},
-			</if>
-			<if test="idCardBack != null">
-				id_card_back = #{idCardBack,jdbcType=VARCHAR},
-			</if>
-			<if test="address != null">
-				address = #{address,jdbcType=VARCHAR},
-			</if>
-			<if test="createTime != null">
-				create_time = #{createTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="createUser != null">
-				create_user = #{createUser,jdbcType=INTEGER},
-			</if>
-			<if test="updateTime != null">
-				update_time = #{updateTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="updateUser != null">
-				update_user = #{updateUser,jdbcType=INTEGER},
-			</if>
-			<if test="isDelete != null">
-				is_delete = #{isDelete,jdbcType=BIT},
-			</if>
-		</set>
-		where user_id = #{userId,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="com.baidu.po.UserPO">
-		update tb_user
-		set role_id =
-		#{roleId,jdbcType=INTEGER},
-		department_id = #{departmentId,jdbcType=INTEGER},
-		account =
-		#{account,jdbcType=VARCHAR},
-		password = #{password,jdbcType=VARCHAR},
-		user_name =
-		#{userName,jdbcType=VARCHAR},
-		real_name = #{realName,jdbcType=VARCHAR},
-		sex =
-		#{sex,jdbcType=TINYINT},
-		birthday = #{birthday,jdbcType=TIMESTAMP},
-		nation =
-		#{nation,jdbcType=VARCHAR},
-		id_card = #{idCard,jdbcType=VARCHAR},
-		id_card_front =
-		#{idCardFront,jdbcType=VARCHAR},
-		id_card_back = #{idCardBack,jdbcType=VARCHAR},
-		address =
-		#{address,jdbcType=VARCHAR},
-		create_time = #{createTime,jdbcType=TIMESTAMP},
-		create_user =
-		#{createUser,jdbcType=INTEGER},
-		update_time = #{updateTime,jdbcType=TIMESTAMP},
-		update_user =
-		#{updateUser,jdbcType=INTEGER},
-		is_delete = #{isDelete,jdbcType=BIT}
-		where user_id =
-		#{userId,jdbcType=INTEGER}
-	</update>
-
 
 	<select id="showUser" resultMap="ResultMap">
 		select

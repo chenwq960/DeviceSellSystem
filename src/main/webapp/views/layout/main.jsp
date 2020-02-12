@@ -46,7 +46,18 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2 pull-left text-center left">
-					<div class="row">
+					<c:if test="${empty currentUserAuths  }">
+						<jsp:forward page="/views/error/relogin.jsp" />
+					</c:if>
+					<c:forEach items="${currentUserAuths}" var="auth">
+						<c:if test="${auth.authType eq 1}">
+							<div class="row">
+								<a href="${ctx}${auth.authUrl}" target="myIframe">${auth.authName}</a>
+							</div>
+						</c:if>
+					</c:forEach>
+				
+					<%-- <div class="row">
 						<a href="${ctx}/user/list/page.do" target="myIframe">人员管理</a>
 					</div>
 					<div class="row">
@@ -64,8 +75,10 @@
 					<div class="row">
 						<a href="${ctx}/saleDevice/list/page.do" target="myIframe">设备销售</a>
 					</div>
-					<div class="row">
-						<a href="${ctx}/page/report/baseReport.do" target="_block">基础报表</a>
+					 --%>
+					 
+					 <div class="row">
+						<a href="${ctx}/page/report/baseReport.do" target="myIframe">基础报表</a>
 					</div>
 				</div>
 				<div class="col-md-9 pull-left right">
