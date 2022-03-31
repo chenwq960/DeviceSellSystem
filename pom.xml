@@ -16,7 +16,7 @@
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 		<!-- 相关依赖包版本 -->
 		<jackjson.version>2.8.8</jackjson.version>
-		<spring.version>4.2.4.RELEASE</spring.version>
+		<spring.version>5.3.18</spring.version>
 	</properties>
 	<dependencies>
 		<!-- 阿里巴巴Json依赖包 -->
